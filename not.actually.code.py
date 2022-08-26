@@ -1,1 +1,0 @@
-"Hello I am the guardian of the sand"
