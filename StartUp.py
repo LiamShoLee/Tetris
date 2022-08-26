@@ -29,7 +29,7 @@ play_x = .085*screen_width
 config_x = play_x+play_img.get_width()*image_scale+screen_width*.10
 score_x = config_x + config_img.get_width()*image_scale+screen_width*.10
 exit_x = score_x + score_img.get_width()*image_scale+screen_width*.10
-back_x = exit_x - screen_width*.10 - back_img.get_width()*image_scale
+back_x = exit_x - 100
 
 play_button = button.Button(play_x, 0.95*screen_height-play_img.get_height()*image_scale, play_img, image_scale)
 config_button = button.Button(config_x, 0.95*screen_height-config_img.get_height()*image_scale, config_img, image_scale)
@@ -43,6 +43,7 @@ def MainMenu():
     RunGame = True
     while RunGame:
         screen.fill((195,195,195))
+        screen.blit(title_img,(title_x,title_y))
         if play_button.draw(screen):
             print("start game")
         if exit_button.draw(screen):
@@ -51,9 +52,9 @@ def MainMenu():
         if config_button.draw(screen):
             ConfigMenu()
         if score_button.draw(screen):
-            print("Score function goes here")
-            #print_score()
-        screen.blit(title_img,(title_x,title_y))
+            print_score()
+
+
         
 
         for event in pygame.event.get():
@@ -63,6 +64,34 @@ def MainMenu():
                 
         pygame.display.update()
         clock.tick(15)
+
+def print_score():
+    
+    scores = [line.strip('\n')
+        for line in open('scores.txt', 'r').readlines()]
+        
+    printScores = True
+    while printScores:
+        screen.fill("white")
+        if back_button.draw(screen):
+            printScores = False
+        if exit_button.draw(screen):
+            pygame.quit()
+            sys.exit()
+
+        for n, line in enumerate(scores):
+            text = font.render(line, 1, "black")
+            screen.blit(text, (screen_width*.4, title_y+n*30))
+            
+        
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+                
+        pygame.display.update()
+        clock.tick(15)
+    return
 
 
 def ConfigMenu():
@@ -74,7 +103,7 @@ def ConfigMenu():
             sys.exit()
         if back_button.draw(screen):
             return
-        screen.blit(configText,(screen_width/2,title_y))
+        screen.blit(configText,(screen_width,title_y))
         
 
         for event in pygame.event.get():
