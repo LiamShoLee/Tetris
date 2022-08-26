@@ -64,12 +64,16 @@ playerButton = button.surfaceButton(600,200,playerText)
 plusLevelButton = button.surfaceButton(560,300,plusText)
 minusLevelButton = button.surfaceButton(500,300,minusText)
 
-
+#Text for start-up
+yearCourseText = pygame.font.Font.render(font2,"2805ICT 2022",True,('black'),None)  #Here
+studentText = pygame.font.Font.render(font2,"Adrian Jih -- Liam Lee -- Nick Howe",True,('black'),None)  #Here
 def MainMenu():
     RunGame = True
     while RunGame:
         screen.fill((195,195,195))
-        screen.blit(title_img,(title_x,title_y))
+        screen.blit(title_img,(title_x,title_y))    #Here
+        screen.blit(studentText,(150,350))  #Here
+        screen.blit(yearCourseText,(100,300)) #Here
         if play_button.draw(screen):
             print("start game")
         if exit_button.draw(screen):
