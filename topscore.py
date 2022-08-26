@@ -35,7 +35,7 @@ play_button = button.Button(play_x, 0.95*screen_height-play_img.get_height()*ima
 config_button = button.Button(config_x, 0.95*screen_height-config_img.get_height()*image_scale, config_img, image_scale)
 score_button = button.Button(score_x, 0.95*screen_height-score_img.get_height()*image_scale, score_img, image_scale)
 exit_button = button.Button(exit_x, 0.95*screen_height-exit_img.get_height()*image_scale, exit_img, image_scale)
-back_button = button.Button(back_x,0.95*screen_height-back_img.get_height()*image_scale, back_img, image_scale)
+back_button = button.Button(exit_x-100,0.95*screen_height-back_img.get_height()*image_scale, back_img, image_scale)
 
 testText = "Tetris Friends"
 text1 = pygame.font.Font.render(font,testText,True,(255,0,0),None)
@@ -48,8 +48,8 @@ def MainMenu():
         if play_button.draw(screen):
             print("start game")
         if exit_button.draw(screen):
-                pygame.quit()
-                sys.exit()
+            pygame.quit()
+            sys.exit()
         if config_button.draw(screen):
             ConfigMenu()
         if score_button.draw(screen):
@@ -71,11 +71,11 @@ def print_score():
     scores = [line.strip('\n')
         for line in open('scores.txt', 'r').readlines()]
         
-    RunGame = True
-    while RunGame:
+    printScores = True
+    while printScores:
         screen.fill("white")
         if back_button.draw(screen):
-            return
+            printScores = False
 
         for n, line in enumerate(scores):
             text = font.render(line, 1, "black")
@@ -89,13 +89,15 @@ def print_score():
                 
         pygame.display.update()
         clock.tick(15)
+    return
+
 
 def ConfigMenu():
-    RunGame = True
-    while RunGame:
+    inConfig = True
+    while inConfig:
         screen.fill("white")
         if back_button.draw(screen):
-            return
+            inConfig = False
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -104,4 +106,6 @@ def ConfigMenu():
                 
         pygame.display.update()
         clock.tick(15)
+    return
+    
 MainMenu()
