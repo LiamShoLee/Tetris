@@ -14,7 +14,7 @@ title_y = (0)
 screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption("Tetris")
 
-#font = pygame.font.Sysfont("comicsansms", 30)
+font = pygame.font.Font("assets/MarioFont/SuperMario256.ttf", 30)
 
 #Load in some buttons
 image_scale = 1
@@ -37,6 +37,9 @@ score_button = button.Button(score_x, 0.95*screen_height-score_img.get_height()*
 exit_button = button.Button(exit_x, 0.95*screen_height-exit_img.get_height()*image_scale, exit_img, image_scale)
 back_button = button.Button(back_x,0.95*screen_height-back_img.get_height()*image_scale, back_img, image_scale)
 
+testText = "Tetris Friends"
+text1 = pygame.font.Font.render(font,testText)
+
 def MainMenu():
     RunGame = True
     while RunGame:
@@ -51,7 +54,7 @@ def MainMenu():
         if score_button.draw(screen):
             print_score()
 
-        screen.blit(title_img,(title_x,title_y))
+        screen.blit(text1,(title_x,title_y))
         
 
         for event in pygame.event.get():
