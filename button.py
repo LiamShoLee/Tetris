@@ -1,4 +1,5 @@
 #scalable button code from rus123 
+#Added compatability wityh surafaces by Nick H
 import pygame
 
 #button class
@@ -10,6 +11,8 @@ class Button():
 		self.rect = self.image.get_rect()
 		self.rect.topleft = (x, y)
 		self.clicked = False
+	
+
 
 	def draw(self, surface):
 		action = False
@@ -29,3 +32,10 @@ class Button():
 		surface.blit(self.image, (self.rect.x, self.rect.y))
 
 		return action
+
+class surfaceButton(Button):
+	def __init__(self,x,y,Surface):
+		self.image = Surface
+		self.rect = self.image.get_rect()
+		self.rect.topleft = (x, y)
+		self.clicked = False	

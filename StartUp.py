@@ -15,6 +15,7 @@ screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption("Tetris")
 
 font = pygame.font.Font("assets/MarioFont/SuperMario256.ttf", 30)
+font2 = pygame.font.Font("assets/MarioFont/SuperMario256.ttf", 32)
 
 #Load in some buttons
 image_scale = 1
@@ -31,14 +32,38 @@ score_x = config_x + config_img.get_width()*image_scale+screen_width*.10
 exit_x = score_x + score_img.get_width()*image_scale+screen_width*.10
 back_x = exit_x - 100
 
-play_button = button.Button(play_x, 0.95*screen_height-play_img.get_height()*image_scale, play_img, image_scale)
+play_button = button.Button(play_x, (0.95*screen_height-play_img.get_height()*image_scale), play_img, image_scale)
 config_button = button.Button(config_x, 0.95*screen_height-config_img.get_height()*image_scale, config_img, image_scale)
 score_button = button.Button(score_x, 0.95*screen_height-score_img.get_height()*image_scale, score_img, image_scale)
 exit_button = button.Button(exit_x, 0.95*screen_height-exit_img.get_height()*image_scale, exit_img, image_scale)
 back_button = button.Button(back_x,0.95*screen_height-back_img.get_height()*image_scale, back_img, image_scale)
 
-configText = pygame.font.Font.render(pygame.font.Font("assets/MarioFont/SuperMario256.ttf", 48),"Configuration",True,(0,128,255),None)
 topsScoreText = pygame.font.Font.render(pygame.font.Font("assets/MarioFont/SuperMario256.ttf", 48),"Top Scores",True,'black',None)
+
+#configure page texts
+configText = pygame.font.Font.render(pygame.font.Font("assets/MarioFont/SuperMario256.ttf", 48),"Configuration",True,(0,128,255),None)
+config_x = screen_width*.32
+fieldSizeText = pygame.font.Font.render(font2,"Field Size",True,(0,128,255),None)
+gameLevelText = pygame.font.Font.render(font2,"Game Level",True,(0,128,255),None)
+gameModeText = pygame.font.Font.render(font2,"Game Mode",True,(0,128,255),None)
+withExtensionText = pygame.font.Font.render(font2,"Extended Game",True,(0,128,255),None)
+extendText = pygame.font.Font.render(font2,"Extended",True,(0,128,255),None)
+normalText = pygame.font.Font.render(font2,"Normal",True,(0,128,255),None)
+aiText = pygame.font.Font.render(font2,"A.I",True,(0,128,255),None)
+playerText = pygame.font.Font.render(font2,"Human",True,(0,128,255),None)
+plusText = pygame.font.Font.render(font2,"+",True,(0,128,255),None)
+minusText = pygame.font.Font.render(font2,"-",True,(0,128,255),None)
+
+#configure page buttons
+fieldSizePlusButton = button.surfaceButton(560,400,plusText)
+fieldSizeMinusButton = button.surfaceButton(500,400,minusText)
+extendedButton = button.surfaceButton(500,500,extendText)
+normalButton = button.surfaceButton(730,500,normalText)
+aiButton = button.surfaceButton(500,200,aiText)
+playerButton = button.surfaceButton(600,200,playerText)
+plusLevelButton = button.surfaceButton(560,300,plusText)
+minusLevelButton = button.surfaceButton(500,300,minusText)
+
 
 def MainMenu():
     RunGame = True
@@ -80,12 +105,12 @@ def print_score():
             pygame.quit()
             sys.exit()
 
-        screen.blit(topsScoreText, (screen_width*.33 , title_y+120))
+        screen.blit(topsScoreText, (screen_width*.33 , 120))
         for n, line in enumerate(scores):
             lines = line.split()
             for x, word in enumerate(lines):
                 text = font.render(word, 1, "black")
-                screen.blit(text, (screen_width*.33 + x*x*60, title_y+200+n*30))
+                screen.blit(text, (screen_width*.33 + x*x*60, 200+n*30))
             
         
         for event in pygame.event.get():
@@ -107,8 +132,31 @@ def ConfigMenu():
             sys.exit()
         if back_button.draw(screen):
             return
-        screen.blit(configText,(screen_width,title_y))
-        
+        screen.blit(gameModeText,(100,200))
+        if aiButton.draw(screen):
+            print('A.I selected')
+        if playerButton.draw(screen):
+            print('Human Player')
+
+        screen.blit(fieldSizeText,(100,400))
+        if fieldSizeMinusButton.draw(screen):
+            print("minus")
+        if fieldSizePlusButton.draw(screen):
+            print("plus")
+        screen.blit(pygame.font.Font.render(font2,"4",True,(0,128,255),None),(525,400))
+        screen.blit(gameLevelText,(100,300))
+        if minusLevelButton.draw(screen):
+            print("a")
+        if plusLevelButton.draw(screen):
+            print("1")
+        screen.blit(pygame.font.Font.render(font2,"6",True,(0,128,255),None),(525,300))
+        screen.blit(withExtensionText,(100,500))
+        if extendedButton.draw(screen):
+            print("Extended")
+        if normalButton.draw(screen):
+            print("Player")
+
+        screen.blit(configText,(config_x,60))
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
