@@ -1,6 +1,7 @@
 import sys
 import pygame
 import button
+from topscore import *
 
 pygame.init()
 
@@ -48,7 +49,7 @@ def MainMenu():
         if config_button.draw(screen):
             ConfigMenu()
         if score_button.draw(screen):
-            print("Top Scores")
+            print_score()
 
         screen.blit(title_img,(title_x,title_y))
         
