@@ -1,7 +1,7 @@
 import sys
 import pygame
 import button
-from topscore import *
+#from topscore import *
 
 pygame.init()
 
@@ -37,8 +37,7 @@ score_button = button.Button(score_x, 0.95*screen_height-score_img.get_height()*
 exit_button = button.Button(exit_x, 0.95*screen_height-exit_img.get_height()*image_scale, exit_img, image_scale)
 back_button = button.Button(back_x,0.95*screen_height-back_img.get_height()*image_scale, back_img, image_scale)
 
-testText = "Tetris Friends"
-text1 = pygame.font.Font.render(font,testText,True,(255,0,0),None)
+configText = pygame.font.Font.render(pygame.font.Font("assets/MarioFont/SuperMario256.ttf", 48),"Configuration",True,(0,128,255),None)
 
 def MainMenu():
     RunGame = True
@@ -52,9 +51,9 @@ def MainMenu():
         if config_button.draw(screen):
             ConfigMenu()
         if score_button.draw(screen):
-            print_score()
-
-        screen.blit(text1,(title_x,title_y))
+            print("Score function goes here")
+            #print_score()
+        screen.blit(title_img,(title_x,title_y))
         
 
         for event in pygame.event.get():
@@ -75,7 +74,7 @@ def ConfigMenu():
             sys.exit()
         if back_button.draw(screen):
             return
-        screen.blit(title_img,(title_x,title_y))
+        screen.blit(configText,(screen_width/2,title_y))
         
 
         for event in pygame.event.get():
