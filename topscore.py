@@ -80,7 +80,7 @@ def print_score():
 
         for n, line in enumerate(scores):
             text = font.render(line, 1, "black")
-            screen.blit(text, (screen_width/2, title_y+n*30))
+            screen.blit(text, (screen_width*.4, title_y+n*30))
             
         
         for event in pygame.event.get():
