@@ -38,7 +38,7 @@ exit_button = button.Button(exit_x, 0.95*screen_height-exit_img.get_height()*ima
 back_button = button.Button(back_x,0.95*screen_height-back_img.get_height()*image_scale, back_img, image_scale)
 
 testText = "Tetris Friends"
-text1 = pygame.font.Font.render(font,testText)
+text1 = pygame.font.Font.render(font,testText,True,(255,0,0),None)
 
 def MainMenu():
     RunGame = True
