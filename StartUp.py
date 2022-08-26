@@ -1,7 +1,8 @@
 import sys
 import pygame
 import button
-#from topscore import *
+import draft
+
 
 pygame.init()
 
@@ -83,7 +84,7 @@ def MainMenu():
         screen.blit(studentText,(200,380))  #Here
         screen.blit(yearCourseText,(400,420)) #Here
         if play_button.draw(screen):
-            print("start game")
+            draft.main(screen)
         if exit_button.draw(screen):
                 pygame.quit()
                 sys.exit()
