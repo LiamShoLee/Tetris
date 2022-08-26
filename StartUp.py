@@ -38,6 +38,7 @@ exit_button = button.Button(exit_x, 0.95*screen_height-exit_img.get_height()*ima
 back_button = button.Button(back_x,0.95*screen_height-back_img.get_height()*image_scale, back_img, image_scale)
 
 configText = pygame.font.Font.render(pygame.font.Font("assets/MarioFont/SuperMario256.ttf", 48),"Configuration",True,(0,128,255),None)
+topsScoreText = pygame.font.Font.render(pygame.font.Font("assets/MarioFont/SuperMario256.ttf", 48),"Top Scores",True,'black',None)
 
 def MainMenu():
     RunGame = True
@@ -72,16 +73,19 @@ def print_score():
         
     printScores = True
     while printScores:
-        screen.fill("white")
+        screen.fill((195,195,195))
         if back_button.draw(screen):
             printScores = False
         if exit_button.draw(screen):
             pygame.quit()
             sys.exit()
 
+        screen.blit(topsScoreText, (screen_width*.33 , title_y+120))
         for n, line in enumerate(scores):
-            text = font.render(line, 1, "black")
-            screen.blit(text, (screen_width*.4, title_y+n*30))
+            lines = line.split()
+            for x, word in enumerate(lines):
+                text = font.render(word, 1, "black")
+                screen.blit(text, (screen_width*.33 + x*x*60, title_y+200+n*30))
             
         
         for event in pygame.event.get():

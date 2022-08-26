@@ -1,10 +1,10 @@
- 1:  PlayerA 1   10000
- 2:  PlayerB 2   9000
- 3:  PlayerC 3   8000
- 4:  PlayerD 4   7000
- 5:  PlayerE 5   5000
- 6:  PlayerF 6   4590
- 7:  PlayerG 7   3492
- 8:  PlayerH 8   3288    
- 9:  PlayerI 9   1882
-10:  PlayerJ 10  1772
+1 PlayerA 10000
+2 PlayerB 9000
+3 PlayerC 8000
+4 PlayerD 7000
+5 PlayerE 5000
+6 PlayerF 4590
+7 PlayerG 3492
+8 PlayerH 3288    
+9 PlayerI 1882
+10 PlayerJ 1772
