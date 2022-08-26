@@ -67,7 +67,8 @@ def print_score():
     
     scores = [line.strip('\n')
         for line in open('scores.txt', 'r').readlines()]
-    font = pygame.font.Font("Comic Sans MS", 16)
+    font = pygame.font.Font("assets/MarioFont/SuperMario256.ttf", 16)
+    screen = pygame.display.set_mode(screen)
         
     RunGame = True
     while RunGame:
