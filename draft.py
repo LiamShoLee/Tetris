@@ -3,6 +3,8 @@ import graphlib
 from operator import truediv
 import pygame
 import random
+import sys
+import button
 
 
 # creating the data structure for pieces
@@ -330,6 +332,15 @@ def main(win):
       gameLevel = 1
       score = 0
 
+      font2 = pygame.font.Font("assets/MarioFont/SuperMario256.ttf", 32)
+      quit_width = win.get_width()
+      quit_height = win.get_height()
+      yesText = pygame.font.Font.render(font2,"Yes",True,('black'),None)
+      noText = pygame.font.Font.render(font2,"No",True,('black'),None)
+      yesButton = button.surfaceButton(quit_width/2-100,quit_height/2-quit_height/4+100, yesText)
+      noButton = button.surfaceButton(quit_width/2,quit_height/2-quit_height/4+100, noText)
+      quitText = pygame.font.Font.render(font2,"Quit Game?",True,('black'),None)
+      
       while run:                                      # keeps game running
             grid = create_grid(lockedPositions)      # updates grid
             fallTime += clock.get_rawtime()           # keeps track of time by adding time between while loops
@@ -351,9 +362,21 @@ def main(win):
 
             for event in pygame.event.get():          
                   if event.type == pygame.QUIT:             # if condition for game end
-                        run = False
+                        pygame.quit()
+                        sys.exit()            
 
                   if event.type == pygame.KEYDOWN:
+                        if event.key == pygame.K_ESCAPE:
+                              quitGame = True
+                              while quitGame:
+                                    win.fill("pink", ((quit_width/2-quit_width/4), (quit_height/2-quit_height/4), quit_width/2, quit_height/2))
+                                    win.blit(quitText, (quit_width/2-125,quit_height/2-quit_height/4))
+                                    if yesButton.draw(win):
+                                          return
+                                    if noButton.draw(win):
+                                          break
+                                    pygame.display.update()
+                                    clock.tick(15)
                         if event.key == pygame.K_LEFT:      # if left key pressed
                               currentPiece.x -= 1           # move to left
                               if not(validSpaceChecker(currentPiece, grid)): 
@@ -401,10 +424,3 @@ def main(win):
                   run = False
 
       pygame.display.quit # quits display 
-
-def main_menu(win): #default window
-    main(win)
-
-win = pygame.display.set_mode((screenWidth,screenHeight))   #replace this with the other code you guys have 
-pygame.display.set_caption('Tetris')                        #default title screen
-main_menu(win)  # start game
