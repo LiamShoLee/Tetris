@@ -53,10 +53,16 @@ aiText = pygame.font.Font.render(font2,"A.I",True,('black'),None)
 playerText = pygame.font.Font.render(font2,"Human",True,('black'),None)
 plusText = pygame.font.Font.render(font2,"+",True,('black'),None)
 minusText = pygame.font.Font.render(font2,"-",True,('black'),None)
+heightText = pygame.font.Font.render(font2,"Height",True,('black'),None)
+widthText = pygame.font.Font.render(font2,"Width",True,('black'),None)
 
 #configure page buttons
-fieldSizePlusButton = button.surfaceButton(560,400,plusText)
-fieldSizeMinusButton = button.surfaceButton(500,400,minusText)
+fieldSizePlusButton = button.surfaceButton(640,400,plusText)
+fieldSizeMinusButton = button.surfaceButton(580,400,minusText)
+fieldSizePlusButton2 = button.surfaceButton(800,400,plusText)
+fieldSizeMinusButton2 = button.surfaceButton(700,400,minusText)
+heightButton = button.surfaceButton(520,400,plusText)
+widthButton = button.surfaceButton(720,400,minusText)
 extendedButton = button.surfaceButton(500,500,extendText)
 normalButton = button.surfaceButton(750,500,normalText)
 aiButton = button.surfaceButton(500,200,aiText)
@@ -143,7 +149,8 @@ def ConfigMenu():
             print("minus")
         if fieldSizePlusButton.draw(screen):
             print("plus")
-        screen.blit(pygame.font.Font.render(font2,"4",True,('black'),None),(525,400))
+        screen.blit(pygame.font.Font.render(font2,"4",True,('black'),None),(625,400))
+        screen.blit(heightText,(500,400))
         screen.blit(gameLevelText,(100,300))
         if minusLevelButton.draw(screen):
             print("a")
