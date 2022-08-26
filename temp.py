@@ -89,11 +89,16 @@ def MainMenu():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
-            if (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE): #Here
-                print("Esc key pressed")
                 
         pygame.display.update()
         clock.tick(15)
+
+yesText = pygame.font.Font.render(font2,"Yes",True,('black'),None)
+noText = pygame.font.Font.render(font2,"No",True,('black'),None)
+yesButton = button.surfaceButton(400,30, yesText)
+noButton = button.surfaceButton(500,30, noText)
+quitText = pygame.font.Font.render(font2,"Quit Game?",True,('black'),None)
+
 
 def print_score():
     
@@ -121,12 +126,27 @@ def print_score():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
+            if (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE): #
+                quitGame = True
+                while quitGame:
+                    screen.fill("pink")
+                    screen.blit(quitText, (350,0))
+                    if yesButton.draw(screen):
+                         return
+                    if noButton.draw(screen):
+                        break
+                    for event in pygame.event.get():
+                        if event.type == pygame.QUIT:
+                            pygame.quit()
+                            sys.exit()
+                    pygame.display.update()
+                    clock.tick(15)
                 
         pygame.display.update()
         clock.tick(15)
     return
-
-
+        
+        
 def ConfigMenu():
     RunGame = True
     while RunGame:
