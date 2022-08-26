@@ -134,7 +134,7 @@ def print_score():
                     screen.fill("pink", ((quit_width/2-quit_width/4), (quit_height/2-quit_height/4), quit_width/2, quit_height/2))
                     screen.blit(quitText, (quit_width/2-125,quit_height/2-quit_height/4))
                     if yesButton.draw(screen):
-                         return
+                        return
                     if noButton.draw(screen):
                         break
                     for event in pygame.event.get():
