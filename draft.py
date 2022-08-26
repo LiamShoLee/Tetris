@@ -1,3 +1,4 @@
+import enum
 import graphlib
 from operator import truediv
 import pygame
@@ -9,7 +10,7 @@ import random
 # functions
 # - create_grid
 # - draw_grid
-# - draw_window
+# - drawWindow
 # - rotating shape in main
 # - setting up the main
 
@@ -160,7 +161,7 @@ def create_grid(locked_positions={}):                             # creates a li
                         grid[i][j] = c                            # changes grid to c
       return grid
 
-def get_shape():
+def generateShape():
       global shapes, shape_colours                     # call global variables from before (the shapes and colours) 
       return Piece(5, 0, random.choice(shapes))       # generate a random shape in middle top of screen
 
@@ -177,7 +178,7 @@ def draw_grid(surface, grid):                         # draws grid lines
                   pygame.draw.line(surface, (128, 128, 128), (sx + j*blockSize, sy) , (sx + j * blockSize, sy + boardHeight))
       
       
-def draw_window(surface, grid):                       # draws playable window (which includes title and grid)
+def drawWindow(surface, grid):                       # draws playable window (which includes title and grid)
       surface.fill((0,0,0))                           # fills grid with black
       # Set up Tetris Title
       pygame.font.init()
@@ -192,9 +193,8 @@ def draw_window(surface, grid):                       # draws playable window (w
       pygame.draw.rect(surface, (255, 0, 0), (top_left_x, top_left_y, boardWidth, boardHeight), 5)    # makes the boarder around the playable area
 
       draw_grid(surface,grid)
-      pygame.display.update()
 
-def convert_shape_format(shape): # rotates shape
+def convertShapeFormat(shape): # rotates shape
       positions = []
       format = shape.shape[shape.rotation % len(shape.shape)] # chooses the shape rotation based on the value of the shape rotation and possible shapes
       # modulus so it wraps around between 0-3 for most shapes excluding I block
@@ -209,12 +209,12 @@ def convert_shape_format(shape): # rotates shape
             # offset of 2 and 4 exist for horizontal and vertical because without offset, blocks move to the top left (-4 for off top of screen) 
       return positions
 
-def valid_space(shape, grid): # checks if shape in valid space
+def validSpaceChecker(shape, grid): # checks if shape in valid space
       # takes all positions in list and adds it to one dimensional list
       acceptedPosition = [[(j,i) for j in range(10) if grid[i][j] == (0,0,0)] for i in range(20)] # only adds if space is empty (0,0,0)
       acceptedPosition = [j for sub in acceptedPosition for j in sub]
       
-      formattedShape = convert_shape_format(shape)
+      formattedShape = convertShapeFormat(shape)
 
       for pos in formattedShape: 
             if pos not in acceptedPosition:
@@ -223,7 +223,7 @@ def valid_space(shape, grid): # checks if shape in valid space
       return True
 
 
-def check_lost(positions):
+def checkLost(positions):
       # checks if any positions are above screen (TOPPED OUT)
       for pos in positions:
             x, y = pos
@@ -236,13 +236,45 @@ def check_lost(positions):
 def draw_text_middle(text, size, colour, surface):  
     pass
 
-def clear_rows(grid, locked):
-    pass
+def clearFullRow(grid, locked):
+      inc = 0
+      for i in range(len(grid)-1,-1,-1):
+            row = grid[i]
+            if (0,0,0) not in row: # checks for how many rows are deleted
+                  inc += 1         # increments for how many rows full 
+                  ind = i
+                  for j in range(len(row)): # deletes locked positions in the row
+                        try:
+                              del locked[(j,i)] 
+                        except:
+                              continue
+      
+      #shift every above row by 1
+      if inc > 0:                                           # if one row is removed
+            for key in sorted(list(locked), key = lambda x: x[1])[::-1]: # for every key in the sorted list of locked positions based on y value
+                  x, y = key
+                  if y < ind:                               # if the row is above the index of the full row, moves all those rows down one
+                        newKey = (x, y + inc)               # shifts it down
+                        locked[newKey] = locked.pop(key)    # removes from locked positions list
 
-def draw_next_shape(shape, surface):
-    pass
 
-   
+def drawNextShape(shape, surface):
+      font = pygame.font.SysFont('comicsans', 30)
+      label = font.render('Next Shape', 1, (255, 255, 255))
+
+      sx = top_left_x + boardWidth + 50     # move to right
+      sy = top_left_y + boardHeight/2 - 100 # move it higher
+      format = shape.shape[shape.rotation % len(shape.shape)]
+
+      for i, line in enumerate(format):
+            row = list(line)
+            for j, column in enumerate(row):
+                  if column == '0':
+                        pygame.draw.rect(surface, shape.colour, (sx + j*blockSize, sy + i*blockSize, blockSize,blockSize), 0)
+                        # draws rectangle window for exxtra shape
+
+      surface.blit(label, (sx +10, sy - 30)) # draws the stuff
+
 
 def main(win):
       locked_positions = {}
@@ -250,8 +282,8 @@ def main(win):
 
       changePiece = False                             
       run = True                                      # game initialised to run
-      currentPiece = get_shape()                      # current piece
-      nextPiece = get_shape()                         # next piece
+      currentPiece = generateShape()                      # current piece
+      nextPiece = generateShape()                         # next piece
       clock = pygame.time.Clock()                     # clock
       fallTime = 0
       fallSpeed = 0.27
@@ -264,36 +296,36 @@ def main(win):
             if fallTime/1000 > fallSpeed:
                   fallTime = 0
                   currentPiece.y += 1                                               # moves it down
-                  if not (valid_space(currentPiece, grid)) and currentPiece.y > 0:  # when hits another piece or bottom of screen
+                  if not (validSpaceChecker(currentPiece, grid)) and currentPiece.y > 0:  # when hits another piece or bottom of screen
                         currentPiece.y -= 1                                         # moves back 
                         changePiece = True                                          # locks piece
 
             for event in pygame.event.get():          
-                  if event.type == pygame.QUIT:       # if condition for game end
+                  if event.type == pygame.QUIT:             # if condition for game end
                         run = False
 
                   if event.type == pygame.KEYDOWN:
                         if event.key == pygame.K_LEFT:      # if left key pressed
                               currentPiece.x -= 1           # move to left
-                              if not(valid_space(currentPiece, grid)): 
+                              if not(validSpaceChecker(currentPiece, grid)): 
                                     currentPiece.x += 1     # checked if invalid and resets
 
                         if event.key == pygame.K_RIGHT:     # if right key pressed
                               currentPiece.x += 1           # move to right
-                              if not(valid_space(currentPiece, grid)):
+                              if not(validSpaceChecker(currentPiece, grid)):
                                     currentPiece.x -= 1     # checked if invalid and resets
 
                         if event.key == pygame.K_DOWN:      # if down key pressed
                               currentPiece.y += 1           # move down one block ################################
-                              if not(valid_space(currentPiece, grid)):
+                              if not(validSpaceChecker(currentPiece, grid)):
                                     currentPiece.x -= 1     # checked if invalid and resets
 
                         if event.key == pygame.K_UP:        # if up key pressed
                               currentPiece.rotation += 1    # rotate once
-                              if not(valid_space(currentPiece, grid)):
+                              if not(validSpaceChecker(currentPiece, grid)):
                                     currentPiece.rotation -= 1    # checked if invalid and resets
 
-            shapePosition = convert_shape_format(currentPiece)
+            shapePosition = convertShapeFormat(currentPiece)
             for i in range(len(shapePosition)):       # draws current piece
                   x, y = shapePosition[i]
                   if y > -1:                          # position above the board
@@ -304,11 +336,16 @@ def main(win):
                         p = (pos[0], pos[1])
                         locked_positions[p] = currentPiece.colour     #adds current piece to locked positions so it can update at start of while loop
                   currentPiece = nextPiece
-                  nextPiece = get_shape()
+                  nextPiece = generateShape()
                   changePiece = False
-                  
-            draw_window(win, grid)
-            if check_lost(locked_positions):    # stops game if lost
+                  # clear rows only after piece stops moving
+                  clearFullRow(grid, locked_positions)
+            
+            
+            drawWindow(win, grid)
+            drawNextShape(nextPiece, win)      
+            pygame.display.update()
+            if checkLost(locked_positions):    # stops game if lost
                   run = False
 
       pygame.display.quit # quits display 
