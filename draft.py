@@ -1,6 +1,3 @@
-import enum
-import graphlib
-from operator import truediv
 import pygame
 import random
 import sys
