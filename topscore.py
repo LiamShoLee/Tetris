@@ -45,6 +45,7 @@ def MainMenu():
     RunGame = True
     while RunGame:
         screen.fill((195,195,195))
+        screen.blit(text1,(title_x,title_y))
         if play_button.draw(screen):
             print("start game")
         if exit_button.draw(screen):
@@ -55,7 +56,7 @@ def MainMenu():
         if score_button.draw(screen):
             print_score()
 
-        screen.blit(text1,(title_x,title_y))
+
         
 
         for event in pygame.event.get():
@@ -79,7 +80,7 @@ def print_score():
 
         for n, line in enumerate(scores):
             text = font.render(line, 1, "black")
-            screen.blit(text, (title_x, title_y+n*30))
+            screen.blit(text, (screen_width/2, title_y+n*30))
             
         
         for event in pygame.event.get():
