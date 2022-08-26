@@ -93,10 +93,12 @@ def MainMenu():
         pygame.display.update()
         clock.tick(15)
 
+quit_width = screen.get_width()
+quit_height = screen.get_height()
 yesText = pygame.font.Font.render(font2,"Yes",True,('black'),None)
 noText = pygame.font.Font.render(font2,"No",True,('black'),None)
-yesButton = button.surfaceButton(400,30, yesText)
-noButton = button.surfaceButton(500,30, noText)
+yesButton = button.surfaceButton(quit_width/2-100,quit_height/2-quit_height/4+100, yesText)
+noButton = button.surfaceButton(quit_width/2,quit_height/2-quit_height/4+100, noText)
 quitText = pygame.font.Font.render(font2,"Quit Game?",True,('black'),None)
 
 
@@ -129,8 +131,8 @@ def print_score():
             if (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE): #
                 quitGame = True
                 while quitGame:
-                    screen.fill("pink")
-                    screen.blit(quitText, (350,0))
+                    screen.fill("pink", ((quit_width/2-quit_width/4), (quit_height/2-quit_height/4), quit_width/2, quit_height/2))
+                    screen.blit(quitText, (quit_width/2-125,quit_height/2-quit_height/4))
                     if yesButton.draw(screen):
                          return
                     if noButton.draw(screen):
