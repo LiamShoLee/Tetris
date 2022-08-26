@@ -83,14 +83,14 @@ def MainMenu():
             ConfigMenu()
         if score_button.draw(screen):
             print_score()
-
-
         
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
+            if (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE): #Here
+                print("Esc key pressed")
                 
         pygame.display.update()
         clock.tick(15)
