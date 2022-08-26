@@ -182,8 +182,8 @@ def drawWindow(surface, grid):                       # draws playable window (wh
       surface.fill((0,0,0))                           # fills grid with black
       # Set up Tetris Title
       pygame.font.init()
-      font = pygame.font.SysFont('comicsans', 60)     # change font to super mario 256
-      label = font.render('TETRIS', 1, (255,255,255)) # anti aliasing 1, White Title
+      font = pygame.font.SysFont('comicsans', 40)     # change font to super mario 256
+      label = font.render('TETRIS Group 19', 1, (255,255,255)) # anti aliasing 1, White Title
       surface.blit(label, (top_left_x + boardWidth/2 - (label.get_width()/2), 30)) # finds middle of screen and puts title in middle
       for i in range(len(grid)):                            
             for j in range(len(grid[i])):
