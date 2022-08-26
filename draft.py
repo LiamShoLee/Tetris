@@ -365,18 +365,22 @@ def main(win):
                         pygame.quit()
                         sys.exit()            
 
+                  if (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE):
+                        quitGame = True
+                        while quitGame:
+                              win.fill("pink", ((quit_width/2-quit_width/4), (quit_height/2-quit_height/4), quit_width/2, quit_height/2))
+                              win.blit(quitText, (quit_width/2-125,quit_height/2-quit_height/4))
+                              if yesButton.draw(win):
+                                    return
+                              if noButton.draw(win):
+                                    quitGame = False
+                              for events in pygame.event.get():
+                                    if events.type == pygame.QUIT:
+                                          pygame.quit()
+                                          sys.exit()
+                              pygame.display.update()
+                              
                   if event.type == pygame.KEYDOWN:
-                        if event.key == pygame.K_ESCAPE:
-                              quitGame = True
-                              while quitGame:
-                                    win.fill("pink", ((quit_width/2-quit_width/4), (quit_height/2-quit_height/4), quit_width/2, quit_height/2))
-                                    win.blit(quitText, (quit_width/2-125,quit_height/2-quit_height/4))
-                                    if yesButton.draw(win):
-                                          return
-                                    if noButton.draw(win):
-                                          break
-                                    pygame.display.update()
-                                    clock.tick(15)
                         if event.key == pygame.K_LEFT:      # if left key pressed
                               currentPiece.x -= 1           # move to left
                               if not(validSpaceChecker(currentPiece, grid)): 
