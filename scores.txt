@@ -1,0 +1,10 @@
+PlayerA 10
+PlayerB 9
+PlayerC 8
+PlayerD 7
+PlayerE 6
+PlayerF 5
+PlayerG 4
+PlayerH 3
+PlayerI 2
+PlayerJ 1
