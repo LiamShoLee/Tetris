@@ -22,7 +22,7 @@ exit_img = pygame.image.load('assets/Exit_img.png')
 config_img = pygame.image.load('assets/Configure_img.png')
 score_img = pygame.image.load('assets/Score_img.png')
 title_img = pygame.image.load('assets/Cursed_title.png')
-back_img = pygame.image.load('asssets/Back_img.png')
+back_img = pygame.image.load('assets/Back_img.png')
 
 play_x = .085*screen_width
 config_x = play_x+play_img.get_width()*image_scale+screen_width*.10
