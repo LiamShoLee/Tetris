@@ -14,7 +14,7 @@ title_y = (0)
 screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption("Tetris")
 
-#font = pygame.font.Sysfont("comicsansms", 30)
+font = pygame.font.Font("assets/MarioFont/SuperMario256.ttf", 30)
 
 #Load in some buttons
 image_scale = 1
@@ -37,6 +37,10 @@ score_button = button.Button(score_x, 0.95*screen_height-score_img.get_height()*
 exit_button = button.Button(exit_x, 0.95*screen_height-exit_img.get_height()*image_scale, exit_img, image_scale)
 back_button = button.Button(back_x,0.95*screen_height-back_img.get_height()*image_scale, back_img, image_scale)
 
+testText = "Tetris Friends"
+text1 = pygame.font.Font.render(font,testText,True,(255,0,0),None)
+
+
 def MainMenu():
     RunGame = True
     while RunGame:
@@ -47,11 +51,11 @@ def MainMenu():
                 pygame.quit()
                 sys.exit()
         if config_button.draw(screen):
-            print("This is config")
+            ConfigMenu()
         if score_button.draw(screen):
             print_score()
 
-        screen.blit(title_img,(title_x,title_y))
+        screen.blit(text1,(title_x,title_y))
         
 
         for event in pygame.event.get():
@@ -62,30 +66,20 @@ def MainMenu():
         pygame.display.update()
         clock.tick(15)
 
-
 def print_score():
     
     scores = [line.strip('\n')
         for line in open('scores.txt', 'r').readlines()]
-    font = pygame.font.Font("assets/MarioFont/SuperMario256.ttf", 16)
-    screen = pygame.display.set_mode(screen)
         
     RunGame = True
     while RunGame:
         screen.fill("white")
-        if exit_button.draw(screen):
-            pygame.quit()
-            sys.exit()
         if back_button.draw(screen):
             return
 
-
         for n, line in enumerate(scores):
             text = font.render(line, 1, "black")
-            text_rect = text.get_rect()
-            text_rect.centerx = screen[0]//2
-            text_rect.centery = n*25 + 50
-            screen.blit(text, text_rect)
+            screen.blit(text, (title_x, title_y+n*30))
             
         
         for event in pygame.event.get():
@@ -96,4 +90,18 @@ def print_score():
         pygame.display.update()
         clock.tick(15)
 
+def ConfigMenu():
+    RunGame = True
+    while RunGame:
+        screen.fill("white")
+        if back_button.draw(screen):
+            return
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+                
+        pygame.display.update()
+        clock.tick(15)
 MainMenu()
