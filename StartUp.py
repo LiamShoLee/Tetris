@@ -53,10 +53,16 @@ aiText = pygame.font.Font.render(font2,"A.I",True,('black'),None)
 playerText = pygame.font.Font.render(font2,"Human",True,('black'),None)
 plusText = pygame.font.Font.render(font2,"+",True,('black'),None)
 minusText = pygame.font.Font.render(font2,"-",True,('black'),None)
+heightText = pygame.font.Font.render(font2,"Height",True,('black'),None)
+widthText = pygame.font.Font.render(font2,"Width",True,('black'),None)
 
 #configure page buttons
-fieldSizePlusButton = button.surfaceButton(560,400,plusText)
-fieldSizeMinusButton = button.surfaceButton(500,400,minusText)
+fieldSizePlusButton = button.surfaceButton(705,400,plusText)
+fieldSizeMinusButton = button.surfaceButton(635,400,minusText)
+fieldSizePlusButton2 = button.surfaceButton(965,400,plusText)
+fieldSizeMinusButton2 = button.surfaceButton(890,400,minusText)
+heightButton = button.surfaceButton(520,400,plusText)
+widthButton = button.surfaceButton(720,400,minusText)
 extendedButton = button.surfaceButton(500,500,extendText)
 normalButton = button.surfaceButton(750,500,normalText)
 aiButton = button.surfaceButton(500,200,aiText)
@@ -64,12 +70,18 @@ playerButton = button.surfaceButton(600,200,playerText)
 plusLevelButton = button.surfaceButton(560,300,plusText)
 minusLevelButton = button.surfaceButton(500,300,minusText)
 
+#Text for start-up
+yearCourseText = pygame.font.Font.render(font2,"2805ICT 2022",True,('black'),None)  #Here
+studentText = pygame.font.Font.render(font2,"Adrian Jih -- Liam Lee -- Nick Howe",True,('black'),None)  #Here
+
 
 def MainMenu():
     RunGame = True
     while RunGame:
         screen.fill((195,195,195))
         screen.blit(title_img,(title_x,title_y))
+        screen.blit(studentText,(200,380))  #Here
+        screen.blit(yearCourseText,(400,420)) #Here
         if play_button.draw(screen):
             print("start game")
         if exit_button.draw(screen):
@@ -143,7 +155,14 @@ def ConfigMenu():
             print("minus")
         if fieldSizePlusButton.draw(screen):
             print("plus")
-        screen.blit(pygame.font.Font.render(font2,"4",True,('black'),None),(525,400))
+        screen.blit(pygame.font.Font.render(font2,"20",True,('black'),None),(655,400))
+        screen.blit(heightText,(500,400))
+        screen.blit(widthText,(750,400))
+        if fieldSizeMinusButton2.draw(screen):
+            print("added")
+        if fieldSizePlusButton2.draw(screen):
+            print("a")
+        screen.blit(pygame.font.Font.render(font2,"10",True,('black'),None),(915,400))
         screen.blit(gameLevelText,(100,300))
         if minusLevelButton.draw(screen):
             print("a")

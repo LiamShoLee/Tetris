@@ -1,5 +1,5 @@
 #scalable button code from rus123 
-#Added compatability wityh surafaces by Nick H
+#Added compatability with surafaces by Nick H
 import pygame
 
 #button class
