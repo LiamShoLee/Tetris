@@ -150,14 +150,14 @@ class Piece(object):
             self.colour = shape_colours[shapes.index(shape)]  # choose a colour 
             self.rotation = 0                               # number from 0-3 for rotations
 
-def create_grid(locked_positions={}):                             # creates a list of colours (change parameters when editing in menus) 
+def create_grid(lockedPositions={}):                             # creates a list of colours (change parameters when editing in menus) 
       grid = [[(0,0,0) for x in range(10)] for x in range(20)]    # create list for every row in grid (each row has 10 blocks with colours in it)
       
       #checks for blocks that have already been dropped and locked
       for i in range(len(grid)):                                  # for rows
             for j in range(len(grid[i])):                         # for columns
-                  if (j,i) in locked_positions:                   # if key exists
-                        c = locked_positions[(j,i)]               # changes key to
+                  if (j,i) in lockedPositions:                   # if key exists
+                        c = lockedPositions[(j,i)]               # changes key to
                         grid[i][j] = c                            # changes grid to c
       return grid
 
@@ -177,14 +177,51 @@ def draw_grid(surface, grid):                         # draws grid lines
             for j in range(len(grid[i])):    # for horizontal lines
                   pygame.draw.line(surface, (128, 128, 128), (sx + j*blockSize, sy) , (sx + j * blockSize, sy + boardHeight))
       
-      
-def drawWindow(surface, grid):                       # draws playable window (which includes title and grid)
-      surface.fill((0,0,0))                           # fills grid with black
+# gamemode data will need to be called in this function to read in later prototypes
+def drawWindow(surface, grid, score = 0, gameLevel = 1):    # draws playable window (which includes title and grid)
+      surface.fill((0,0,0))                                 # fills grid with black
       # Set up Tetris Title
       pygame.font.init()
-      font = pygame.font.SysFont('comicsans', 40)     # change font to super mario 256
+      font = pygame.font.SysFont('comicsans', 40)           # change font to super mario 256
       label = font.render('TETRIS Group 19', 1, (255,255,255)) # anti aliasing 1, White Title
       surface.blit(label, (top_left_x + boardWidth/2 - (label.get_width()/2), 30)) # finds middle of screen and puts title in middle
+
+      # score text
+      font = pygame.font.SysFont('comicsans', 30)
+      label = font.render('Score: ' + str(score), 1, (255, 255, 255))
+      sx = top_left_x + boardWidth + 50     # move to right
+      sy = top_left_y + boardHeight/2 - 100 # move it abit higher
+      surface.blit(label, (sx + 10, sy - 200))
+
+      # lines removed so far
+      font = pygame.font.SysFont('comicsans', 20)
+      label = font.render('Lines removed: ' + str(score//10), 1, (255, 255, 255))
+      sx = top_left_x + boardWidth + 50     # move to right
+      sy = top_left_y + boardHeight/2 - 100 # move it abit higher
+      surface.blit(label, (sx + 10, sy - 120))
+
+      # score text
+      font = pygame.font.SysFont('comicsans', 20)
+      label = font.render('Level: ' + str(gameLevel), 1, (255, 255, 255))
+      sx = top_left_x + boardWidth + 50     # move to right
+      sy = top_left_y + boardHeight/2 - 100 # move it abit higher
+      surface.blit(label, (sx + 10, sy - 160))
+      
+      # player or ai mode
+      font = pygame.font.SysFont('comicsans', 20)
+      label = font.render('Mode: Player' , 1, (255, 255, 255))
+      sx = top_left_x + boardWidth + 50     # move to right
+      sy = top_left_y + boardHeight/2 - 100 # move it abit higher
+      surface.blit(label, (sx - 560, sy - 140))
+      
+      # extended or normal game
+      font = pygame.font.SysFont('comicsans', 20)
+      label = font.render('Game Mode: Normal' , 1, (255, 255, 255))
+      sx = top_left_x + boardWidth + 50     # move to right
+      sy = top_left_y + boardHeight/2 - 100 # move it abit higher
+      surface.blit(label, (sx - 560, sy - 100))
+
+
       for i in range(len(grid)):                            
             for j in range(len(grid[i])):
                   pygame.draw.rect(surface, grid[i][j], (top_left_x + j* blockSize, top_left_y + i * blockSize, blockSize, blockSize), 0) 
@@ -257,6 +294,8 @@ def clearFullRow(grid, locked):
                         newKey = (x, y + inc)               # shifts it down
                         locked[newKey] = locked.pop(key)    # removes from locked positions list
 
+      return inc
+
 
 def drawNextShape(shape, surface):
       font = pygame.font.SysFont('comicsans', 30)
@@ -270,15 +309,15 @@ def drawNextShape(shape, surface):
             row = list(line)
             for j, column in enumerate(row):
                   if column == '0':
-                        pygame.draw.rect(surface, shape.colour, (sx + j*blockSize, sy + i*blockSize, blockSize,blockSize), 0)
+                        pygame.draw.rect(surface, shape.colour, (sx + j*blockSize, sy + i*blockSize + 10, blockSize,blockSize), 0)
                         # draws rectangle window for exxtra shape
 
       surface.blit(label, (sx +10, sy - 30)) # draws the stuff
 
 
 def main(win):
-      locked_positions = {}
-      grid = create_grid(locked_positions)
+      lockedPositions = {}
+      grid = create_grid(lockedPositions)
 
       changePiece = False                             
       run = True                                      # game initialised to run
@@ -287,11 +326,21 @@ def main(win):
       clock = pygame.time.Clock()                     # clock
       fallTime = 0
       fallSpeed = 0.27
+      levelTime = 0
+      gameLevel = 1
+      score = 0
 
       while run:                                      # keeps game running
-            grid = create_grid(locked_positions)      # updates grid
+            grid = create_grid(lockedPositions)      # updates grid
             fallTime += clock.get_rawtime()           # keeps track of time by adding time between while loops
+            levelTime += clock.get_rawtime()
             clock.tick() 
+
+            if levelTime/1000 > 8: # every 8 seconds increase level and difficulty
+                  levelTime = 0
+                  gameLevel += 1
+                  if fallSpeed > 0.12:
+                        fallSpeed -= 0.005
 
             if fallTime/1000 > fallSpeed:
                   fallTime = 0
@@ -334,18 +383,21 @@ def main(win):
             if changePiece:
                   for pos in shapePosition:
                         p = (pos[0], pos[1])
-                        locked_positions[p] = currentPiece.colour     #adds current piece to locked positions so it can update at start of while loop
+                        lockedPositions[p] = currentPiece.colour     #adds current piece to locked positions so it can update at start of while loop
                   currentPiece = nextPiece
                   nextPiece = generateShape()
                   changePiece = False
+                  
+                  score += clearFullRow(grid,lockedPositions) * 10 
+            
                   # clear rows only after piece stops moving
-                  clearFullRow(grid, locked_positions)
+                  clearFullRow(grid, lockedPositions)
             
             
-            drawWindow(win, grid)
+            drawWindow(win, grid, score, gameLevel) # game mode data will need to be added here for later prototypes
             drawNextShape(nextPiece, win)      
             pygame.display.update()
-            if checkLost(locked_positions):    # stops game if lost
+            if checkLost(lockedPositions):    # stops game if lost
                   run = False
 
       pygame.display.quit # quits display 
