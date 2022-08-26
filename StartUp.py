@@ -17,11 +17,11 @@ pygame.display.set_caption("Tetris")
 
 #Load in some buttons
 image_scale = 1
-play_img = pygame.image.load('Play_img.png')
-exit_img = pygame.image.load('Exit_img.png')
-config_img = pygame.image.load('Configure_img.png')
-score_img = pygame.image.load('Score_img.png')
-title_img = pygame.image.load('Cursed_title.png')
+play_img = pygame.image.load('assests/Play_img.png')
+exit_img = pygame.image.load('assests/Exit_img.png')
+config_img = pygame.image.load('assests/Configure_img.png')
+score_img = pygame.image.load('assests/Score_img.png')
+title_img = pygame.image.load('assests/Cursed_title.png')
 
 play_x = .085*screen_width
 config_x = play_x+play_img.get_width()*image_scale+screen_width*.10
