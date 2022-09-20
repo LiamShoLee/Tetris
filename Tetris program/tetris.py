@@ -1,11 +1,9 @@
 import pygame
 from factory import get_block
-from topscore import *
+from score import *
 from draw import *
 from check import *
 from other import *
-import sys
-import button
 
 pygame.font.init()
     
@@ -22,19 +20,6 @@ def main(win):
     fall_speed = 0.27
     level_time = 0
     score = 0
-
-    #This should be changed later so that it's within a function
-    font2 = pygame.font.SysFont("comicsans", 32)
-    quit_width = win.get_width()
-    quit_height = win.get_height()
-    yesText = pygame.font.Font.render(font2,"Yes",True,('black'),None)
-    noText = pygame.font.Font.render(font2,"No",True,('black'),None)
-    yesButton = button.surfaceButton(quit_width/2-100,quit_height/2-quit_height/4+100, yesText)
-    noButton = button.surfaceButton(quit_width/2,quit_height/2-quit_height/4+100, noText)
-    quitText = pygame.font.Font.render(font2,"Quit Game?",True,('black'),None)
-
-
-
 
     while run:
         grid = create_grid(locked_positions)
@@ -56,26 +41,12 @@ def main(win):
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
+                if quit_game(win): return
 
             if event.type == pygame.KEYDOWN:
                 
                 if event.key == pygame.K_ESCAPE:
-                    quit_game = True
-                    while quit_game:
-                        win.fill("pink", ((quit_width/2-quit_width/4), (quit_height/2-quit_height/4), quit_width/2, quit_height/2))
-                        win.blit(quitText, (quit_width/2-125,quit_height/2-quit_height/4))
-                        if yesButton.draw(win):
-                            return
-                        if noButton.draw(win):
-                            quit_game = False
-                        for events in pygame.event.get():
-                            if events.type == pygame.QUIT:
-                                pygame.quit()
-                                sys.exit()
-                        pygame.display.update()
-                
+                    if quit_game(win): return
                 
                 if event.key == pygame.K_LEFT:
                     current_piece.x -= 1
@@ -119,24 +90,5 @@ def main(win):
             pygame.display.update()
             pygame.time.delay(1500)
             run = False
-            update_score(score)
+            #update_score(score) #top score functionality here
     pygame.display.quit
-
-def main_menu(win):
-    run = True
-    while run:
-        win.fill((0,0,0))
-        draw_text_middle(win, 'Press Any Key To Play', 60, (255,255,255))
-        pygame.display.update()
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                run = False
-            if event.type == pygame.KEYDOWN:
-                main(win)
-
-    pygame.display.quit()
-
-
-win = pygame.display.set_mode((s_width, s_height))
-pygame.display.set_caption('Tetris')
-main_menu(win)

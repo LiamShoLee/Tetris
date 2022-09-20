@@ -1,3 +1,7 @@
+import pygame
+import button
+import sys
+
 def create_grid(locked_pos={}):  # *
     grid = [[(0,0,0) for x in range(10)] for x in range(20)]
 
@@ -8,32 +12,27 @@ def create_grid(locked_pos={}):  # *
                 grid[i][j] = c
     return grid
 
-def clear_rows(grid, locked):
-    inc = 0
-    for i in range(len(grid)-1, -1, -1):
-        row = grid[i]
-        if (0,0,0) not in row:
-            inc += 1
-            ind = i
-            for j in range(len(row)):
-                try:
-                    del locked[(j,i)]
-                except:
-                    continue
-
-    if inc > 0:
-        for key in sorted(list(locked), key=lambda x: x[1])[::-1]:
-            x, y = key
-            if y < ind:
-                newKey = (x, y + inc)
-                locked[newKey] = locked.pop(key)
-
-    match inc:
-        case 1:
-            return 100
-        case 2:
-            return 300
-        case 3:
-            return 600
-        case 4:
-            return 1000
+def quit_game(win):
+    
+    #This should be changed later so that it's within a function
+    font2 = pygame.font.SysFont("comicsans", 32)
+    quit_width = win.get_width()
+    quit_height = win.get_height()
+    yesText = pygame.font.Font.render(font2,"Yes",True,('black'),None)
+    noText = pygame.font.Font.render(font2,"No",True,('black'),None)
+    yesButton = button.surfaceButton(quit_width/2-100,quit_height/2-quit_height/4+100, yesText)
+    noButton = button.surfaceButton(quit_width/2,quit_height/2-quit_height/4+100, noText)
+    quitText = pygame.font.Font.render(font2,"Quit Game?",True,('black'),None)
+    
+    quit = True
+    while quit:
+        win.fill("pink", ((quit_width/2-quit_width/4), (quit_height/2-quit_height/4), quit_width/2, quit_height/2))
+        win.blit(quitText, (quit_width/2-125,quit_height/2-quit_height/4))
+        if yesButton.draw(win):
+            return True
+        if noButton.draw(win):
+            quit = False
+        for events in pygame.event.get():
+            if events.type == pygame.QUIT:
+                pass
+        pygame.display.update()
