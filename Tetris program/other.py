@@ -28,4 +28,12 @@ def clear_rows(grid, locked):
                 newKey = (x, y + inc)
                 locked[newKey] = locked.pop(key)
 
-    return inc
+    match inc:
+        case 1:
+            return 100
+        case 2:
+            return 300
+        case 3:
+            return 600
+        case 4:
+            return 1000

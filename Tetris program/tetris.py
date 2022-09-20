@@ -4,6 +4,8 @@ from topscore import *
 from draw import *
 from check import *
 from other import *
+import sys
+import button
 
 pygame.font.init()
     
@@ -20,6 +22,19 @@ def main(win):
     fall_speed = 0.27
     level_time = 0
     score = 0
+
+    #This should be changed later so that it's within a function
+    font2 = pygame.font.SysFont("comicsans", 32)
+    quit_width = win.get_width()
+    quit_height = win.get_height()
+    yesText = pygame.font.Font.render(font2,"Yes",True,('black'),None)
+    noText = pygame.font.Font.render(font2,"No",True,('black'),None)
+    yesButton = button.surfaceButton(quit_width/2-100,quit_height/2-quit_height/4+100, yesText)
+    noButton = button.surfaceButton(quit_width/2,quit_height/2-quit_height/4+100, noText)
+    quitText = pygame.font.Font.render(font2,"Quit Game?",True,('black'),None)
+
+
+
 
     while run:
         grid = create_grid(locked_positions)
@@ -41,10 +56,27 @@ def main(win):
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                run = False
-                pygame.display.quit()
+                pygame.quit()
+                sys.exit()
 
             if event.type == pygame.KEYDOWN:
+                
+                if event.key == pygame.K_ESCAPE:
+                    quit_game = True
+                    while quit_game:
+                        win.fill("pink", ((quit_width/2-quit_width/4), (quit_height/2-quit_height/4), quit_width/2, quit_height/2))
+                        win.blit(quitText, (quit_width/2-125,quit_height/2-quit_height/4))
+                        if yesButton.draw(win):
+                            return
+                        if noButton.draw(win):
+                            quit_game = False
+                        for events in pygame.event.get():
+                            if events.type == pygame.QUIT:
+                                pygame.quit()
+                                sys.exit()
+                        pygame.display.update()
+                
+                
                 if event.key == pygame.K_LEFT:
                     current_piece.x -= 1
                     if not(valid_space(current_piece, grid)):
@@ -76,7 +108,7 @@ def main(win):
             current_piece = next_piece
             next_piece = get_block()
             change_piece = False
-            score += clear_rows(grid, locked_positions) * 10
+            score += clear_rows(grid, locked_positions)
 
         draw_window(win, grid, score)
         draw_next_shape(next_piece, win)
@@ -88,7 +120,7 @@ def main(win):
             pygame.time.delay(1500)
             run = False
             update_score(score)
-
+    pygame.display.quit
 
 def main_menu(win):
     run = True
