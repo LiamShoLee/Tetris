@@ -9,13 +9,13 @@ class Block(object):
                        '.....',
                        '.....']]
         self.color = ((0,0,0))
-        
+
     def get_x(self): return self.x
     def get_y(self): return self.y
     def get_rotation(self): return self.rotation
     def get_shape(self): return self.shape
     def get_color(self): return self.color
-    
+
     def deviation_x(self, delta):
         self.x += delta
     def deviation_y(self, delta):
@@ -36,8 +36,8 @@ class S(Block):
                        '..00.',
                        '...0.',
                        '.....']]
-        self.color = (0, 255, 0)
-        
+        self.color = (0,255,0)
+
 class Z(Block):
     def __init__(self):
         super().__init__()
@@ -51,7 +51,7 @@ class Z(Block):
                        '.00..',
                        '.0...',
                        '.....']]
-        self.color = (255, 0, 0)
+        self.color = (255,0,0)
 
 class I(Block):
     def __init__(self):
@@ -66,7 +66,7 @@ class I(Block):
                        '.....',
                        '.....',
                        '.....']]
-        self.color = (0, 255, 255)
+        self.color = (0,255,255)
         
 class O(Block):
     def __init__(self):
@@ -76,7 +76,7 @@ class O(Block):
                        '.00..',
                        '.00..',
                        '.....']]
-        self.color = (255, 255, 0)
+        self.color = (255,255,0)
 
 class J(Block):
     def __init__(self):
@@ -101,7 +101,7 @@ class J(Block):
                         '..0..',
                         '.00..',
                         '.....']]
-        self.color = (0, 0, 255)
+        self.color = (0,0,255)
 
 class L(Block):
     def __init__(self):
@@ -126,7 +126,7 @@ class L(Block):
                        '..0..',
                        '..0..',
                        '.....']]
-        self.color = (255, 165, 0)
+        self.color = (255,165,0)
 
 class T(Block):
     def __init__(self):
@@ -151,7 +151,7 @@ class T(Block):
                        '.00..',
                        '..0..',
                        '.....']]
-        self.color = (128, 0, 128)
+        self.color = (128,0,128)
     
 class SI(Block):
     def __init__(self):
@@ -166,7 +166,7 @@ class SI(Block):
                        '.....',
                        '.....',
                        '.....']]
-        self.color = (0, 189, 0)
+        self.color = (0,189,0)
 
 class SL(Block):
     def __init__(self):
@@ -191,7 +191,7 @@ class SL(Block):
                        '.00..',
                        '..0..',
                        '.....']]
-        self.color = (255, 51, 255)
+        self.color = (255,51,255)
         
 class BlockFactory:
     def create_block(self, number):
