@@ -1,11 +1,9 @@
 #Settings class for tetris
-#10 by 20
+#fieldSize is (int,int),level is int, extend is bool, 
 
-
-class GameSettings():
-    fieldSize = (int,int)
-    gameLevel = int
-    extended = bool
-    gameMode = bool
-
-
+class GameSettings:
+    def __init__(defaultSize,defaultLevel,defaultExtend,defaultMode):
+        self.fieldSize = defaultSize
+        self.gameStartLevel = defaultLevel
+        self.extended = defaultExtend
+        self.gameMode = defaultMode
