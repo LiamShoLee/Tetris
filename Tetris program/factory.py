@@ -1,22 +1,13 @@
 class Block():
-    def create_object():
-        pass
-    def get_x():
-        pass
-    def get_y():
-        pass
-    def get_rotation():
-        pass
-    def get_shape():
-        pass
-    def get_color():
-        pass
-    def increment_x():
-        pass
-    def increment_y():
-        pass
-    def rotate_shape():
-        pass
+    def get_x(): pass
+    def get_y(): pass
+    def get_rotation(): pass
+    def get_shape(): pass
+    def get_color(): pass
+    
+    def deviation_x(): pass
+    def deviation_y(): pass
+    def rotate_shape(): pass
 
 class S(Block):
     def __init__(self):
@@ -35,24 +26,18 @@ class S(Block):
                        '.....']]
         self.color = (0, 255, 0)
 
-    def create_object(self):
-        return self
-    def get_x(self):
-        return self.x
-    def get_y(self):
-        return self.y
-    def get_rotation(self):
-        return self.rotation
-    def get_shape(self):
-        return self.shape
-    def get_color(self):
-        return self.color
-    def increment_x(self):
-        self.x += 1
-    def increment_y(self):
-        self.y += 1
-    def rotate_shape(self):
-        self.rotation += 1
+    def get_x(self): return self.x
+    def get_y(self): return self.y
+    def get_rotation(self): return self.rotation
+    def get_shape(self): return self.shape
+    def get_color(self): return self.color
+    
+    def deviation_x(self, delta):
+        self.x += delta
+    def deviation_y(self, delta):
+        self.y += delta
+    def rotate_shape(self,rotate):
+        self.rotation += rotate
 
 class Z(Block):
     def __init__(self):
@@ -71,8 +56,18 @@ class Z(Block):
                        '.....']]
         self.color = (255, 0, 0)
     
-    def create_object(self):
-        return self
+    def get_x(self): return self.x
+    def get_y(self): return self.y
+    def get_rotation(self): return self.rotation
+    def get_shape(self): return self.shape
+    def get_color(self): return self.color
+    
+    def deviation_x(self, delta):
+        self.x += delta
+    def deviation_y(self, delta):
+        self.y += delta
+    def rotate_shape(self, rotate):
+        self.rotation += rotate
 
 class I(Block):
     def __init__(self):
@@ -91,8 +86,18 @@ class I(Block):
                        '.....']]
         self.color = (0, 255, 255)
         
-    def create_object(self):
-        return self
+    def get_x(self): return self.x
+    def get_y(self): return self.y
+    def get_rotation(self): return self.rotation
+    def get_shape(self): return self.shape
+    def get_color(self): return self.color
+    
+    def deviation_x(self, delta):
+        self.x += delta
+    def deviation_y(self, delta):
+        self.y += delta
+    def rotate_shape(self, rotate):
+        self.rotation += rotate
         
 class O(Block):
     def __init__(self):
@@ -106,8 +111,18 @@ class O(Block):
                        '.....']]
         self.color = (255, 255, 0)
     
-    def create_object(self):
-        return self
+    def get_x(self): return self.x
+    def get_y(self): return self.y
+    def get_rotation(self): return self.rotation
+    def get_shape(self): return self.shape
+    def get_color(self): return self.color
+    
+    def deviation_x(self, delta):
+        self.x += delta
+    def deviation_y(self, delta):
+        self.y += delta
+    def rotate_shape(self, rotate):
+        self.rotation += rotate
 
 class J(Block):
     def __init__(self):
@@ -135,8 +150,19 @@ class J(Block):
                         '.00..',
                         '.....']]
         self.color = (0, 0, 255)
-    def create_object(self):
-        return self
+        
+    def get_x(self): return self.x
+    def get_y(self): return self.y
+    def get_rotation(self): return self.rotation
+    def get_shape(self): return self.shape
+    def get_color(self): return self.color
+    
+    def deviation_x(self, delta):
+        self.x += delta
+    def deviation_y(self, delta):
+        self.y += delta
+    def rotate_shape(self, rotate):
+        self.rotation += rotate
 
 class L(Block):
     def __init__(self):
@@ -165,8 +191,18 @@ class L(Block):
                        '.....']]
         self.color = (255, 165, 0)
 
-    def create_object(self):
-        return self
+    def get_x(self): return self.x
+    def get_y(self): return self.y
+    def get_rotation(self): return self.rotation
+    def get_shape(self): return self.shape
+    def get_color(self): return self.color
+    
+    def deviation_x(self, delta):
+        self.x += delta
+    def deviation_y(self, delta):
+        self.y += delta
+    def rotate_shape(self, rotate):
+        self.rotation += rotate
 
 class T(Block):
     def __init__(self):
@@ -195,8 +231,18 @@ class T(Block):
                        '.....']]
         self.color = (128, 0, 128)
 
-    def create_object(self):
-        return self
+    def get_x(self): return self.x
+    def get_y(self): return self.y
+    def get_rotation(self): return self.rotation
+    def get_shape(self): return self.shape
+    def get_color(self): return self.color
+    
+    def deviation_x(self, delta):
+        self.x += delta
+    def deviation_y(self, delta):
+        self.y += delta
+    def rotate_shape(self, rotate):
+        self.rotation += rotate
 
 class SI(Block):
     def __init__(self):
@@ -215,8 +261,18 @@ class SI(Block):
                        '.....']]
         self.color = (0, 189, 0)
 
-    def create_object(self):
-        return self
+    def get_x(self): return self.x
+    def get_y(self): return self.y
+    def get_rotation(self): return self.rotation
+    def get_shape(self): return self.shape
+    def get_color(self): return self.color
+    
+    def deviation_x(self, delta):
+        self.x += delta
+    def deviation_y(self, delta):
+        self.y += delta
+    def rotate_shape(self, rotate):
+        self.rotation += rotate
 
 class SL(Block):
     def __init__(self):
@@ -245,8 +301,19 @@ class SL(Block):
                        '.....']]
         self.color = (255, 51, 255)
 
-    def create_object(self):
-        return self
+    def get_x(self): return self.x
+    def get_y(self): return self.y
+    def get_rotation(self): return self.rotation
+    def get_shape(self): return self.shape
+    def get_color(self): return self.color
+    
+    def deviation_x(self, delta):
+        self.x += delta
+    def deviation_y(self, delta):
+        self.y += delta
+    def rotate_shape(self, rotate):
+        self.rotation += rotate
+        
 class BlockFactory:
     def create_block(self, number):
         match number:
