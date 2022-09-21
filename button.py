@@ -1,5 +1,3 @@
-#scalable button code from rus123 
-#Added compatability with surafaces by Nick H
 import pygame
 
 #button class
@@ -10,32 +8,20 @@ class Button():
 		self.image = pygame.transform.scale(image, (int(width * scale), int(height * scale)))
 		self.rect = self.image.get_rect()
 		self.rect.topleft = (x, y)
-		self.clicked = False
-	
-
 
 	def draw(self, surface):
-		action = False
-		#get mouse position
-		pos = pygame.mouse.get_pos()
-
-		#check mouseover and clicked conditions
-		if self.rect.collidepoint(pos):
-			if pygame.mouse.get_pressed()[0] == 1 and self.clicked == False:
-				self.clicked = True
-				action = True
-
-		if pygame.mouse.get_pressed()[0] == 0:
-			self.clicked = False
-
-		#draw button on screen
 		surface.blit(self.image, (self.rect.x, self.rect.y))
 
-		return action
 
 class surfaceButton(Button):
 	def __init__(self,x,y,Surface):
 		self.image = Surface
 		self.rect = self.image.get_rect()
 		self.rect.topleft = (x, y)
-		self.clicked = False	
+	
+
+def buttonPoller(button,isAlreadyPressed):
+		if button.rect.collidepoint(pygame.mouse.get_pos()):
+			if pygame.mouse.get_pressed()[0] == 1 and isAlreadyPressed == False:
+				return True
+		else: return False
