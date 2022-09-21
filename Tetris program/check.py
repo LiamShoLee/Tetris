@@ -1,6 +1,7 @@
+import factory
 def convert_shape_format(shape):
     positions = []
-    format = shape.shape[shape.rotation % len(shape.shape)]
+    format = shape.get_shape()[shape.get_rotation() % len(shape.get_shape())]
 
     for i, line in enumerate(format):
         row = list(line)

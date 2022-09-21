@@ -25,6 +25,7 @@ class Block(object):
 
 class S(Block):
     def __init__(self):
+        super().__init__()
         self.shape = [['.....',
                        '.....',
                        '..00.',
@@ -39,9 +40,7 @@ class S(Block):
         
 class Z(Block):
     def __init__(self):
-        self.x = 5
-        self.y = 0
-        self.rotation = 0
+        super().__init__()
         self.shape = [['.....',
                        '.....',
                        '.00..',
@@ -56,9 +55,7 @@ class Z(Block):
 
 class I(Block):
     def __init__(self):
-        self.x = 5
-        self.y = 0
-        self.rotation = 0
+        super().__init__()
         self.shape = [['..0..',
                        '..0..',
                        '..0..',
@@ -73,9 +70,7 @@ class I(Block):
         
 class O(Block):
     def __init__(self):
-        self.x = 5
-        self.y = 0
-        self.rotation = 0
+        super().__init__()
         self.shape = [['.....',
                        '.....',
                        '.00..',
@@ -85,9 +80,7 @@ class O(Block):
 
 class J(Block):
     def __init__(self):
-        self.x = 5
-        self.y = 0
-        self.rotation = 0
+        super().__init__()
         self.shape = [['.....',
                         '.0...',
                         '.000.',
@@ -112,9 +105,7 @@ class J(Block):
 
 class L(Block):
     def __init__(self):
-        self.x = 5
-        self.y = 0
-        self.rotation = 0
+        super().__init__()
         self.shape = [['.....',
                        '...0.',
                        '.000.',
@@ -139,9 +130,7 @@ class L(Block):
 
 class T(Block):
     def __init__(self):
-        self.x = 5
-        self.y = 0
-        self.rotation = 0
+        super().__init__()
         self.shape = [['.....',
                        '..0..',
                        '.000.',
@@ -166,9 +155,7 @@ class T(Block):
     
 class SI(Block):
     def __init__(self):
-        self.x = 5
-        self.y = 0
-        self.rotation = 0
+        super().__init__()
         self.shape = [['.....',
                        '..0..',
                        '..0..',
@@ -183,9 +170,7 @@ class SI(Block):
 
 class SL(Block):
     def __init__(self):
-        self.x = 5
-        self.y = 0
-        self.rotation = 0
+        super().__init__()
         self.shape = [['.....',
                        '..0..',
                        '.00..',
