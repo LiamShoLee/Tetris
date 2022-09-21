@@ -40,7 +40,6 @@ def main(win):
                 current_piece.deviation_y(-1)
                 change_piece = True
 
-        """in MVC"""
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 if quit_game(win): return
@@ -66,7 +65,7 @@ def main(win):
                     current_piece.rotate_shape(1)
                     if not(valid_space(current_piece, grid)):
                         current_piece.rotate_shape(-1)
-            """"""
+                        
         shape_pos = convert_shape_format(current_piece)
 
         for i in range(len(shape_pos)):
