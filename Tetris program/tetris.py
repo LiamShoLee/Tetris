@@ -14,8 +14,8 @@ def main(win):
 
     change_piece = False
     run = True
-    current_piece = BlockFactory().create_object(random.randrange(9))
-    next_piece = BlockFactory().create_object(random.randrange(9))
+    current_piece = BlockFactory().create_block(random.randrange(9))
+    next_piece = BlockFactory().create_block(random.randrange(9))
     clock = pygame.time.Clock()
     fall_time = 0
     fall_speed = 0.27
@@ -35,9 +35,9 @@ def main(win):
 
         if fall_time/1000 > fall_speed:
             fall_time = 0
-            current_piece.y += 1
-            if not(valid_space(current_piece, grid)) and current_piece.y > 0:
-                current_piece.y -= 1
+            current_piece.deviation_y(1)
+            if not(valid_space(current_piece, grid)) and current_piece.get_y() > 0:
+                current_piece.deviation_y(-1)
                 change_piece = True
 
         for event in pygame.event.get():
@@ -50,35 +50,35 @@ def main(win):
                     if quit_game(win): return
                 
                 if event.key == pygame.K_LEFT:
-                    current_piece.x -= 1
+                    current_piece.deviation_x(-1)
                     if not(valid_space(current_piece, grid)):
-                        current_piece.x += 1
+                        current_piece.deviation_x(1)
                 if event.key == pygame.K_RIGHT:
-                    current_piece.x += 1
+                    current_piece.deviation_x(1)
                     if not(valid_space(current_piece, grid)):
-                        current_piece.x -= 1
+                        current_piece.deviation_x(-1)
                 if event.key == pygame.K_DOWN:
-                    current_piece.y += 1
+                    current_piece.deviation_y(1)
                     if not(valid_space(current_piece, grid)):
-                        current_piece.y -= 1
+                        current_piece.deviation_y(-1)
                 if event.key == pygame.K_UP:
-                    current_piece.rotation += 1
+                    current_piece.rotate_shape(1)
                     if not(valid_space(current_piece, grid)):
-                        current_piece.rotation -= 1
+                        current_piece.rotate_shape(-1)
 
         shape_pos = convert_shape_format(current_piece)
 
         for i in range(len(shape_pos)):
             x, y = shape_pos[i]
             if y > -1:
-                grid[y][x] = current_piece.color
+                grid[y][x] = current_piece.get_color()
 
         if change_piece:
             for pos in shape_pos:
                 p = (pos[0], pos[1])
-                locked_positions[p] = current_piece.color
+                locked_positions[p] = current_piece.get_color()
             current_piece = next_piece
-            next_piece = BlockFactory().create_object(random.randrange(9))
+            next_piece = BlockFactory().create_block(random.randrange(9))
             change_piece = False
             score += clear_rows(grid, locked_positions)
 
