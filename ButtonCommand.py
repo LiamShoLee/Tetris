@@ -64,9 +64,11 @@ class Back_command(IButton):
 
 class FieldHeightPlusCommand(IButton):
 
-    def __init__(self):
+    def __init__(self,settings):
         self.name = "plus_height"
+        self.settings = settings
     def execute(self):
+        
 
 
 class FieldHeightMinusCommand(IButton):
@@ -76,14 +78,14 @@ class FieldHeightMinusCommand(IButton):
     def execute(self):
 
 
-class FieldWidthPlusCommand2(IButton):
+class FieldWidthPlusCommand(IButton):
 
     def __init__(self):
         self.name = "plus_width"
     def execute(self):
 
 
-class FieldWidthMinusCommand2(IButton):
+class FieldWidthMinusCommand(IButton):
 
     def __init__(self):
         self.name = "minus_width"

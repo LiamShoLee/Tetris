@@ -183,8 +183,8 @@ class TetrisMenus:
                     
             pygame.display.update()
             clock.tick(15)
-            
-    def quit_game():
+
+    def exit_menu():
                 pygame.quit()
                 sys.exit()
 
