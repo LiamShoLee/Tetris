@@ -1,9 +1,10 @@
 import pygame
-from factory import get_block
+from factory import *
 from score import *
 from draw import *
 from check import *
 from other import *
+import random
 
 pygame.font.init()
     
@@ -13,8 +14,8 @@ def main(win):
 
     change_piece = False
     run = True
-    current_piece = get_block()
-    next_piece = get_block()
+    current_piece = BlockFactory().create_object(random.randrange(9))
+    next_piece = BlockFactory().create_object(random.randrange(9))
     clock = pygame.time.Clock()
     fall_time = 0
     fall_speed = 0.27
@@ -77,7 +78,7 @@ def main(win):
                 p = (pos[0], pos[1])
                 locked_positions[p] = current_piece.color
             current_piece = next_piece
-            next_piece = get_block()
+            next_piece = BlockFactory().create_object(random.randrange(9))
             change_piece = False
             score += clear_rows(grid, locked_positions)
 
