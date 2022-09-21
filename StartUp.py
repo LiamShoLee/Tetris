@@ -61,7 +61,7 @@ widthText = pygame.font.Font.render(font2,"Width",True,('black'),None)
 fieldSizePlusButton = button.surfaceButton("fieldSizePlusButton",705,400,plusText)
 fieldSizeMinusButton = button.surfaceButton("fieldSizeMinusButton",635,400,minusText)
 fieldSizePlusButton2 = button.surfaceButton("fieldSizePlusButton2",965,400,plusText)
-fieldSizeMinusButton2 = button.surfaceButton"fieldSizeMinusButton2",(890,400,minusText)
+fieldSizeMinusButton2 = button.surfaceButton("fieldSizeMinusButton2",890,400,minusText)
 heightButton = button.surfaceButton("heightButton",520,400,plusText)
 widthButton = button.surfaceButton("widthButton",720,400,minusText)
 extendedButton = button.surfaceButton("extendedButton",500,500,extendText)
@@ -184,6 +184,25 @@ def ConfigMenu():
         clock.tick(15)
     
     def MenuButtonHandler(buttonName):
+        match buttonName:
+            case "play_button": 
+                
+            case "config_button": 
+            case "score_button": 
+            case "exit_button":
+            case "back_button": 
+            case "fieldSizePlusButton": 
+            case "fieldSizeMinusButton": 
+            case "fieldSizePlusButton2": 
+            case "fieldSizeMinusButton2": 
+            case "heightButton":
+            case "widthButton":
+            case "extendedButton": 
+            case "normalButton":
+            case "aiButton":
+            case "playerButton": 
+            case "plusLevelButton":
+            case "minusLevelButton":
 
 
 MainMenu()
