@@ -7,3 +7,4 @@ class GameSettings:
         self.gameStartLevel = defaultLevel
         self.extended = defaultExtend
         self.gameMode = defaultMode
+    def increment_height

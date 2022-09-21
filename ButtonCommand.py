@@ -1,31 +1,132 @@
 #Command Class for Tetris
-from abc import ABCMeta, abstractstaticmethod
+from abc import ABCMeta, abstractmethod
 
 
 class IButton(metaclass = ABCMeta):
    
-    @abstractstaticmethod
+    @staticmethod
+    @abstractmethod
     def execute():
-        #the function name for button presses
-
-class MenuInvoker
 
 
-class Play_command 
-class Config_command
-class Score_command
-class Exit_command 
-class Back_command 
+class MenuInvoker:
 
-class FieldHeightPlusCommand
-class FieldHeightMinusCommand 
-class FieldWidthPlusCommand2
-class FieldWidthMinusCommand2 
-class HeightCommand 
-WidthCommand
-ExtendedCommand
-NormalCommand
-AiCommand
-PlayerCommand
-PlusLevelCommand
-MinusLevelCommand
+    def __init__(self):
+        self.commands= {}
+
+    def registerCommand(self,newCommand):
+        self.commands[newCommand.name] = newCommand
+
+    def execute(self,command):
+        self.commands[command].execute()
+
+
+class Play_command(IButton):
+
+    def __init__(self,game):
+        self.name = "play"   
+        self.game = game   
+    def execute(self): 
+        self.game.StartTetris
+
+class Config_command(IButton):
+
+    def __init__(self,gameMenu):
+        self.name = "configure"
+        self.game = gameMenu
+    def execute(self):
+        self.game.ConfigMenu()
+
+class Score_command(IButton):
+
+    def __init__(self,game):
+        self.name = "show_score"
+        self.game = game   
+    def execute(self):
+        self.game.print_score()
+
+
+class Exit_command(IButton):
+
+    def __init__(self,menu):
+        self.name = "exit"
+        self.menu = menu
+    def execute(self):
+        self.menu.quit_game()
+
+class Back_command(IButton):
+
+    def __init__(self,menu):
+        self.name = "back"
+        self.menu = menu
+    def execute(self):
+        self.menu.MainMenu()
+
+class FieldHeightPlusCommand(IButton):
+
+    def __init__(self):
+        self.name = "plus_height"
+    def execute(self):
+
+
+class FieldHeightMinusCommand(IButton):
+
+    def __init__(self):
+        self.name = "minus_height"
+    def execute(self):
+
+
+class FieldWidthPlusCommand2(IButton):
+
+    def __init__(self):
+        self.name = "plus_width"
+    def execute(self):
+
+
+class FieldWidthMinusCommand2(IButton):
+
+    def __init__(self):
+        self.name = "minus_width"
+    def execute(self):
+
+
+class ExtendedCommand(IButton):
+
+    def __init__(self):
+        self.name = "select_extended"
+    def execute(self):
+
+
+class NormalCommand(IButton):
+
+    def __init__(self):
+        self.name = "select_normal"
+    def execute(self):
+
+
+class AiCommand(IButton):
+
+    def __init__(self):
+        self.name = "select_ai"
+    def execute(self):
+
+
+class PlayerCommand(IButton):
+
+    def __init__(self):
+        self.name = "select_player"
+    def execute(self):
+
+
+class PlusLevelCommand(IButton):
+
+    def __init__(self):
+        self.name = "increment_level"
+    def execute(self):
+
+
+class MinusLevelCommand(IButton):
+
+    def __init__(self):
+        self.name = "decrement_level"
+    def execute(self):

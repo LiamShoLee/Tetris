@@ -75,134 +75,117 @@ minusLevelButton = button.surfaceButton("minusLevelButton",500,300,minusText)
 yearCourseText = pygame.font.Font.render(font2,"2805ICT 2022",True,('black'),None)  #Here
 studentText = pygame.font.Font.render(font2,"Adrian Jih -- Liam Lee -- Nick Howe",True,('black'),None)  #Here
 
+class TetrisMenus:
 
-def MainMenu():
-    RunGame = True
-    while RunGame:
-        screen.fill((195,195,195))
-        screen.blit(title_img,(title_x,title_y))
-        screen.blit(studentText,(200,380))  #Here
-        screen.blit(yearCourseText,(400,420)) #Here
-        if play_button.draw(screen):
-            draft.main(screen)
-        if exit_button.draw(screen):
-                pygame.quit()
-                sys.exit()
-        if config_button.draw(screen):
-            ConfigMenu()
-        if score_button.draw(screen):
-            print_score()
+    def MainMenu(self):
+        RunGame = True
+        while RunGame:
+            screen.fill((195,195,195))
+            screen.blit(title_img,(title_x,title_y))
+            screen.blit(studentText,(200,380))  #Here
+            screen.blit(yearCourseText,(400,420)) #Here
+            if play_button.draw(screen):
+                draft.main(screen)
+            if exit_button.draw(screen):
+                    pygame.quit()
+                    sys.exit()
+            if config_button.draw(screen):
+                self.ConfigMenu()
+            if score_button.draw(screen):
+                self.print_score()
 
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+                    
+            pygame.display.update()
+            clock.tick(15)
 
+    def StartTetris():
+        draft.main(screen)
+
+    def print_score():
         
-
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-                
-        pygame.display.update()
-        clock.tick(15)
-
-def print_score():
-    
-    scores = [line.strip('\n')
-        for line in open('scores.txt', 'r').readlines()]
-        
-    printScores = True
-    while printScores:
-        screen.fill((195,195,195))
-        if back_button.draw(screen):
-            printScores = False
-        #if exit_button.draw(screen):
-         #   pygame.quit()
-          #  sys.exit()
-
-        screen.blit(topsScoreText, (screen_width*.33 , 120))
-        for n, line in enumerate(scores):
-            lines = line.split()
-            for x, word in enumerate(lines):
-                text = font.render(word, 1, "black")
-                screen.blit(text, (screen_width*.33 + x*x*60, 200+n*30))
+        scores = [line.strip('\n')
+            for line in open('scores.txt', 'r').readlines()]
             
-        
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
+        printScores = True
+        while printScores:
+            screen.fill((195,195,195))
+            if back_button.draw(screen):
+                printScores = False
+            #if exit_button.draw(screen):
+            #   pygame.quit()
+            #  sys.exit()
+
+            screen.blit(topsScoreText, (screen_width*.33 , 120))
+            for n, line in enumerate(scores):
+                lines = line.split()
+                for x, word in enumerate(lines):
+                    text = font.render(word, 1, "black")
+                    screen.blit(text, (screen_width*.33 + x*x*60, 200+n*30))
+                
+            
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+                    
+            pygame.display.update()
+            clock.tick(15)
+        return
+
+
+    def ConfigMenu():
+        RunGame = True
+        while RunGame:
+            screen.fill((195,195,195))
+            if back_button.draw(screen):
+                return
+            screen.blit(gameModeText,(100,200))
+            if aiButton.draw(screen):
+                print('A.I selected')
+            if playerButton.draw(screen):
+                print('Human Player')
+
+            screen.blit(fieldSizeText,(100,400))
+            if fieldSizeMinusButton.draw(screen):
+                print("minus")
+            if fieldSizePlusButton.draw(screen):
+                print("plus")
+            screen.blit(pygame.font.Font.render(font2,"20",True,('black'),None),(655,400))
+            screen.blit(heightText,(500,400))
+            screen.blit(widthText,(750,400))
+            if fieldSizeMinusButton2.draw(screen):
+                print("added")
+            if fieldSizePlusButton2.draw(screen):
+                print("a")
+            screen.blit(pygame.font.Font.render(font2,"10",True,('black'),None),(915,400))
+            screen.blit(gameLevelText,(100,300))
+            if minusLevelButton.draw(screen):
+                print("a")
+            if plusLevelButton.draw(screen):
+                print("1")
+            screen.blit(pygame.font.Font.render(font2,"6",True,('black'),None),(525,300))
+            screen.blit(withExtensionText,(100,500))
+            if extendedButton.draw(screen):
+                print("Extended")
+            if normalButton.draw(screen):
+                print("Player")
+
+            screen.blit(configText,(config_x,60))
+
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+                    
+            pygame.display.update()
+            clock.tick(15)
+            
+    def quit_game():
                 pygame.quit()
                 sys.exit()
-                
-        pygame.display.update()
-        clock.tick(15)
-    return
 
-
-def ConfigMenu():
-    RunGame = True
-    while RunGame:
-        screen.fill((195,195,195))
-        if back_button.draw(screen):
-            return
-        screen.blit(gameModeText,(100,200))
-        if aiButton.draw(screen):
-            print('A.I selected')
-        if playerButton.draw(screen):
-            print('Human Player')
-
-        screen.blit(fieldSizeText,(100,400))
-        if fieldSizeMinusButton.draw(screen):
-            print("minus")
-        if fieldSizePlusButton.draw(screen):
-            print("plus")
-        screen.blit(pygame.font.Font.render(font2,"20",True,('black'),None),(655,400))
-        screen.blit(heightText,(500,400))
-        screen.blit(widthText,(750,400))
-        if fieldSizeMinusButton2.draw(screen):
-            print("added")
-        if fieldSizePlusButton2.draw(screen):
-            print("a")
-        screen.blit(pygame.font.Font.render(font2,"10",True,('black'),None),(915,400))
-        screen.blit(gameLevelText,(100,300))
-        if minusLevelButton.draw(screen):
-            print("a")
-        if plusLevelButton.draw(screen):
-            print("1")
-        screen.blit(pygame.font.Font.render(font2,"6",True,('black'),None),(525,300))
-        screen.blit(withExtensionText,(100,500))
-        if extendedButton.draw(screen):
-            print("Extended")
-        if normalButton.draw(screen):
-            print("Player")
-
-        screen.blit(configText,(config_x,60))
-
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-                
-        pygame.display.update()
-        clock.tick(15)
-    
-    def MenuButtonHandler(buttonName):
-        match buttonName:
-            case "play_button": 
-                
-            case "config_button": 
-            case "score_button": 
-            case "exit_button":
-            case "back_button": 
-            case "fieldSizePlusButton": 
-            case "fieldSizeMinusButton": 
-            case "fieldSizePlusButton2": 
-            case "fieldSizeMinusButton2": 
-            case "heightButton":
-            case "widthButton":
-            case "extendedButton": 
-            case "normalButton":
-            case "aiButton":
-            case "playerButton": 
-            case "plusLevelButton":
-            case "minusLevelButton":
-
-
-MainMenu()
+newgame = TetrisMenus.MainMenu()
