@@ -1,15 +1,15 @@
 #Command Class for Tetris
-from abc import ABCMeta, abstractmethod
+from abc import ABC
 
 
-class IButton(metaclass = ABCMeta):
+class IButton(ABC):
    
     @staticmethod
-    @abstractmethod
     def execute():
+            pass
 
 
-class MenuInvoker:
+class MenuInvoker(IButton):
 
     def __init__(self):
         self.commands= {}
@@ -61,74 +61,85 @@ class Back_command(IButton):
         self.menu = menu
     def execute(self):
         self.menu.MainMenu()
-
+        
 class FieldHeightPlusCommand(IButton):
 
     def __init__(self,settings):
         self.name = "plus_height"
         self.settings = settings
     def execute(self):
-        
+        self.settings.adjust_height(1)
+
 
 
 class FieldHeightMinusCommand(IButton):
 
-    def __init__(self):
+    def __init__(self,settings):
         self.name = "minus_height"
+        self.settings=  settings
     def execute(self):
-
+        self.settings.adjust_height(-1)
 
 class FieldWidthPlusCommand(IButton):
 
-    def __init__(self):
+    def __init__(self,settings):
         self.name = "plus_width"
     def execute(self):
-
+        self.settings.adjust_width(1)
 
 class FieldWidthMinusCommand(IButton):
 
-    def __init__(self):
+    def __init__(self,settings):
         self.name = "minus_width"
+        self.settings = settings
     def execute(self):
-
+        self.settings.adjust_width(-1)
 
 class ExtendedCommand(IButton):
 
-    def __init__(self):
+    def __init__(self,settings):
+        self.settings = settings
         self.name = "select_extended"
     def execute(self):
-
+            self.settings.set_extended(1)
 
 class NormalCommand(IButton):
 
-    def __init__(self):
+    def __init__(self,settings):
+        self.settings = settings
         self.name = "select_normal"
     def execute(self):
+            self.settings.set_extended(0)
 
 
 class AiCommand(IButton):
 
-    def __init__(self):
+    def __init__(self,settings):
+        self.settings = settings
         self.name = "select_ai"
     def execute(self):
-
+        self.settings.set_game_mode(1)
 
 class PlayerCommand(IButton):
 
-    def __init__(self):
+    def __init__(self,settings):
+        self.settings = settings
         self.name = "select_player"
     def execute(self):
-
+        self.settings.set_game_mode(0)
 
 class PlusLevelCommand(IButton):
 
-    def __init__(self):
+    def __init__(self,settings):
+        self.settings = settings
         self.name = "increment_level"
     def execute(self):
-
+        self.settings.adjust_level(1)
 
 class MinusLevelCommand(IButton):
 
-    def __init__(self):
+    def __init__(self,settings):
+        self.settings = settings
         self.name = "decrement_level"
     def execute(self):
+        self.settings.adjust_level(0)
