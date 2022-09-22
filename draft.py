@@ -334,8 +334,8 @@ def main(win):
       quit_height = win.get_height()
       yesText = pygame.font.Font.render(font2,"Yes",True,('black'),None)
       noText = pygame.font.Font.render(font2,"No",True,('black'),None)
-      yesButton = button.surfaceButton(quit_width/2-100,quit_height/2-quit_height/4+100, yesText)
-      noButton = button.surfaceButton(quit_width/2,quit_height/2-quit_height/4+100, noText)
+      yesButton = button.SurfaceButton("yes",quit_width/2-100,quit_height/2-quit_height/4+100, yesText)
+      noButton = button.SurfaceButton("no",quit_width/2,quit_height/2-quit_height/4+100, noText)
       quitText = pygame.font.Font.render(font2,"Quit Game?",True,('black'),None)
       
       while run:                                      # keeps game running

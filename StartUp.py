@@ -1,13 +1,14 @@
 import sys
-import ButtonCommand
-import button
-import draft
+from ButtonCommand import *
 import pygame
+import button
+from settings import GameSettings
+import draft
+
 
 pygame.init()
 
 clock = pygame.time.Clock()
-
 screen_width = 1070
 screen_height = 720
 title_x = (1070-560)/2
@@ -69,50 +70,47 @@ player_button = button.SurfaceButton("player_button",600,200,playerText)
 plus_level_button = button.SurfaceButton("plus_level_button",560,300,plusText)
 minus_level_button = button.SurfaceButton("minus_level_button",500,300,minusText)
 
-main_menu_buttons = [play_button,config_button,score_button,exit_button,back_button]
+main_menu_buttons = [play_button,config_button,score_button,exit_button]
 config_menu_buttons = [field_height_plus_button,field_height_minus_button,field_width_plus_button,field_width_minus_button,
-                       extended_button,normal_button,ai_button,player_button,plus_level_button,minus_level_button]
+                       extended_button,normal_button,ai_button,player_button,plus_level_button,minus_level_button,back_button]
 
-def init_commands(game_menu,settings):
-    command_list = [(PlayCommand(game_menu),"play"), (ConfigCommand(game_menu),"config_button"),
-                    (ScoreCommand(game_menu),"score_button"), (ExitCommand(game_menu),"exit_button"),
-                    (BackCommand(game_menu),"back_button"),(FieldHeightPlusCommand(settings),)]
+
 
 #Text for start-up
 yearCourseText = pygame.font.Font.render(font2,"2805ICT 2022",True,('black'),None)  #Here
 studentText = pygame.font.Font.render(font2,"Adrian Jih -- Liam Lee -- Nick Howe",True,('black'),None)  #Here
 
 class TetrisMenus:
-
-    def MainMenu(self):
+    def __init__(self,settings_object):
+        self.game_settings = settings_object
+    
+    def main_menu(self):
         RunGame = True
         while RunGame:
             screen.fill((195,195,195))
             screen.blit(title_img,(title_x,title_y))
             screen.blit(studentText,(200,380))  #Here
             screen.blit(yearCourseText,(400,420)) #Here
-            if play_button.draw(screen):
-                draft.main(screen)
-            if exit_button.draw(screen):
-                    pygame.quit()
-                    sys.exit()
-            if config_button.draw(screen):
-                self.ConfigMenu()
-            if score_button.draw(screen):
-                self.print_score()
+            for button in main_menu_buttons:
+                button.draw(screen)
+            polling = True
+            while (polling):
+                for button in main_menu_buttons:
+                    if button.button_poller():
+                        command_invoker.execute(button.name)
+                        polling = False
 
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    pygame.quit()
-                    sys.exit()
-                    
-            pygame.display.update()
-            clock.tick(15)
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        pygame.quit()
+                        sys.exit()
+                        
+                pygame.display.update()
 
-    def StartTetris():
+    def start_tetris(self):
         draft.main(screen)
 
-    def print_score():
+    def print_score(self):
         
         scores = [line.strip('\n')
             for line in open('scores.txt', 'r').readlines()]
@@ -120,11 +118,8 @@ class TetrisMenus:
         printScores = True
         while printScores:
             screen.fill((195,195,195))
-            if back_button.draw(screen):
-                printScores = False
-            #if exit_button.draw(screen):
-            #   pygame.quit()
-            #  sys.exit()
+            back_button.draw(screen)
+
 
             screen.blit(topsScoreText, (screen_width*.33 , 120))
             for n, line in enumerate(scores):
@@ -132,68 +127,82 @@ class TetrisMenus:
                 for x, word in enumerate(lines):
                     text = font.render(word, 1, "black")
                     screen.blit(text, (screen_width*.33 + x*x*60, 200+n*30))
+            polling = True
+            while(polling):       
+                if back_button.button_poller():
+                    command_invoker.execute(back_button.name)
+                    polling = False                
                 
-            
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    pygame.quit()
-                    sys.exit()
-                    
-            pygame.display.update()
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        pygame.quit()
+                        sys.exit()
+                        
+                pygame.display.update()
             clock.tick(15)
         return
 
 
-    def ConfigMenu():
+    def config_menu(self):
         RunGame = True
         while RunGame:
             screen.fill((195,195,195))
-            if back_button.draw(screen):
-                return
             screen.blit(gameModeText,(100,200))
-            if aiButton.draw(screen):
-                print('A.I selected')
-            if playerButton.draw(screen):
-                print('Human Player')
-
             screen.blit(fieldSizeText,(100,400))
-            if fieldSizeMinusButton.draw(screen):
-                print("minus")
-            if fieldSizePlusButton.draw(screen):
-                print("plus")
-            screen.blit(pygame.font.Font.render(font2,"20",True,('black'),None),(655,400))
+            screen.blit(pygame.font.Font.render(font2, str(self.game_settings.field_height),True,('black'),None),(655,400))
             screen.blit(heightText,(500,400))
             screen.blit(widthText,(750,400))
-            if fieldSizeMinusButton2.draw(screen):
-                print("added")
-            if fieldSizePlusButton2.draw(screen):
-                print("a")
-            screen.blit(pygame.font.Font.render(font2,"10",True,('black'),None),(915,400))
+            screen.blit(pygame.font.Font.render(font2,str(self.game_settings.field_width),True,('black'),None),(915,400))
             screen.blit(gameLevelText,(100,300))
-            if minusLevelButton.draw(screen):
-                print("a")
-            if plusLevelButton.draw(screen):
-                print("1")
-            screen.blit(pygame.font.Font.render(font2,"6",True,('black'),None),(525,300))
+            screen.blit(pygame.font.Font.render(font2,str(self.game_settings.game_start_level),True,('black'),None),(525,300))
             screen.blit(withExtensionText,(100,500))
-            if extendedButton.draw(screen):
-                print("Extended")
-            if normalButton.draw(screen):
-                print("Player")
-
             screen.blit(configText,(config_x,60))
+            if self.game_settings.game_mode:
+                pygame.draw.ellipse(screen,('red'), pygame.Rect(485,185,85,50), 0)
+            else :
+                pygame.draw.ellipse(screen,('red'), pygame.Rect(580,185,160,50), 0)
 
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    pygame.quit()
-                    sys.exit()
-                    
-            pygame.display.update()
+            if self.game_settings.extended:
+                pygame.draw.ellipse(screen,('red'), pygame.Rect(485,485,190,50), 0)
+            else :
+                pygame.draw.ellipse(screen,('red'), pygame.Rect(735,485,180,50), 0)
+                
+            for button in config_menu_buttons:
+                button.draw(screen)
+
+            polling = True
+            while(polling):
+                for button in config_menu_buttons:
+                    if button.button_poller():
+                        command_invoker.execute(button.name)
+                        polling = False
+
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        pygame.quit()
+                        sys.exit()
+                        
+                pygame.display.update()
             clock.tick(15)
 
-    def exit_menu():
+    def exit_menu(self):
                 pygame.quit()
                 sys.exit()
 
-newgame = TetrisMenus()
 
+settings = GameSettings()
+game_menu = TetrisMenus(settings)
+#button_commands = init_commands(newgame,newgame.game_settings)
+command_list = [(PlayCommand(game_menu),play_button.name), (ConfigCommand(game_menu),config_button.name),
+                    (ScoreCommand(game_menu),score_button.name), (ExitCommand(game_menu),exit_button.name),
+                    (BackCommand(game_menu),back_button.name),(FieldHeightPlusCommand(settings),field_height_plus_button.name),
+                    (FieldHeightMinusCommand(settings),field_height_minus_button.name),(FieldWidthPlusCommand(settings),field_width_plus_button.name),
+                    (FieldWidthMinusCommand(settings),field_width_minus_button.name),(ExtendedCommand(settings),extended_button.name),
+                    (NormalCommand(settings),normal_button.name),(AiCommand(settings),ai_button.name),
+                    (PlayerCommand(settings),player_button.name),(PlusLevelCommand(settings),plus_level_button.name),
+                    (MinusLevelCommand(settings),minus_level_button.name)]    
+
+command_invoker = CommandInvoker()
+for item in command_list:
+    command_invoker.register_command(item[0],item[1])
+game_menu.main_menu()

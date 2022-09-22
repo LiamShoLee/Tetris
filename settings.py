@@ -1,18 +1,28 @@
 #Settings class for tetris
-#fieldSize is (int,int),level is int, extend is bool, 
+#field heigh and width are int,level is int, extend is bool, game mode is bool
 
-from logging import _Level
-from turtle import width
+#from logging import _Level
+#from turtle import width
 
 
 class GameSettings:
-    def __init__(self,default_height,default_width,default_level,default_extend,default_mode):
-        self.field_height = default_height
-        self.field_width = default_width
-        self.game_start_Level = default_level
-        self.extended = default_extend
-        self.game_mode = default_mode
+    default_height = 20
+    default_width = 10
+    default_level = 0
+    default_extend = False
+    default_mode = False
 
+    def __init__(self):
+        self.set_defaults()
+
+    def set_defaults(self):
+        self.field_height = GameSettings.default_height
+        self.field_width = GameSettings.default_width
+        self.game_start_level = GameSettings.default_level
+        self.extended = GameSettings.default_extend
+        self.game_mode = GameSettings.default_mode
+        return
+    
     def adjust_height(self,delta):
         self.field_height += delta  
         return
@@ -22,7 +32,7 @@ class GameSettings:
         return 
 
     def adjust_level(self,delta):
-        self.game_start_Level += delta
+        self.game_start_level += delta
         return
 
     def set_extended(self,extended_bool):
