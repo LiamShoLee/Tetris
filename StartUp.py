@@ -1,9 +1,8 @@
 import sys
-from ButtonCommand import Back_command, Config_command, Exit_command, FieldHeightPlusCommand, MenuInvoker, Play_command, Score_command
-import pygame
+import ButtonCommand
 import button
 import draft
-
+import pygame
 
 pygame.init()
 
