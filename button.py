@@ -13,13 +13,13 @@ class Button:
 	def draw(self, surface):
 		surface.blit(self.image, (self.rect.x, self.rect.y))
 
-	def buttonPoller(self):
+	def button_poller(self):
 		if self.rect.collidepoint(pygame.mouse.get_pos()):
 			if pygame.mouse.get_pressed()[0] == 1 and self.isPressed == False:
 				return True
 		else: return False
 
-class surfaceButton(Button):
+class SurfaceButton(Button):
 	def __init__(self,name,x,y,Surface):
 		self.name = name
 		self.image = Surface
