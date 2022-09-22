@@ -12,55 +12,55 @@ class IButton(ABC):
 class MenuInvoker(IButton):
 
     def __init__(self):
-        self.commands= {}
+        self.command_dict= {}
 
-    def registerCommand(self,newCommand):
-        self.commands[newCommand.name] = newCommand
+    def registerCommand(self,newCommand,command_key):
+        self.command_dict[command_key] = newCommand
 
-    def execute(self,command):
-        self.commands[command].execute()
+    def execute(self,command_key):
+        self.command_dict[command_key].execute()
 
 
-class Play_command(IButton):
+class PlayCommand(IButton):
 
-    def __init__(self,game):
+    def __init__(self,game_menu):
         self.name = "play"   
-        self.game = game   
+        self.game_menu = game_menu   
     def execute(self): 
-        self.game.StartTetris
+        self.game_menu.StartTetris
 
-class Config_command(IButton):
+class ConfigCommand(IButton):
 
-    def __init__(self,gameMenu):
+    def __init__(self,game_menu):
         self.name = "configure"
-        self.game = gameMenu
+        self.game_menu = game_menu
     def execute(self):
-        self.game.ConfigMenu()
+        self.game_menu.ConfigMenu()
 
-class Score_command(IButton):
+class ScoreCommand(IButton):
 
-    def __init__(self,game):
+    def __init__(self,game_menu):
         self.name = "show_score"
-        self.game = game   
+        self.game_menu = game_menu   
     def execute(self):
-        self.game.print_score()
+        self.game_menu.print_score()
 
 
-class Exit_command(IButton):
+class ExitCommand(IButton):
 
-    def __init__(self,menu):
+    def __init__(self,game_menu):
         self.name = "exit"
-        self.menu = menu
+        self.game_menu = game_menu
     def execute(self):
-        self.menu.quit_game()
+        self.game_menu.quit_game()
 
-class Back_command(IButton):
+class BackCommand(IButton):
 
-    def __init__(self,menu):
+    def __init__(self,game_menu):
         self.name = "back"
-        self.menu = menu
+        self.game_menu = game_menu
     def execute(self):
-        self.menu.MainMenu()
+        self.game_menu.MainMenu()
         
 class FieldHeightPlusCommand(IButton):
 

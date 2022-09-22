@@ -1,4 +1,5 @@
 import sys
+from ButtonCommand import Back_command, Config_command, Exit_command, FieldHeightPlusCommand, MenuInvoker, Play_command, Score_command
 import pygame
 import button
 import draft
@@ -32,13 +33,6 @@ config_x = play_x+play_img.get_width()*image_scale+screen_width*.10
 score_x = config_x + config_img.get_width()*image_scale+screen_width*.10
 exit_x = score_x + score_img.get_width()*image_scale+screen_width*.10
 back_x = exit_x - 100
-
-play_button = button.Button("play",play_x, (0.95*screen_height-play_img.get_height()*image_scale), play_img, image_scale)
-config_button = button.Button("config_button",config_x, 0.95*screen_height-config_img.get_height()*image_scale, config_img, image_scale)
-score_button = button.Button("score_button",score_x, 0.95*screen_height-score_img.get_height()*image_scale, score_img, image_scale)
-exit_button = button.Button("exit_button",exit_x, 0.95*screen_height-exit_img.get_height()*image_scale, exit_img, image_scale)
-back_button = button.Button("back_button",back_x,0.95*screen_height-back_img.get_height()*image_scale, back_img, image_scale)
-
 topsScoreText = pygame.font.Font.render(pygame.font.Font("assets/MarioFont/SuperMario256.ttf", 48),"Top Scores",True,'black',None)
 
 #configure page texts
@@ -57,19 +51,33 @@ minusText = pygame.font.Font.render(font2,"-",True,('black'),None)
 heightText = pygame.font.Font.render(font2,"Height",True,('black'),None)
 widthText = pygame.font.Font.render(font2,"Width",True,('black'),None)
 
-#configure page buttons
-fieldSizePlusButton = button.SurfaceButton("fieldSizePlusButton",705,400,plusText)
-fieldSizeMinusButton = button.SurfaceButton("fieldSizeMinusButton",635,400,minusText)
-fieldSizePlusButton2 = button.SurfaceButton("fieldSizePlusButton2",965,400,plusText)
-fieldSizeMinusButton2 = button.SurfaceButton("fieldSizeMinusButton2",890,400,minusText)
-heightButton = button.SurfaceButton("heightButton",520,400,plusText)
-widthButton = button.SurfaceButton("widthButton",720,400,minusText)
-extendedButton = button.SurfaceButton("extendedButton",500,500,extendText)
-normalButton = button.SurfaceButton("normalButton",750,500,normalText)
-aiButton = button.SurfaceButton("aiButton",500,200,aiText)
-playerButton = button.SurfaceButton("playerButton",600,200,playerText)
-plusLevelButton = button.SurfaceButton("plusLevelButton",560,300,plusText)
-minusLevelButton = button.SurfaceButton("minusLevelButton",500,300,minusText)
+#configure buttons
+
+play_button = button.Button("play",play_x, (0.95*screen_height-play_img.get_height()*image_scale), play_img, image_scale)
+config_button = button.Button("config_button",config_x, 0.95*screen_height-config_img.get_height()*image_scale, config_img, image_scale)
+score_button = button.Button("score_button",score_x, 0.95*screen_height-score_img.get_height()*image_scale, score_img, image_scale)
+exit_button = button.Button("exit_button",exit_x, 0.95*screen_height-exit_img.get_height()*image_scale, exit_img, image_scale)
+back_button = button.Button("back_button",back_x,0.95*screen_height-back_img.get_height()*image_scale, back_img, image_scale)
+
+field_height_plus_button = button.SurfaceButton("field_height_blus_button",705,400,plusText)
+field_height_minus_button = button.SurfaceButton("field_height_minus_button",635,400,minusText)
+field_width_plus_button = button.SurfaceButton("field_width_plus_button",965,400,plusText)
+field_width_minus_button = button.SurfaceButton("field_width_minus_button",890,400,minusText)
+extended_button = button.SurfaceButton("extended_button",500,500,extendText)
+normal_button = button.SurfaceButton("normal_button",750,500,normalText)
+ai_button = button.SurfaceButton("ai_button",500,200,aiText)
+player_button = button.SurfaceButton("player_button",600,200,playerText)
+plus_level_button = button.SurfaceButton("plus_level_button",560,300,plusText)
+minus_level_button = button.SurfaceButton("minus_level_button",500,300,minusText)
+
+main_menu_buttons = [play_button,config_button,score_button,exit_button,back_button]
+config_menu_buttons = [field_height_plus_button,field_height_minus_button,field_width_plus_button,field_width_minus_button,
+                       extended_button,normal_button,ai_button,player_button,plus_level_button,minus_level_button]
+
+def init_commands(game_menu,settings):
+    command_list = [(PlayCommand(game_menu),"play"), (ConfigCommand(game_menu),"config_button"),
+                    (ScoreCommand(game_menu),"score_button"), (ExitCommand(game_menu),"exit_button"),
+                    (BackCommand(game_menu),"back_button"),(FieldHeightPlusCommand(settings),)]
 
 #Text for start-up
 yearCourseText = pygame.font.Font.render(font2,"2805ICT 2022",True,('black'),None)  #Here
@@ -188,4 +196,5 @@ class TetrisMenus:
                 pygame.quit()
                 sys.exit()
 
-newgame = TetrisMenus.MainMenu()
+newgame = TetrisMenus()
+
