@@ -3,6 +3,13 @@ import button
 import sys
 
 def create_grid(locked_pos={}):
+    """Renders the playable grid for the game
+    Parameters: 
+        locked_pos: the current locked positions of blocks that have already been placed
+    
+    Return: 
+        grid: the data for the grid (checks for locked positions as well) 
+    """
     grid = [[(0,0,0) for x in range(10)] for x in range(20)]
 
     for i in range(len(grid)):
@@ -13,6 +20,14 @@ def create_grid(locked_pos={}):
     return grid
 
 def quit_game(screen):
+    """Creates smaller window that displays an option to quit the game
+
+    Parameters: 
+        screen: the application screen/window that is visible/interactable to the user
+    
+    Output: 
+        renders a smaller quit screen with a yes and no button that can be interacted with to exit the game
+    """
     
     font2 = pygame.font.SysFont("comicsans", 32)
     quit_width = screen.get_width()

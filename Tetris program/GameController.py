@@ -7,7 +7,18 @@ from score import *
 
 
 class GameController():
-    def event_handler(self, screen, current_block, grid):
+    def event_handler(self, screen, current_piece, grid):
+        """Checks for inputs from the player/user and takes appropriate action for each event
+
+        Parameters:
+            self: to modify the current game. such as the position of the current movable block
+            current_piece: to modify attributes of the current piece such as position or rotation
+            grid: to check if the movement is valid and see the current grid
+
+        Returns: 
+            current_piece(Block): data for the block object
+        """
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                     pygame.quit()
