@@ -7,7 +7,7 @@ from score import *
 
 
 class GameController():
-    def event_handler(self, screen, current_piece, grid):
+    def event_handler(self, screen, current_block, grid):
         """Checks for inputs from the player/user and takes appropriate action for each event
 
         Parameters:
