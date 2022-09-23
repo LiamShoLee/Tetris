@@ -7,7 +7,7 @@ from score import *
 
 
 class GameController():
-    def event_handler(self, screen, current_piece, grid):
+    def event_handler(self, screen, current_block, grid):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                     pygame.quit()
@@ -18,71 +18,71 @@ class GameController():
                     if quit_game(screen): return 
 
                 if event.key == pygame.K_LEFT:
-                    current_piece = self.move_left(current_piece, grid)
+                    current_block = self.move_left(current_block, grid)
                 if event.key == pygame.K_RIGHT:
-                    current_piece = self.move_right(current_piece, grid)
+                    current_block = self.move_right(current_block, grid)
                 if event.key == pygame.K_DOWN:
-                    current_piece = self.move_down(current_piece, grid)
+                    current_block = self.move_down(current_block, grid)
                 if event.key == pygame.K_UP:
-                    current_piece = self.rotate_block(current_piece, grid)
-        return current_piece
+                    current_block = self.rotate_block(current_block, grid)
+        return current_block
 
-    def move_left(self, current_piece, grid):
+    def move_left(self, current_block, grid):
         """Moves the current block to the left by one tile
 
         Parameters:
-            current_piece (Block): data for block object
+            current_block (Block): data for block object
             grid (2D array): block object containing all information regarding the block
 
         Returns:
-            current_piece (Block): data for block object
+            current_block (Block): data for block object
         """
-        current_piece.deviation_x(-1)
-        if not(valid_space(current_piece, grid)):
-            current_piece.deviation_x(1)
-        return current_piece
+        current_block.deviation_x(-1)
+        if not(valid_space(current_block, grid)):
+            current_block.deviation_x(1)
+        return current_block
     
-    def move_right(self, current_piece, grid):
+    def move_right(self, current_block, grid):
         """Moves the current block to the right by one tile
 
         Parameters:
-            current_piece (Block): data for block object
+            current_block (Block): data for block object
             grid (2D array): block object containing all information regarding the block
 
         Returns:
-            current_piece (Block): data for block object
+            current_block (Block): data for block object
         """
-        current_piece.deviation_x(1)
-        if not(valid_space(current_piece, grid)):
-            current_piece.deviation_x(-1)
-        return current_piece
+        current_block.deviation_x(1)
+        if not(valid_space(current_block, grid)):
+            current_block.deviation_x(-1)
+        return current_block
     
-    def move_down(self, current_piece, grid):
+    def move_down(self, current_block, grid):
         """Moves the current block to the down by one tile
 
         Parameters:
-            current_piece (Block): data for block object
+            current_block (Block): data for block object
             grid (2D array): block object containing all information regarding the block
 
         Returns:
-            current_piece (Block): data for block object
+            current_block (Block): data for block object
         """
-        current_piece.deviation_y(1)
-        if not(valid_space(current_piece, grid)):
-            current_piece.deviation_y(-1)
-        return current_piece
+        current_block.deviation_y(1)
+        if not(valid_space(current_block, grid)):
+            current_block.deviation_y(-1)
+        return current_block
     
-    def rotate_block(self, current_piece, grid):
+    def rotate_block(self, current_block, grid):
         """Rotate the current block clockwise by 90 degrees
 
         Parameters:
-            current_piece (Block): data for block object
+            current_block (Block): data for block object
             grid (2D array): block object containing all information regarding the block
 
         Returns:
-            current_piece (Block): data for block object
+            current_block (Block): data for block object
         """
-        current_piece.rotate_shape(1)
-        if not(valid_space(current_piece, grid)):
-            current_piece.rotate_shape(-1)
-        return current_piece
+        current_block.rotate_shape(1)
+        if not(valid_space(current_block, grid)):
+            current_block.rotate_shape(-1)
+        return current_block
