@@ -12,25 +12,26 @@ def create_grid(locked_pos={}):  # *
                 grid[i][j] = c
     return grid
 
-def quit_game(win):
+def quit_game(screen):
     
-    #This should be changed later so that it's within a function
     font2 = pygame.font.SysFont("comicsans", 32)
-    quit_width = win.get_width()
-    quit_height = win.get_height()
+    quit_width = screen.get_width()
+    quit_height = screen.get_height()
     yesText = pygame.font.Font.render(font2,"Yes",True,('black'),None)
     noText = pygame.font.Font.render(font2,"No",True,('black'),None)
-    yesButton = button.surfaceButton(quit_width/2-100,quit_height/2-quit_height/4+100, yesText)
-    noButton = button.surfaceButton(quit_width/2,quit_height/2-quit_height/4+100, noText)
+    yes_button = button.SurfaceButton("yes",quit_width/2-100,quit_height/2-quit_height/4+100, yesText)
+    no_button = button.SurfaceButton("no",quit_width/2,quit_height/2-quit_height/4+100, noText)
     quitText = pygame.font.Font.render(font2,"Quit Game?",True,('black'),None)
     
     quit = True
     while quit:
-        win.fill("pink", ((quit_width/2-quit_width/4), (quit_height/2-quit_height/4), quit_width/2, quit_height/2))
-        win.blit(quitText, (quit_width/2-125,quit_height/2-quit_height/4))
-        if yesButton.draw(win):
+        screen.fill("pink", ((quit_width/2-quit_width/4), (quit_height/2-quit_height/4), quit_width/2, quit_height/2))
+        screen.blit(quitText, (quit_width/2-125,quit_height/2-quit_height/4))
+        yes_button.draw(screen)
+        no_button.draw(screen)
+        if yes_button.button_poller:
             return True
-        if noButton.draw(win):
+        if no_button.button_poller:
             quit = False
         for events in pygame.event.get():
             if events.type == pygame.QUIT:

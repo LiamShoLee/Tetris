@@ -1,35 +1,36 @@
 import pygame
 
-class Button():
-	def __init__(self, x, y, image, scale):
+class Button:
+	def __init__(self, name, x, y, image, scale):
+		self.name = name
 		width = image.get_width()
 		height = image.get_height()
 		self.image = pygame.transform.scale(image, (int(width * scale), int(height * scale)))
 		self.rect = self.image.get_rect()
 		self.rect.topleft = (x, y)
-		self.clicked = False
-	
-
+		self.isPressed = False
+		self.debounce = 420
 
 	def draw(self, surface):
-		action = False
-		pos = pygame.mouse.get_pos()
-
-		if self.rect.collidepoint(pos):
-			if pygame.mouse.get_pressed()[0] == 1 and self.clicked == False:
-				self.clicked = True
-				action = True
-
-		if pygame.mouse.get_pressed()[0] == 0:
-			self.clicked = False
-
 		surface.blit(self.image, (self.rect.x, self.rect.y))
 
-		return action
+	def button_poller(self):
+		if self.rect.collidepoint(pygame.mouse.get_pos()) and pygame.mouse.get_pressed()[0] == 1 and self.isPressed == False and self.debounce>=400:
+			self.isPressed = True
+			self.debounce = 0
+			return True
+		else:
+			if self.debounce <= 420:
+				self.debounce += 1
+			self.isPressed = False 
+			return False
 
-class surfaceButton(Button):
-	def __init__(self,x,y,Surface):
+class SurfaceButton(Button):
+	def __init__(self,name,x,y,Surface):
+		self.name = name
 		self.image = Surface
 		self.rect = self.image.get_rect()
 		self.rect.topleft = (x, y)
-		self.clicked = False	
+		self.isPressed = False
+		self.debounce = 420
+
