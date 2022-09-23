@@ -150,4 +150,3 @@ class ResetSettings(IButton):
     
     def execute(self):
         self.settings.set_defaults()
-        

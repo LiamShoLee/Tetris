@@ -33,4 +33,3 @@ class SurfaceButton(Button):
 		self.rect.topleft = (x, y)
 		self.is_pressed = False
 		self.debounce = 420
-
