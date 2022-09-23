@@ -11,6 +11,16 @@ top_left_x = (s_width - play_width) // 2
 top_left_y = s_height - play_height
 
 def draw_message(surface, text, size, color):
+    """Renders a message on the display window 
+
+    Parameters: 
+        text: what message to render
+        size: the size of the font
+        color: the color of the message
+    
+    Output: renders a message with the input variables assigned to its attributes
+    
+    """
     font = pygame.font.SysFont("comicsans", size, bold=True)
     label = font.render(text, 1, color)
 
@@ -18,6 +28,14 @@ def draw_message(surface, text, size, color):
 
 
 def draw_grid(surface, grid):
+    """Draws the grid of the playable area for tetris
+
+    Parameters:
+        surface: surface to print on
+        grid: the grid that is needed to be printed
+
+    Output: renders the specified grid on the surface 
+    """
     sx = top_left_x
     sy = top_left_y
 
@@ -27,6 +45,15 @@ def draw_grid(surface, grid):
             pygame.draw.line(surface, (128, 128, 128), (sx + j*block_size, sy),(sx + j*block_size, sy + play_height))
             
 def draw_next_shape(shape, surface):
+    """Generates and renders the next shape that will drop in the tetris game
+    
+    Parameters: 
+        shape: 
+        surface:
+
+    Output: Generates and renders the next shape in a little square in the top right corner of the application window
+    """
+
     font = pygame.font.SysFont('comicsans', 30)
     label = font.render('Next Shape', 1, (255,255,255))
 
@@ -44,6 +71,19 @@ def draw_next_shape(shape, surface):
 
 
 def draw_window(surface, grid, score=0, lines_eliminated = 0, gameLevel=1, play_mode="Player", game_mode="Normal"):
+    """Draws the game window with the attributes of the game displayed
+
+    Parameters: 
+        surface: the surface to print on
+        grid: the playable grid
+        score: the current score (defaulted to 0)
+        gameLevel: the current game level (defaulted to 1)
+        play_mode: the play mode (defaulted to "Player")
+        game_mode: the game mode (defaulted to "Normal")
+
+    Output: prints all the input information in a window that will be used for the tetris game     
+    """
+
     surface.fill((0, 0, 0))
 
     pygame.font.init()
