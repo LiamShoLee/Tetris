@@ -13,6 +13,14 @@ def create_grid(locked_pos={}):
     return grid
 
 def quit_game(screen):
+    """Creates smaller window that displays an option to quit the game
+
+    Parameters: 
+        screen: the application screen/window that is visible/interactable to the user
+    
+    Output: 
+        renders a smaller quit screen with a yes and no button that can be interacted with to exit the game
+    """
     
     font2 = pygame.font.SysFont("comicsans", 32)
     quit_width = screen.get_width()
