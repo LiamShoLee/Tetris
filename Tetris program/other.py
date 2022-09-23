@@ -22,16 +22,15 @@ def quit_game(screen):
     yes_button = button.SurfaceButton("yes",quit_width/2-100,quit_height/2-quit_height/4+100, yesText)
     no_button = button.SurfaceButton("no",quit_width/2,quit_height/2-quit_height/4+100, noText)
     quitText = pygame.font.Font.render(font2,"Quit Game?",True,('black'),None)
-    
     quit = True
     while quit:
         screen.fill("pink", ((quit_width/2-quit_width/4), (quit_height/2-quit_height/4), quit_width/2, quit_height/2))
         screen.blit(quitText, (quit_width/2-125,quit_height/2-quit_height/4))
         yes_button.draw(screen)
         no_button.draw(screen)
-        if yes_button.button_poller:
+        if yes_button.button_poller():
             return True
-        if no_button.button_poller:
+        if no_button.button_poller():
             quit = False
         for events in pygame.event.get():
             if events.type == pygame.QUIT:
