@@ -4,6 +4,7 @@ from score import *
 from draw import *
 from check import *
 from other import *
+from GameController import GameController
 import random
 
 pygame.font.init()
@@ -21,7 +22,7 @@ def main(win):
     fall_speed = 0.27
     level_time = 0
     score = 0
-
+    block_controller = GameController()
     while run:
         grid = create_grid(locked_positions)
         fall_time += clock.get_rawtime()
@@ -39,7 +40,9 @@ def main(win):
             if not(valid_space(current_piece, grid)) and current_piece.get_y() > 0:
                 current_piece.deviation_y(-1)
                 change_piece = True
-
+        
+        block_controller.event_handler(win,current_piece,grid)
+        """""
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 if quit_game(win): return
@@ -65,7 +68,7 @@ def main(win):
                     current_piece.rotate_shape(1)
                     if not(valid_space(current_piece, grid)):
                         current_piece.rotate_shape(-1)
-                        
+                       """ 
         shape_pos = convert_shape_format(current_piece)
 
         for i in range(len(shape_pos)):
