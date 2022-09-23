@@ -1,6 +1,6 @@
 import pygame
 import random
-from other import quit_game
+from other import *
 from check import *
 from factory import *
 from score import *
@@ -10,11 +10,12 @@ class GameController():
     def event_handler(self, screen, current_piece, grid):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                if quit_game(screen): return current_piece#Nick to change
+                    pygame.quit()
+                    sys.exit()
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
-                    if quit_game(screen): return current_piece#Nick to change
+                    if quit_game(screen): return 
 
                 if event.key == pygame.K_LEFT:
                     current_piece = self.move_left(current_piece, grid)

@@ -42,6 +42,9 @@ def main(win):
                 change_piece = True
         
         current_piece = block_controller.event_handler(win,current_piece,grid)
+        if current_piece is None:
+            return
+           
         """
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
