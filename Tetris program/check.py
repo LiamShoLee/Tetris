@@ -2,7 +2,7 @@ def get_shape_position(shape):
     """Determines which positions in the grid the current shape occupies when this function is called
 
     Parameters:
-        shape(str arr): a string array representing the different forms of the shape for each rotation
+        shape(Block): block object containing all information regarding the block
 
     Returns:
         positions(tuple<int, int> arr): array of <int, int> tuples representing the 
