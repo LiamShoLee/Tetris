@@ -41,7 +41,7 @@ def main(win):
                 current_piece.deviation_y(-1)
                 change_piece = True
         
-        block_controller.event_handler(win,current_piece,grid)
+        current_piece = block_controller.event_handler(win,current_piece,grid)
         """
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
