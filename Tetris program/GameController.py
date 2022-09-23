@@ -15,14 +15,14 @@ class GameController():
             if event.type == pygame.KEYDOWN:
                 if quit_game(screen): return #Nick to change
 
-            if event.key == pygame.K_LEFT:
-                current_piece = self.move_left(current_piece, grid)
-            if event.key == pygame.K_RIGHT:
-                current_piece = self.move_right(current_piece, grid)
-            if event.key == pygame.K_DOWN:
-                current_piece = self.move_down(current_piece, grid)
-            if event.key == pygame.K_UP:
-                current_piece = self.rotate_block(current_piece, grid)
+                if event.key == pygame.K_LEFT:
+                    current_piece = self.move_left(current_piece, grid)
+                if event.key == pygame.K_RIGHT:
+                    current_piece = self.move_right(current_piece, grid)
+                if event.key == pygame.K_DOWN:
+                    current_piece = self.move_down(current_piece, grid)
+                if event.key == pygame.K_UP:
+                    current_piece = self.rotate_block(current_piece, grid)
         return current_piece
 
     def move_left(self, current_piece, grid):

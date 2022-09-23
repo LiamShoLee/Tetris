@@ -42,7 +42,7 @@ def main(win):
                 change_piece = True
         
         block_controller.event_handler(win,current_piece,grid)
-        """""
+        """
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 if quit_game(win): return
@@ -68,7 +68,7 @@ def main(win):
                     current_piece.rotate_shape(1)
                     if not(valid_space(current_piece, grid)):
                         current_piece.rotate_shape(-1)
-                       """"
+        """
                         
         shape_pos = get_shape_position(current_piece)
 
