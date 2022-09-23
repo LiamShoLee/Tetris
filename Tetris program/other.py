@@ -3,6 +3,13 @@ import button
 import sys
 
 def create_grid(locked_pos={}):
+    """Renders the playable grid for the game
+    Parameters: 
+        locked_pos: the current locked positions of blocks that have already been placed
+    
+    Return: 
+        grid: the data for the grid (checks for locked positions as well) 
+    """
     grid = [[(0,0,0) for x in range(10)] for x in range(20)]
 
     for i in range(len(grid)):
