@@ -53,6 +53,7 @@ def draw_window(surface, grid, score=0, lines_eliminated = 0, gameLevel=1, play_
     surface.blit(label, (top_left_x + play_width / 2 - (label.get_width() / 2), 30))
 
     font = pygame.font.SysFont('comicsans', 30)
+    
     #Display current score
     label = font.render('Score: ' + str(score), 1, (255,255,255))
     sx = top_left_x + play_width + 50

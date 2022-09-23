@@ -44,34 +44,6 @@ def main(win):
         current_piece = block_controller.event_handler(win,current_piece,grid)
         if current_piece is None:
             return
-           
-        """
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                if quit_game(win): return
-
-            if event.type == pygame.KEYDOWN:
-                
-                if event.key == pygame.K_ESCAPE:
-                    if quit_game(win): return
-                
-                if event.key == pygame.K_LEFT:
-                    current_piece.deviation_x(-1)
-                    if not(valid_space(current_piece, grid)):
-                        current_piece.deviation_x(1)
-                if event.key == pygame.K_RIGHT:
-                    current_piece.deviation_x(1)
-                    if not(valid_space(current_piece, grid)):
-                        current_piece.deviation_x(-1)
-                if event.key == pygame.K_DOWN:
-                    current_piece.deviation_y(1)
-                    if not(valid_space(current_piece, grid)):
-                        current_piece.deviation_y(-1)
-                if event.key == pygame.K_UP:
-                    current_piece.rotate_shape(1)
-                    if not(valid_space(current_piece, grid)):
-                        current_piece.rotate_shape(-1)
-        """
                         
         shape_pos = get_shape_position(current_piece)
 
@@ -98,5 +70,5 @@ def main(win):
             pygame.display.update()
             pygame.time.delay(1500)
             run = False
-            #update_score(score) #top score functionality here
+            #top score functionality here
     pygame.display.quit

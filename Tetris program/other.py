@@ -2,7 +2,7 @@ import pygame
 import button
 import sys
 
-def create_grid(locked_pos={}):  # *
+def create_grid(locked_pos={}):
     grid = [[(0,0,0) for x in range(10)] for x in range(20)]
 
     for i in range(len(grid)):
