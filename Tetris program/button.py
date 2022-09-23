@@ -7,7 +7,7 @@ class Button:
 		height = image.get_height()
 		self.image = pygame.transform.scale(image, (int(width * scale), int(height * scale)))
 		self.rect = self.image.get_rect()
-		self.rect.top_left = (x, y)
+		self.rect.topleft = (x, y)
 		self.is_pressed = False
 		self.debounce = 420
 
@@ -30,7 +30,7 @@ class SurfaceButton(Button):
 		self.name = name
 		self.image = surface
 		self.rect = self.image.get_rect()
-		self.rect.top_left = (x, y)
+		self.rect.topleft = (x, y)
 		self.is_pressed = False
 		self.debounce = 420
 
