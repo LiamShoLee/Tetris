@@ -10,7 +10,7 @@ block_size = 30
 top_left_x = (s_width - play_width) // 2
 top_left_y = s_height - play_height
 
-def draw_text_middle(surface, text, size, color):
+def draw_message(surface, text, size, color):
     font = pygame.font.SysFont("comicsans", size, bold=True)
     label = font.render(text, 1, color)
 
@@ -43,7 +43,6 @@ def draw_next_shape(shape, surface):
     surface.blit(label, (sx + 10, sy - 30))
 
 
-#When passing through this parameter can someone create a structure so that we don't have to pass through so many parameters?
 def draw_window(surface, grid, score=0, lines_eliminated = 0, gameLevel=1, play_mode="Player", game_mode="Normal"):
     surface.fill((0, 0, 0))
 

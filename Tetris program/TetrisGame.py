@@ -66,7 +66,7 @@ def main(win):
         pygame.display.update()
 
         if check_lost(locked_positions):
-            draw_text_middle(win, "YOU LOST!", 80, (255,255,255))
+            draw_message(win, "GAME OVER!", 80, (255,255,255))
             pygame.display.update()
             pygame.time.delay(1500)
             run = False

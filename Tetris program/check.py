@@ -25,7 +25,7 @@ def valid_space(shape, grid):
         If the tile is empty, then the shape will proceed with its action, otherwise the shape won't change to its new positions
 
     Parameters:
-        shape (Block): a class containing data on for a block object
+        shape (Block): data for a block object
         grid (2D array of RGB tuples): data representation of the color of each tile in the grid
 
     Returns:

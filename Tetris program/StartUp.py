@@ -52,7 +52,6 @@ heightText = pygame.font.Font.render(font2,"Height",True,('black'),None)
 widthText = pygame.font.Font.render(font2,"Width",True,('black'),None)
 
 #configure buttons
-
 play_button = button.Button("play",play_x, (0.95*screen_height-play_img.get_height()*image_scale), play_img, image_scale)
 config_button = button.Button("config_button",config_x, 0.95*screen_height-config_img.get_height()*image_scale, config_img, image_scale)
 score_button = button.Button("score_button",score_x, 0.95*screen_height-score_img.get_height()*image_scale, score_img, image_scale)

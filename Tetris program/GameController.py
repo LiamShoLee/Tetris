@@ -28,41 +28,61 @@ class GameController():
         return current_piece
 
     def move_left(self, current_piece, grid):
+        """Moves the current block to the left by one tile
+
+        Parameters:
+            current_piece (Block): data for block object
+            grid (2D array): block object containing all information regarding the block
+
+        Returns:
+            current_piece (Block): data for block object
+        """
         current_piece.deviation_x(-1)
         if not(valid_space(current_piece, grid)):
             current_piece.deviation_x(1)
         return current_piece
     
     def move_right(self, current_piece, grid):
+        """Moves the current block to the right by one tile
+
+        Parameters:
+            current_piece (Block): data for block object
+            grid (2D array): block object containing all information regarding the block
+
+        Returns:
+            current_piece (Block): data for block object
+        """
         current_piece.deviation_x(1)
         if not(valid_space(current_piece, grid)):
             current_piece.deviation_x(-1)
         return current_piece
     
     def move_down(self, current_piece, grid):
+        """Moves the current block to the down by one tile
+
+        Parameters:
+            current_piece (Block): data for block object
+            grid (2D array): block object containing all information regarding the block
+
+        Returns:
+            current_piece (Block): data for block object
+        """
         current_piece.deviation_y(1)
         if not(valid_space(current_piece, grid)):
             current_piece.deviation_y(-1)
         return current_piece
     
     def rotate_block(self, current_piece, grid):
+        """Rotate the current block clockwise by 90 degrees
+
+        Parameters:
+            current_piece (Block): data for block object
+            grid (2D array): block object containing all information regarding the block
+
+        Returns:
+            current_piece (Block): data for block object
+        """
         current_piece.rotate_shape(1)
         if not(valid_space(current_piece, grid)):
             current_piece.rotate_shape(-1)
         return current_piece
-    
-    def create_next_block(current_piece, next_piece):
-        current_piece = next_piece
-        next_piece = BlockFactory().create_block(random.randrange(9))
-    
-    def assign_colors(shape_pos, grid, current_piece):
-        for i in range(len(shape_pos)):
-            x, y = shape_pos[i]
-            if y > -1:
-                grid[y][x] = current_piece.get_color()
-
-    def lock_block(shape_pos, locked_positions, current_piece):
-        for pos in shape_pos:
-            p = (pos[0], pos[1])
-            locked_positions[p] = current_piece.get_color()
-        
