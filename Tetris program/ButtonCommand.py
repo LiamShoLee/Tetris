@@ -14,8 +14,8 @@ class CommandInvoker(IButton):
     def __init__(self):
         self.command_dict= {}
 
-    def register_command(self,newCommand,command_key):
-        self.command_dict.update({command_key : newCommand})
+    def register_command(self,new_command,command_key):
+        self.command_dict.update({command_key : new_command})
 
     def execute(self,command_key):
         self.command_dict[command_key].execute()
