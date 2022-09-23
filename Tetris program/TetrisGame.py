@@ -70,6 +70,8 @@ def main(win):
                         current_piece.rotate_shape(-1)
                        """ 
         shape_pos = convert_shape_format(current_piece)
+                        
+        shape_pos = get_shape_position(current_piece)
 
         for i in range(len(shape_pos)):
             x, y = shape_pos[i]
