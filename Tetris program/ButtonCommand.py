@@ -9,7 +9,7 @@ class IButton(ABC):
             pass
 
 
-class CommandInvoker(IButton):
+class CommandController(IButton):
 
     def __init__(self):
         self.command_dict= {}

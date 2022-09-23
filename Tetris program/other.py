@@ -29,11 +29,14 @@ def quit_game(screen):
         screen.blit(quitText, (quit_width/2-125,quit_height/2-quit_height/4))
         yes_button.draw(screen)
         no_button.draw(screen)
-        if yes_button.button_poller:
+        print("here")
+        if yes_button.button_poller():
+            print(yes_button.isPressed)
             return True
-        if no_button.button_poller:
+        if no_button.button_poller():
             quit = False
         for events in pygame.event.get():
             if events.type == pygame.QUIT:
                 pass
         pygame.display.update()
+    return 

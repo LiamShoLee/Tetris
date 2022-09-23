@@ -59,7 +59,7 @@ score_button = button.Button("score_button",score_x, 0.95*screen_height-score_im
 exit_button = button.Button("exit_button",exit_x, 0.95*screen_height-exit_img.get_height()*image_scale, exit_img, image_scale)
 back_button = button.Button("back_button",back_x,0.95*screen_height-back_img.get_height()*image_scale, back_img, image_scale)
 
-field_height_plus_button = button.SurfaceButton("field_height_blus_button",705,400,plusText)
+field_height_plus_button = button.SurfaceButton("field_height_plus_button",705,400,plusText)
 field_height_minus_button = button.SurfaceButton("field_height_minus_button",635,400,minusText)
 field_width_plus_button = button.SurfaceButton("field_width_plus_button",965,400,plusText)
 field_width_minus_button = button.SurfaceButton("field_width_minus_button",890,400,minusText)
@@ -192,7 +192,6 @@ class TetrisMenus:
 
 settings = GameSettings()
 game_menu = TetrisMenus(settings)
-#button_commands = init_commands(newgame,newgame.game_settings)
 command_list = [(PlayCommand(game_menu),play_button.name), (ConfigCommand(game_menu),config_button.name),
                     (ScoreCommand(game_menu),score_button.name), (ExitCommand(game_menu),exit_button.name),
                     (BackCommand(game_menu),back_button.name),(FieldHeightPlusCommand(settings),field_height_plus_button.name),
@@ -202,7 +201,7 @@ command_list = [(PlayCommand(game_menu),play_button.name), (ConfigCommand(game_m
                     (PlayerCommand(settings),player_button.name),(PlusLevelCommand(settings),plus_level_button.name),
                     (MinusLevelCommand(settings),minus_level_button.name)]    
 
-command_invoker = CommandInvoker()
+command_invoker = CommandController()
 for item in command_list:
     command_invoker.register_command(item[0],item[1])
 game_menu.main_menu()
