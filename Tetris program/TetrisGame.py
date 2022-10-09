@@ -78,3 +78,4 @@ def main(win):
             run = False
             #top score functionality here
     pygame.display.quit
+    mixer.music.stop()

@@ -45,6 +45,7 @@ def quit_game(screen):
         yes_button.draw(screen)
         no_button.draw(screen)
         if yes_button.button_poller():
+            pygame.mixer.music.stop()
             return True
         if no_button.button_poller():
             quit = False
