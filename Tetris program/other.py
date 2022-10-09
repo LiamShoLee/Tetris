@@ -1,6 +1,7 @@
 import pygame
 import button
 import sys
+from draw import *
 
 def create_grid(locked_pos={}):
     """Renders the playable grid for the game
@@ -50,4 +51,18 @@ def quit_game(screen):
         for events in pygame.event.get():
             if events.type == pygame.QUIT:
                 pass
+        pygame.display.update()
+        
+def pause_game(screen):
+    pause = True
+    while pause:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_p:
+                    pause = False
+        draw_message(screen, "PAUSED", 85, (255,255,255))
         pygame.display.update()

@@ -36,6 +36,10 @@ class GameController():
                     current_block = self.move_down(current_block, grid)
                 if event.key == pygame.K_UP:
                     current_block = self.rotate_block(current_block, grid)
+                if event.key == pygame.K_p:
+                    pause_game(screen)
+                if event.key == pygame.K_m:
+                    continue
         return current_block
 
     def move_left(self, current_block, grid):
