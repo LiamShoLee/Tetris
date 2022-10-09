@@ -1,4 +1,5 @@
 import pygame
+from pygame import mixer
 from factory import *
 from score import *
 from draw import *
@@ -24,6 +25,10 @@ def main(win):
 
     score = 0
     block_controller = GameController()
+    mixer.init()
+    mixer.music.load('song.wav')
+    mixer.music.set_volume(0.2)
+    mixer.music.play()
     while run:
         grid = create_grid(locked_positions)
         fall_timer += clock.get_rawtime()

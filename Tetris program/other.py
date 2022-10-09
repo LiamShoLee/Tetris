@@ -55,6 +55,7 @@ def quit_game(screen):
         
 def pause_game(screen):
     pause = True
+    pygame.mixer.music.pause()
     while pause:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -66,3 +67,4 @@ def pause_game(screen):
                     pause = False
         draw_message(screen, "PAUSED", 85, (255,255,255))
         pygame.display.update()
+    pygame.mixer.music.unpause()

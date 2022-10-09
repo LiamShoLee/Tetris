@@ -39,7 +39,9 @@ class GameController():
                 if event.key == pygame.K_p:
                     pause_game(screen)
                 if event.key == pygame.K_m:
-                    continue
+                    pygame.mixer.music.pause()
+                if event.key == pygame.K_u:
+                    pygame.mixer.music.unpause()
         return current_block
 
     def move_left(self, current_block, grid):
