@@ -70,7 +70,7 @@ def draw_next_shape(shape, win):
     win.blit(label, (tlx + 10, tly - 30))
 
 
-def draw_window(win, grid, score=0, lines_eliminated = 0, game_level=1, play_mode="Player", game_mode="Normal"):
+def draw_window(win, grid, score=0, lines_eliminated = 0, game_level=1, play_mode=0, game_mode=0):
     """Draws the game window with the attributes of the game displayed
 
     Parameters: 
@@ -108,10 +108,18 @@ def draw_window(win, grid, score=0, lines_eliminated = 0, game_level=1, play_mod
     win.blit(label, (tlx + 10, tly - 160))
     
     #Display play mode
+    if play_mode:
+        play_mode = "Extended"
+    else :
+        play_mode = "Normal"
     label = font.render('Play Mode: ' + play_mode, 1, (255, 255, 255))
     win.blit(label, (tlx - 650, tly - 140))
 
     #Display game mode
+    if game_mode:
+        game_mode = "A.i"
+    else:
+        game_mode = "Player"
     label = font.render('Game Mode: ' + game_mode, 1, (255, 255, 255))
     win.blit(label, (tlx - 650, tly - 100))
       

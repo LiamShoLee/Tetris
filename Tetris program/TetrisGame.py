@@ -8,12 +8,18 @@ from other import *
 from GameController import GameController
 import random
 
+
+
 pygame.font.init()
 
-def main(win):
+def main(win,settings):
+    level = settings.game_start_level
+    flags = pygame.RESIZABLE | pygame.SCALED
+    screen_width = 1070 + (settings.field_width-10)*30
+    screen_height = 720 + (settings.field_height-20)*30
+    win = pygame.display.set_mode((screen_width , screen_height ),flags)
     locked_positions = {}
-    grid = create_grid(locked_positions)
-
+    grid = create_grid(settings.field_width, settings.field_height, locked_positions)
     change_block = False
     run = True
     current_block = BlockFactory().create_block(random.randrange(9))
@@ -21,24 +27,29 @@ def main(win):
     clock = pygame.time.Clock()
     difficulty_timer = 0
     fall_timer = 0
-    fall_speed = 0.27
+    fall_speed = 0.27 - .005 * settings.game_start_level
+    removed = 0
 
     score = 0
     block_controller = GameController()
     mixer.init()
     mixer.music.load('song.wav')
-    mixer.music.set_volume(0.2)
+    mixer.music.set_volume(0.01)
     mixer.music.play()
     while run:
-        grid = create_grid(locked_positions)
+        grid = create_grid(settings.field_width, settings.field_height, locked_positions)
         fall_timer += clock.get_rawtime()
         difficulty_timer += clock.get_rawtime()
+        volume_timer = .01
         clock.tick()
 
-        if difficulty_timer/1000 > 5:
+        if difficulty_timer/1000 > 10:
             difficulty_timer = 0
-            if difficulty_timer > 0.12:
-                fall_speed -= 0.005
+            volume_timer += 0.01
+            mixer.music.set_volume(volume_timer)
+            fall_speed -= 0.005
+            level += 1
+
 
         if fall_timer/1000 > fall_speed:
             fall_timer = 0
@@ -67,7 +78,7 @@ def main(win):
             change_block = False
             score += clear_rows(grid, locked_positions)
 
-        draw_window(win, grid, score)
+        draw_window(win, grid, score,game_level=level, play_mode= settings.game_mode, game_mode= settings.extended)
         draw_next_shape(next_block, win)
         pygame.display.update()
 

@@ -13,9 +13,9 @@ screen_width = 1070
 screen_height = 720
 title_x = (1070-560)/2
 title_y = (0)
-screen = pygame.display.set_mode((screen_width, screen_height))
+flags = pygame.RESIZABLE | pygame.SCALED
+screen = pygame.display.set_mode((screen_width, screen_height),flags)
 pygame.display.set_caption("Tetris")
-
 font = pygame.font.Font("assets/MarioFont/SuperMario256.ttf", 30)
 font2 = pygame.font.Font("assets/MarioFont/SuperMario256.ttf", 32)
 
@@ -107,7 +107,7 @@ class TetrisMenus:
                 pygame.display.update()
 
     def start_tetris(self):
-        TetrisGame.main(screen)
+        TetrisGame.main(screen,self.game_settings)
 
     def print_score(self):
         
@@ -191,7 +191,6 @@ class TetrisMenus:
 
 settings = GameSettings()
 game_menu = TetrisMenus(settings)
-#button_commands = init_commands(newgame,newgame.game_settings)
 command_list = [(PlayCommand(game_menu),play_button.name), (ConfigCommand(game_menu),config_button.name),
                     (ScoreCommand(game_menu),score_button.name), (ExitCommand(game_menu),exit_button.name),
                     (BackCommand(game_menu),back_button.name),(FieldHeightPlusCommand(settings),field_height_plus_button.name),

@@ -3,7 +3,7 @@ import button
 import sys
 from draw import *
 
-def create_grid(locked_pos={}):
+def create_grid(width ,height , locked_pos={}):
     """Renders the playable grid for the game
     Parameters: 
         locked_pos: the current locked positions of blocks that have already been placed
@@ -11,7 +11,7 @@ def create_grid(locked_pos={}):
     Return: 
         grid: the data for the grid (checks for locked positions as well) 
     """
-    grid = [[(0,0,0) for x in range(10)] for x in range(20)]
+    grid = [[(0,0,0) for x in range(width)] for x in range(height)]
 
     for i in range(len(grid)):
         for j in range(len(grid[i])):
