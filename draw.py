@@ -27,7 +27,7 @@ def draw_message(win, text, size, color):
     win.blit(label, (top_left_x + p_width /2 - (label.get_width()/2), top_left_y + p_height/2 - label.get_height()/2))
 
 
-def draw_grid(win, grid):
+def draw_grid(win, grid, width, height):
     """Draws the grid of the playable area for tetris
 
     Parameters:
@@ -36,15 +36,16 @@ def draw_grid(win, grid):
 
     Output: renders the specified grid on the window
     """
-    tlx = top_left_x
-    tly = top_left_y
+    win_size = pygame.display.get_window_size()
+    tlx = win_size[0] // 3 
+    tly = win_size[1] // 5
 
     for i in range(len(grid)):
-        pygame.draw.line(win, (128,128,128), (tlx, tly + i*block_size), (tlx+p_width, tly+ i*block_size))
+        pygame.draw.line(win, (128,128,128), (tlx, tly + i*block_size), (tlx + width*30, tly+ i*block_size))
         for j in range(len(grid[i])):
-            pygame.draw.line(win, (128, 128, 128), (tlx + j*block_size, tly),(tlx + j*block_size, tly + p_height))
+            pygame.draw.line(win, (128, 128, 128), (tlx + j*block_size, tly),(tlx + j*block_size, tly + height*30))
             
-def draw_next_shape(shape, win):
+def draw_next_shape(shape, win, width, height):
     """Generates and renders the next shape that will drop in the tetris game
     
     Parameters: 
@@ -56,9 +57,9 @@ def draw_next_shape(shape, win):
 
     font = pygame.font.SysFont('comicsans', 30)
     label = font.render('Next Shape', 1, (255,255,255))
-
-    tlx = top_left_x + p_width + 50
-    tly = top_left_y + p_height/2 - 100
+    win_size = pygame.display.get_window_size()
+    tlx = win_size[0] + width*block_size + 50
+    tly = win_size[1] + height*block_size/2 - 100
     format = shape.get_shape()[shape.get_rotation() % len(shape.get_shape())]
 
     for i, line in enumerate(format):
@@ -70,7 +71,7 @@ def draw_next_shape(shape, win):
     win.blit(label, (tlx + 10, tly - 30))
 
 
-def draw_window(win, grid, score=0, lines_eliminated = 0, game_level=1, play_mode=0, game_mode=0):
+def draw_window(win, grid,  width, height, score=0, lines_eliminated = 0, game_level=1, play_mode=0, game_mode=0):
     """Draws the game window with the attributes of the game displayed
 
     Parameters: 
@@ -127,6 +128,9 @@ def draw_window(win, grid, score=0, lines_eliminated = 0, game_level=1, play_mod
         for j in range(len(grid[i])):
             pygame.draw.rect(win, grid[i][j], (top_left_x + j*block_size, top_left_y + i*block_size, block_size, block_size), 0)
 
-    pygame.draw.rect(win, (255, 0, 0), (top_left_x, top_left_y, p_width, p_height), 5)
+    win_size = pygame.display.get_window_size()
+    square_tlx = win_size[0] // 3 
+    square_tly = win_size[1] // 5
+    pygame.draw.rect(win, (255, 0, 0), (square_tlx, square_tly, width*30, height*30), 5)
 
-    draw_grid(win, grid)
+    draw_grid(win, grid, width, height)

@@ -18,7 +18,7 @@ def main(win,settings):
     else:
         rand_range = 7
     level = settings.game_start_level
-    flags = pygame.RESIZABLE | pygame.SCALED
+    flags = pygame.RESIZABLE 
     screen_width = 1070 + (settings.field_width-10)*30
     screen_height = 720 + (settings.field_height-20)*30
     win = pygame.display.set_mode((screen_width , screen_height ),flags)
@@ -82,8 +82,8 @@ def main(win,settings):
             change_block = False
             score += clear_rows(grid, locked_positions)
 
-        draw_window(win, grid, score,game_level=level, play_mode= settings.game_mode, game_mode= settings.extended)
-        draw_next_shape(next_block, win)
+        draw_window(win, grid, score, settings.field_width, settings.field_height, game_level=level, play_mode= settings.game_mode, game_mode= settings.extended)
+        draw_next_shape(next_block, win, settings.field_width, settings.field_height)
         pygame.display.update()
 
         if check_lost(locked_positions):
