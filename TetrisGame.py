@@ -13,6 +13,10 @@ import random
 pygame.font.init()
 
 def main(win,settings):
+    if settings.extended:
+        rand_range = 9
+    else:
+        rand_range = 7
     level = settings.game_start_level
     flags = pygame.RESIZABLE | pygame.SCALED
     screen_width = 1070 + (settings.field_width-10)*30
@@ -22,8 +26,8 @@ def main(win,settings):
     grid = create_grid(settings.field_width, settings.field_height, locked_positions)
     change_block = False
     run = True
-    current_block = BlockFactory().create_block(random.randrange(9))
-    next_block = BlockFactory().create_block(random.randrange(9))
+    current_block = BlockFactory().create_block(random.randrange(rand_range))
+    next_block = BlockFactory().create_block(random.randrange(rand_range))
     clock = pygame.time.Clock()
     difficulty_timer = 0
     fall_timer = 0
@@ -74,7 +78,7 @@ def main(win,settings):
                 p = (pos[0], pos[1])
                 locked_positions[p] = current_block.get_color()
             current_block = next_block
-            next_block = BlockFactory().create_block(random.randrange(9))
+            next_block = BlockFactory().create_block(random.randrange(rand_range))
             change_block = False
             score += clear_rows(grid, locked_positions)
 

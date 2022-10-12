@@ -82,7 +82,7 @@ studentText = pygame.font.Font.render(font2,"Adrian Jih -- Liam Lee -- Nick Howe
 class TetrisMenus:
     def __init__(self,settings_object):
         self.game_settings = settings_object
-    
+
     def main_menu(self):
         RunGame = True
         while RunGame:
