@@ -82,7 +82,7 @@ def main(win,settings):
         draw_next_shape(next_block, win)
         pygame.display.update()
 
-        if check_lost(locked_positions):
+        if check_lost(locked_positions,settings.):
             draw_message(win, "GAME OVER!", 85, (255,255,255))
             pygame.display.update()
             pygame.time.delay(2000)
