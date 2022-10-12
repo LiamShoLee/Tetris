@@ -20,7 +20,7 @@ def get_shape_position(shape):
 
     return positions
 
-def valid_space(shape, grid):
+def valid_space(shape, grid, width, height):
     """Checks if the space that the shape is moving/rotating into is empty tile.
         If the tile is empty, then the shape will proceed with its action, otherwise the shape won't change to its new positions
 
@@ -31,7 +31,7 @@ def valid_space(shape, grid):
     Returns:
         Bool: False if any part of the current shape is in an invalid tile. True otherwise
     """
-    accepted_pos = [[(j, i) for j in range(10) if grid[i][j] == (0,0,0)] for i in range(20)] #Finds all empty tiles in the grid
+    accepted_pos = [[(j, i) for j in range(width) if grid[i][j] == (0,0,0)] for i in range(height)] #Finds all empty tiles in the grid
     accepted_pos = [j for sub in accepted_pos for j in sub] #Flattens list
 
     shape_form = get_shape_position(shape)
