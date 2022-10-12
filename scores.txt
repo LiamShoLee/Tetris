@@ -1,23 +1,10 @@
-<<<<<<< HEAD
-1 PlayerA 0
-2 PlayerB 0
-3 PlayerC 0
-4 PlayerD 0
-5 PlayerE 0
-6 PlayerF 0
-7 PlayerG 0
-8 PlayerH 0   
-9 PlayerI 0
-10 PlayerJ 0
-=======
-1 NewPlayer 100
-2 NewPlayer 100
-3 sdfsdfsdfsdf 100
-4 PlayerA 0
-5 PlayerB 0
-6 PlayerC 0
-7 PlayerD 0
-8 PlayerE 0
-9 PlayerF 0
-10 PlayerG 0
->>>>>>> 9e024601ab7195681f0835ada7f90ed892bb2f01
+1 dfdsfsdfsdfsdf 100
+2 PlayerA 0
+3 PlayerB 0
+4 PlayerC 0
+5 PlayerD 0
+6 PlayerE 0
+7 PlayerF 0
+8 PlayerG 0
+9 PlayerH 0
+10 PlayerI 0
