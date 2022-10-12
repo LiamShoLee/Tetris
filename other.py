@@ -1,6 +1,7 @@
 import pygame
 import button
 import sys
+from score import check_top_score
 from draw import *
 
 def create_grid(width ,height , locked_pos={}):
@@ -20,7 +21,7 @@ def create_grid(width ,height , locked_pos={}):
                 grid[i][j] = c
     return grid
 
-def quit_game(screen):
+def quit_game(screen, score):
     """Creates smaller window that displays an option to quit the game
 
     Parameters: 
@@ -46,6 +47,7 @@ def quit_game(screen):
         no_button.draw(screen)
         if yes_button.button_poller():
             pygame.mixer.music.stop()
+            check_top_score(score, screen)
             return True
         if no_button.button_poller():
             quit = False

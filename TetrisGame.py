@@ -58,7 +58,7 @@ def main(win,settings):
                 current_block.deviation_y(-1)
                 change_block = True
         
-        current_block = block_controller.event_handler(win,current_block,grid)
+        current_block = block_controller.event_handler(win,current_block,grid, score)
         if current_block is None:
             return
                         
@@ -87,6 +87,6 @@ def main(win,settings):
             pygame.display.update()
             pygame.time.delay(2000)
             run = False
-            #top score functionality here
+            check_top_score(score, win)
     pygame.display.quit
     mixer.music.stop()
