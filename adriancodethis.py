@@ -21,6 +21,13 @@ for score in scores:
         break
     count += 1
 
+f = open("scores.txt", "w")
+f.close()
+f = open("scores.txt", "a")
+for num in range(10):
+    f.write(str(num) + " " + my_list[num][1] + " " + str(my_list[num][2])+"\n")
+f.close()
+
 #For a given score compare against 2nd index of all values. If it finds that given score is larger than a number.
 #Rewrite insert score into that position with name, then rewrite the list.
 #Write new list into score.txt
