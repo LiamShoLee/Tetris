@@ -12,18 +12,18 @@ import random
 
 pygame.font.init()
 
-def main(win,settings):
-    if settings.extended:
+def main(win,game_settings):
+    if game_settings.extended:
         rand_range = 9
     else:
         rand_range = 7
-    level = settings.game_start_level
-    flags = pygame.RESIZABLE 
-    screen_width = 1070 + (settings.field_width-10)*30
-    screen_height = 720 + (settings.field_height-20)*30
+    level = game_settings.game_start_level
+    flags = pygame.RESIZABLE | pygame.SCALED
+    screen_width = 1070 + (game_settings.field_width-10)*30
+    screen_height = 720 + (game_settings.field_height-20)*30
     win = pygame.display.set_mode((screen_width , screen_height ),flags)
     locked_positions = {}
-    grid = create_grid(settings.field_width, settings.field_height, locked_positions)
+    grid = create_grid(game_settings.field_width, game_settings.field_height, locked_positions)
     change_block = False
     run = True
     current_block = BlockFactory().create_block(random.randrange(rand_range))
@@ -31,17 +31,17 @@ def main(win,settings):
     clock = pygame.time.Clock()
     difficulty_timer = 0
     fall_timer = 0
-    fall_speed = 0.27 - .005 * settings.game_start_level
+    fall_speed = 0.27 - .005 * game_settings.game_start_level
     removed = 0
 
     score = 0
-    block_controller = GameController(settings.field_width,settings.field_height)
+    block_controller = GameController(game_settings.field_width,game_settings.field_height)
     mixer.init()
     mixer.music.load('song.wav')
     mixer.music.set_volume(0.01)
     mixer.music.play(9999)
     while run:
-        grid = create_grid(settings.field_width, settings.field_height, locked_positions)
+        grid = create_grid(game_settings.field_width, game_settings.field_height, locked_positions)
         fall_timer += clock.get_rawtime()
         difficulty_timer += clock.get_rawtime()
         volume_timer = .01
@@ -58,7 +58,7 @@ def main(win,settings):
         if fall_timer/1000 > fall_speed:
             fall_timer = 0
             current_block.deviation_y(1)
-            if not(valid_space(current_block, grid, settings.field_width, settings.field_height)) and current_block.get_y() > 0:
+            if not(valid_space(current_block, grid, game_settings.field_width, game_settings.field_height)) and current_block.get_y() > 0:
                 current_block.deviation_y(-1)
                 change_block = True
         
@@ -82,8 +82,8 @@ def main(win,settings):
             change_block = False
             score += clear_rows(grid, locked_positions)
 
-        draw_window(win, grid, score, settings.field_width, settings.field_height, game_level=level, play_mode= settings.game_mode, game_mode= settings.extended)
-        draw_next_shape(next_block, win, settings.field_width, settings.field_height)
+        draw_window(win, grid, score, game_settings.field_width, game_settings.field_height, game_level=level, play_mode= game_settings.game_mode, game_mode= game_settings.extended)
+        draw_next_shape(next_block, win, game_settings.field_width, game_settings.field_height)
         pygame.display.update()
 
         if check_lost(locked_positions):
