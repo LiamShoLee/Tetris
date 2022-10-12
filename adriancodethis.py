@@ -28,27 +28,5 @@ for num in range(10):
     f.write(str(num) + " " + my_list[num][1] + " " + str(my_list[num][2])+"\n")
 f.close()
 
-#For a given score compare against 2nd index of all values. If it finds that given score is larger than a number.
-#Rewrite insert score into that position with name, then rewrite the list.
-#Write new list into score.txt
 for thing in my_list:
     print(thing)
-
-
-
-#with open('scores.txt', 'w') as f:
-#    for lines in lines:
-#        f.write(f"{line}/n")
-
-
-#this thing below
-###################################
-#writescores = open('scores.txt', 'w')
-#count = 1
-#for thing in my_list: 
-#    writescores.write("%d %s %s" %count %thing[1] %thing[2])
-
-#Double check
-#    if count == 10:
-#        break
-#    count += 1
