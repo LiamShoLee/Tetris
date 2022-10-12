@@ -35,7 +35,7 @@ def main(win,settings):
     mixer.init()
     mixer.music.load('song.wav')
     mixer.music.set_volume(0.01)
-    mixer.music.play()
+    mixer.music.play(9999)
     while run:
         grid = create_grid(settings.field_width, settings.field_height, locked_positions)
         fall_timer += clock.get_rawtime()
