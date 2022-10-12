@@ -31,7 +31,7 @@ def main(win,settings):
     removed = 0
 
     score = 0
-    block_controller = GameController()
+    block_controller = GameController(settings.field_width,settings.field_height)
     mixer.init()
     mixer.music.load('song.wav')
     mixer.music.set_volume(0.01)

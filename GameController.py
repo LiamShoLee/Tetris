@@ -7,6 +7,11 @@ from score import *
 
 
 class GameController():
+
+    def __init__(self, field_width, field_height):
+        self.width = field_width
+        self.height = field_height
+
     def event_handler(self, screen, current_block, grid):
         """Checks for inputs from the player/user and takes appropriate action for each event
 
@@ -55,7 +60,7 @@ class GameController():
             current_block (Block): data for block object
         """
         current_block.deviation_x(-1)
-        if not(valid_space(current_block, grid)):
+        if not(valid_space(current_block, grid, self.width, self.height)):
             current_block.deviation_x(1)
         return current_block
     
@@ -70,7 +75,7 @@ class GameController():
             current_block (Block): data for block object
         """
         current_block.deviation_x(1)
-        if not(valid_space(current_block, grid)):
+        if not(valid_space(current_block, grid, self.width, self.height)):
             current_block.deviation_x(-1)
         return current_block
     
@@ -85,7 +90,7 @@ class GameController():
             current_block (Block): data for block object
         """
         current_block.deviation_y(1)
-        if not(valid_space(current_block, grid)):
+        if not(valid_space(current_block, grid, self.width, self.height)):
             current_block.deviation_y(-1)
         return current_block
     
@@ -100,6 +105,6 @@ class GameController():
             current_block (Block): data for block object
         """
         current_block.rotate_shape(1)
-        if not(valid_space(current_block, grid)):
+        if not(valid_space(current_block, grid, self.width, self.height)):
             current_block.rotate_shape(-1)
         return current_block
