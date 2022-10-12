@@ -54,7 +54,7 @@ def main(win,settings):
         if fall_timer/1000 > fall_speed:
             fall_timer = 0
             current_block.deviation_y(1)
-            if not(valid_space(current_block, grid)) and current_block.get_y() > 0:
+            if not(valid_space(current_block, grid, settings.field_width, settings.field_height)) and current_block.get_y() > 0:
                 current_block.deviation_y(-1)
                 change_block = True
         
@@ -82,7 +82,7 @@ def main(win,settings):
         draw_next_shape(next_block, win)
         pygame.display.update()
 
-        if check_lost(locked_positions,settings.):
+        if check_lost(locked_positions):
             draw_message(win, "GAME OVER!", 85, (255,255,255))
             pygame.display.update()
             pygame.time.delay(2000)
