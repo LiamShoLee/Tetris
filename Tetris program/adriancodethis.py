@@ -26,3 +26,22 @@ for score in scores:
 #Write new list into score.txt
 for thing in my_list:
     print(thing)
+
+
+
+#with open('scores.txt', 'w') as f:
+#    for lines in lines:
+#        f.write(f"{line}/n")
+
+
+#this thing below
+###################################
+#writescores = open('scores.txt', 'w')
+#count = 1
+#for thing in my_list: 
+#    writescores.write("%d %s %s" %count %thing[1] %thing[2])
+
+#Double check
+#    if count == 10:
+#        break
+#    count += 1
