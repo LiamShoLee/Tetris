@@ -7,7 +7,7 @@ from score import *
 
 
 class GameController():
-    def event_handler(self, screen, current_block, grid):
+    def event_handler(self, screen, current_block, grid, score):
         """Checks for inputs from the player/user and takes appropriate action for each event
 
         Parameters:
@@ -26,7 +26,7 @@ class GameController():
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
-                    if quit_game(screen): return 
+                    if quit_game(screen, score): return 
 
                 if event.key == pygame.K_LEFT:
                     current_block = self.move_left(current_block, grid)
