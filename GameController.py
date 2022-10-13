@@ -41,6 +41,8 @@ class GameController():
                     current_block = self.move_down(current_block, grid)
                 if event.key == pygame.K_UP:
                     current_block = self.rotate_block(current_block, grid)
+                if event.key == pygame.K_SPACE:
+                    current_block == self.slam_block(current_block,grid)
                 if event.key == pygame.K_p:
                     pause_game(screen)
                 if event.key == pygame.K_m:
@@ -93,6 +95,25 @@ class GameController():
         if not(valid_space(current_block, grid, self.width, self.height)):
             current_block.deviation_y(-1)
         return current_block
+
+    
+    def slam_block(self, current_block, grid):
+        """Moves the current block to the bottom
+
+        Parameters:
+            current_block (Block): data for block object
+            grid (2D array): block object containing all information regarding the block
+
+        Returns:
+            current_block (Block): data for block object
+        """
+        while True:
+            current_block.deviation_y(1)
+            if not(valid_space(current_block, grid, self.width, self.height)):
+                current_block.deviation_y(-1)
+                break
+        return current_block
+
     
     def rotate_block(self, current_block, grid):
         """Rotate the current block clockwise by 90 degrees

@@ -86,6 +86,7 @@ class TetrisMenus:
     def main_menu(self):
         RunGame = True
         while RunGame:
+            screen = pygame.display.set_mode((1070, 720),flags)
             screen.fill((195,195,195))
             screen.blit(title_img,(title_x,title_y))
             screen.blit(studentText,(200,380))  #Here

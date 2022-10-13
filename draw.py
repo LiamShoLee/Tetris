@@ -40,9 +40,9 @@ def draw_grid(win, grid, field_width, field_height):
     win_size = pygame.display.get_window_size()
     tlx = win_size[0] // 3 
     tly = win_size[1] // 7
-    for i in range(len(grid)):
+    for i in range(field_height):
         pygame.draw.line(win, (128,128,128), (tlx, (tly + i*block_size)), ((tlx + field_width*block_size), tly+ i*block_size))
-    for j in range(len(grid[1])):
+    for j in range(field_width):
        pygame.draw.line(win, (128, 128, 128), (tlx + j*block_size, tly),(tlx + j*block_size, tly + field_height*block_size))
 
             
