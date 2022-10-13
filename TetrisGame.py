@@ -17,22 +17,24 @@ def main(win,game_settings):
         rand_range = 9
     else:
         rand_range = 7
+
     level = game_settings.game_start_level
-    flags = pygame.RESIZABLE | pygame.SCALED
-    screen_width = 1070 + (game_settings.field_width-10)*30
-    screen_height = 720 + (game_settings.field_height-20)*30
+    flags = pygame.RESIZABLE 
+    screen_width = 1070 + (game_settings.field_width-10)*30*(game_settings.field_width>=10)
+    screen_height = 720 + (game_settings.field_height-20)*30*(game_settings.field_height>=20)
     win = pygame.display.set_mode((screen_width , screen_height ),flags)
     locked_positions = {}
-    grid = create_grid(game_settings.field_width, game_settings.field_height, locked_positions)
     change_block = False
     run = True
     current_block = BlockFactory().create_block(random.randrange(rand_range))
     next_block = BlockFactory().create_block(random.randrange(rand_range))
     clock = pygame.time.Clock()
     difficulty_timer = 0
+    fall_speed = 50000
     fall_timer = 0
-    fall_speed = 0.27 - .005 * game_settings.game_start_level
-    removed = 0
+    max_speed = 4000
+    for x in range(game_settings.game_start_level):
+        fall_speed -= (fall_speed - max_speed) * 0.05
 
     score = 0
     block_controller = GameController(game_settings.field_width,game_settings.field_height)
@@ -44,18 +46,15 @@ def main(win,game_settings):
         grid = create_grid(game_settings.field_width, game_settings.field_height, locked_positions)
         fall_timer += clock.get_rawtime()
         difficulty_timer += clock.get_rawtime()
-        volume_timer = .01
-        clock.tick()
+        clock.tick_busy_loop(220)
 
-        if difficulty_timer/1000 > 10:
+        if  difficulty_timer > 10000:
             difficulty_timer = 0
-            volume_timer += 0.01
-            mixer.music.set_volume(volume_timer)
-            fall_speed -= 0.005
             level += 1
+            fall_speed -= (fall_speed - max_speed) * 0.05
 
 
-        if fall_timer/1000 > fall_speed:
+        if fall_timer > fall_speed/100:
             fall_timer = 0
             current_block.deviation_y(1)
             if not(valid_space(current_block, grid, game_settings.field_width, game_settings.field_height)) and current_block.get_y() > 0:
@@ -65,7 +64,7 @@ def main(win,game_settings):
         current_block = block_controller.event_handler(win,current_block,grid, score)
         if current_block is None:
             return
-                        
+            
         shape_pos = get_shape_position(current_block)
 
         for i in range(len(shape_pos)):
@@ -94,3 +93,8 @@ def main(win,game_settings):
             check_top_score(score, win)
     pygame.display.quit
     mixer.music.stop()
+
+grid = create_grid(3,2)
+print(grid[0][0])
+if grid[0][0] == (0,0,0):
+    print("true")
