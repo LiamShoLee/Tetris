@@ -1,6 +1,7 @@
 from check import *
 from factory import *
 import pygame
+import copy
 
 
 
@@ -54,7 +55,7 @@ class TetrisAi:
             
             Returns: None  
         """
-        self.current_block = current_block
+        self.current_block = copy.deepcopy(current_block)
         self.locked_squares = [*locked_blocks]
         self.locked_squares.sort(key = lambda square : (square[1], square[0]) ) #sorts top to bottom, left to right
         for i in range(len(self.tetris_grid)):

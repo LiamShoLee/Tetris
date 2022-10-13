@@ -8,7 +8,6 @@ from other import *
 from settings import *
 from GameController import GameController
 import random
-
 from tetris_ai import TetrisAi
 
 
@@ -33,7 +32,7 @@ def main(win,game_settings):
     run = True
     grid = create_grid(game_settings.field_width, game_settings.field_height, locked_positions)
     current_block = BlockFactory().create_block(random.randrange(rand_range))
-    current_block.set_pos(game_settings.field_width//2, 1)
+    current_block.set_pos(game_settings.field_width//2 -2 , 1)
     if game_settings.game_mode:
         game_ai.tetris_ai_loop(grid=grid,width = game_settings.field_width, height = game_settings.field_height, current_block = current_block, locked_blocks= {}) 
     next_block = BlockFactory().create_block(random.randrange(rand_range))
