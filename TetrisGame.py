@@ -8,6 +8,8 @@ from other import *
 from GameController import GameController
 import random
 
+from tetris_ai import TetrisAi
+
 
 
 pygame.font.init()
@@ -17,8 +19,10 @@ def main(win,game_settings):
         rand_range = 9
     else:
         rand_range = 7
-
     level = game_settings.game_start_level
+    if game_settings.game_mode:
+        game_ai = TetrisAi(game_settings.field_width, game_settings.field_height)
+
     flags = pygame.RESIZABLE 
     screen_width = 1070 + (game_settings.field_width-10)*30*(game_settings.field_width>=10)
     screen_height = 720 + (game_settings.field_height-20)*30*(game_settings.field_height>=20)
@@ -26,7 +30,11 @@ def main(win,game_settings):
     locked_positions = {}
     change_block = False
     run = True
+    grid = create_grid(game_settings.field_width, game_settings.field_height, locked_positions)
     current_block = BlockFactory().create_block(random.randrange(rand_range))
+    current_block.set_pos(game_settings.field_width//2, 0)
+    if game_settings.game_mode:
+        game_ai.tetris_ai_loop(grid=grid,width = game_settings.field_width, height = game_settings.field_height, current_block = current_block, locked_blocks= {}) 
     next_block = BlockFactory().create_block(random.randrange(rand_range))
     clock = pygame.time.Clock()
     difficulty_timer = 0
@@ -60,7 +68,8 @@ def main(win,game_settings):
             if not(valid_space(current_block, grid, game_settings.field_width, game_settings.field_height)) and current_block.get_y() > 0:
                 current_block.deviation_y(-1)
                 change_block = True
-        
+        if game_settings.game_mode:
+            game_ai.ai_move()
         current_block = block_controller.event_handler(win,current_block,grid, score)
         if current_block is None:
             return
@@ -77,9 +86,12 @@ def main(win,game_settings):
                 p = (pos[0], pos[1])
                 locked_positions[p] = current_block.get_color()
             current_block = next_block
+            current_block.set_pos(game_settings.field_width//2, 0) 
             next_block = BlockFactory().create_block(random.randrange(rand_range))
             change_block = False
             score += clear_rows(grid, locked_positions)
+            if game_settings.game_mode:
+                game_ai.tetris_ai_loop(grid=grid,width = game_settings.field_width, height = game_settings.field_height, current_block = current_block, locked_blocks= locked_positions) 
 
         draw_window(win, grid, game_settings.field_width, game_settings.field_height, score = score, game_level=level, play_mode= game_settings.game_mode, game_mode= game_settings.extended)
         draw_next_shape(next_block, win, game_settings.field_width, game_settings.field_height)
@@ -94,7 +106,3 @@ def main(win,game_settings):
     pygame.display.quit
     mixer.music.stop()
 
-grid = create_grid(3,2)
-print(grid[0][0])
-if grid[0][0] == (0,0,0):
-    print("true")
