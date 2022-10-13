@@ -22,7 +22,7 @@ def draw_message(win, text, size, color):
     Output: renders a message with the input variables assigned to its attributes
     
     """
-    font = pygame.font.SysFont("comicsans", size, bold=True)
+    font = pygame.font.Font("assets/MarioFont/SuperMario256.ttf", size, bold=True)
     label = font.render(text, 1, color)
 
     win.blit(label, (top_left_x + p_width /2 - (label.get_width()/2), top_left_y + p_height/2 - label.get_height()/2))
@@ -40,11 +40,11 @@ def draw_grid(win, grid, field_width, field_height):
     win_size = pygame.display.get_window_size()
     tlx = win_size[0] // 3 
     tly = win_size[1] // 7
-
-    for i in range(field_width):
-        pygame.draw.line(win, (128,128,128), (tlx, tly + i*block_size), (tlx + field_width*block_size, tly+ i*block_size))
+    for i in range(len(grid)):
+        pygame.draw.line(win, (128,128,128), (tlx, (tly + i*block_size)), ((tlx + field_width*block_size), tly+ i*block_size))
     for j in range(len(grid[1])):
        pygame.draw.line(win, (128, 128, 128), (tlx + j*block_size, tly),(tlx + j*block_size, tly + field_height*block_size))
+
             
 def draw_next_shape(shape, win, field_width, field_height):
     """Generates and renders the next shape that will drop in the tetris game
@@ -56,7 +56,7 @@ def draw_next_shape(shape, win, field_width, field_height):
     Output: Generates and renders the next shape in a little square in the top right corner of the application window
     """
 
-    font = pygame.font.SysFont('comicsans', 30)
+    font = pygame.font.Font('assets/MarioFont/SuperMario256.ttf', 30)
     label = font.render('Next Shape', 1, (255,255,255))
     win_size = pygame.display.get_window_size()
     tlx = win_size[0] + field_width*block_size + 50
@@ -91,16 +91,16 @@ def draw_window(win, grid,  field_width, field_height, score=0, lines_eliminated
     win.fill((0, 0, 0))
 
     pygame.font.init()
-    font = pygame.font.SysFont('comicsans', 60)
+    font = pygame.font.Font('assets/MarioFont/SuperMario256.ttf', 60)
     label = font.render('Tetris Group 19', 1, (255, 255, 255))
-    win.blit(label, ((win_size[0] + field_width*block_size) / 2 - (label.get_width() / 2), 25))
+    win.blit(label, (((win_size[0] - label.get_width()) / 2), 25))
 
-    font = pygame.font.SysFont('comicsans', 30)
+    font = pygame.font.Font('assets/MarioFont/CHLORINP.ttf', 25)
     
     #Display current score
     label = font.render('Score: ' + str(score), 1, (255,255,255))
-    tlx = top_left_x + p_width + 50
-    tly = top_left_y + p_height/2 - 100
+    tlx = square_tlx + field_width*block_size + 50
+    tly = square_tly + field_height*block_size/2 - 100
     win.blit(label, (tlx + 20, tly + 160))
 
     #Display number of lines eliminated
@@ -117,7 +117,7 @@ def draw_window(win, grid,  field_width, field_height, score=0, lines_eliminated
     else :
         play_mode = "Normal"
     label = font.render('Play Mode: ' + play_mode, 1, (255, 255, 255))
-    win.blit(label, (tlx - 650, tly - 140))
+    win.blit(label, (square_tlx - label.get_width() - 50, tly - 140))
 
     #Display game mode
     if game_mode:
@@ -125,7 +125,7 @@ def draw_window(win, grid,  field_width, field_height, score=0, lines_eliminated
     else:
         game_mode = "Player"
     label = font.render('Game Mode: ' + game_mode, 1, (255, 255, 255))
-    win.blit(label, (tlx - 650, tly - 100))
+    win.blit(label, (square_tlx - label.get_width() - 50, tly - 100))
       
     for i in range(len(grid)):
         for j in range(len(grid[i])):

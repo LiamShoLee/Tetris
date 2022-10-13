@@ -82,7 +82,7 @@ def main(win,game_settings):
             change_block = False
             score += clear_rows(grid, locked_positions)
 
-        draw_window(win, grid, score, game_settings.field_width, game_settings.field_height, game_level=level, play_mode= game_settings.game_mode, game_mode= game_settings.extended)
+        draw_window(win, grid, game_settings.field_width, game_settings.field_height, score = score, game_level=level, play_mode= game_settings.game_mode, game_mode= game_settings.extended)
         draw_next_shape(next_block, win, game_settings.field_width, game_settings.field_height)
         pygame.display.update()
 
