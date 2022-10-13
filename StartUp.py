@@ -146,6 +146,7 @@ class TetrisMenus:
     def config_menu(self):
         RunGame = True
         while RunGame:
+
             screen.fill((195,195,195))
             screen.blit(gameModeText,(100,200))
             screen.blit(fieldSizeText,(100,400))
@@ -176,7 +177,7 @@ class TetrisMenus:
                     if button.button_poller():
                         command_invoker.execute(button.name)
                         polling = False
-
+                print(self.game_settings.game_mode)
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:
                         pygame.quit()
