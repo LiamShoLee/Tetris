@@ -47,7 +47,7 @@ class Block():
             color: int tuple
                 the color of the block in RGB
         """
-        self.x = 5
+        self.x = 2
         self.y = 0
         self.rotation = 0
         self.shape = [['.....',
@@ -116,6 +116,16 @@ class Block():
         """
         self.rotation += rotate
 
+    def set_pos(self, x_pos, y_pos):
+        """ Changes the x,y coordinates of the block
+         
+        Parameters:
+            x_pos: the new x position for the block. 
+            y_pos: the new y position for the block. 
+        """
+        self.x = x_pos
+        self.y = y_pos
+        
 class S(Block):
     """Child of parent block class. Represents the S block type. 
         Inherits all attributes and methods except it overrides shape and color
@@ -123,16 +133,14 @@ class S(Block):
     def __init__(self):
         """Constructs the necessary attributes for the S block object. See attributes in Block parent class."""
         super().__init__()
-        self.shape = [['.....',
-                       '.....',
-                       '..00.',
-                       '.00..',
-                       '.....'],
-                      ['.....',
-                       '..0..',
-                       '..00.',
-                       '...0.',
-                       '.....']]
+        self.shape = [['...',
+                       '...',
+                       '.00',
+                       '00.'],
+                      ['...',
+                       '0..',
+                       '00.',
+                       '.0.']]
         self.color = (0,255,0) #Light green
 
 class Z(Block):
@@ -142,16 +150,15 @@ class Z(Block):
     def __init__(self):
         """Constructs the necessary attributes for the Z block object. See attributes in Block parent class."""
         super().__init__()
-        self.shape = [['.....',
-                       '.....',
-                       '.00..',
-                       '..00.',
-                       '.....'],
-                      ['.....',
-                       '..0..',
-                       '.00..',
-                       '.0...',
-                       '.....']]
+        self.shape = [['...',
+                       '...',
+                       '00.',
+                       '.00'
+                       ],
+                      ['..',
+                       '.0',
+                       '00',
+                       '0.']]
         self.color = (255,0,0) #Red
 
 class I(Block):
@@ -161,16 +168,14 @@ class I(Block):
     def __init__(self):
         """Constructs the necessary attributes for the I block object. See attributes in Block parent class."""
         super().__init__()
-        self.shape = [['..0..',
-                       '..0..',
-                       '..0..',
-                       '..0..',
-                       '.....'],
-                      ['.....',
-                       '0000.',
-                       '.....',
-                       '.....',
-                       '.....']]
+        self.shape = [['0',
+                       '0',
+                       '0',
+                       '0'],
+                      ['....',
+                       '....',
+                       '....',
+                       '0000']]
         self.color = (0,255,255) #Cyan
         
 class O(Block):
@@ -180,11 +185,10 @@ class O(Block):
     def __init__(self):
         """Constructs the necessary attributes for the O block object. See attributes in Block parent class."""
         super().__init__()
-        self.shape = [['.....',
-                       '.....',
-                       '.00..',
-                       '.00..',
-                       '.....']]
+        self.shape = [['..',
+                       '..',
+                       '00',
+                       '00']]
         self.color = (255,255,0) #Yellow
 
 class J(Block):
@@ -194,26 +198,22 @@ class J(Block):
     def __init__(self):
         """Constructs the necessary attributes for the J block object. See attributes in Block parent class."""
         super().__init__()
-        self.shape = [['.....',
-                        '.0...',
-                        '.000.',
-                        '.....',
-                        '.....'],
-                        ['.....',
-                        '..00.',
-                        '..0..',
-                        '..0..',
-                        '.....'],
-                        ['.....',
-                        '.....',
-                        '.000.',
-                        '...0.',
-                        '.....'],
-                        ['.....',
-                        '..0..',
-                        '..0..',
-                        '.00..',
-                        '.....']]
+        self.shape = [[ '...',
+                        '...',
+                        '0..',
+                        '000'],
+                        ['..',
+                        '00',
+                        '0.',
+                        '0.'],
+                        ['...',
+                         '....',
+                         '000',
+                         '..0'],
+                        ['..',
+                         '.0',
+                         '.0',
+                         '00']]
         self.color = (0,0,255) #Navy blue
 
 class L(Block):
@@ -223,26 +223,22 @@ class L(Block):
     def __init__(self):
         """Constructs the necessary attributes for the L block object. See attributes in Block parent class."""
         super().__init__()
-        self.shape = [['.....',
-                       '...0.',
-                       '.000.',
-                       '.....',
-                       '.....'],
-                      ['.....',
-                       '..0..',
-                       '..0..',
-                       '..00.',
-                       '.....'],
-                      ['.....',
-                       '.....',
-                       '.000.',
-                       '.0...',
-                       '.....'],
-                      ['.....',
-                       '.00..',
-                       '..0..',
-                       '..0..',
-                       '.....']]
+        self.shape = [['...',
+                       '...',
+                       '..0',
+                       '000'],
+                      ['...',
+                       '0..',
+                       '0..',
+                       '00.'],
+                      ['...',
+                       '...',
+                       '000.',
+                       '0...'],
+                      ['...',
+                       '00..',
+                       '.0..',
+                       '.0..']]
         self.color = (255,165,0) #Orange
 
 class T(Block):
@@ -252,26 +248,22 @@ class T(Block):
     def __init__(self):
         """Constructs the necessary attributes for the T block object. See attributes in Block parent class."""
         super().__init__()
-        self.shape = [['.....',
-                       '..0..',
-                       '.000.',
-                       '.....',
-                       '.....'],
-                      ['.....',
-                       '..0..',
-                       '..00.',
-                       '..0..',
-                       '.....'],
-                      ['.....',
-                       '.....',
-                       '.000.',
-                       '..0..',
-                       '.....'],
-                      ['.....',
-                       '..0..',
-                       '.00..',
-                       '..0..',
-                       '.....']]
+        self.shape = [['...',
+                       '...',
+                       '.0.',
+                       '000'],
+                      ['...',
+                       '0..',
+                       '00.',
+                       '0..'],
+                      ['...',
+                       '...',
+                       '000.',
+                       '.0..'],
+                      ['..',
+                       '.0',
+                       '00',
+                       '.0']]
         self.color = (128,0,128) #Purple
     
 class SI(Block):
@@ -281,16 +273,14 @@ class SI(Block):
     def __init__(self):
         """Constructs the necessary attributes for the SI block object. See attributes in Block parent class."""
         super().__init__()
-        self.shape = [['.....',
-                       '..0..',
-                       '..0..',
-                       '..0..',
-                       '.....'],
-                      ['.....',
-                       '.000.',
-                       '.....',
-                       '.....',
-                       '.....']]
+        self.shape = [['...',
+                       '0..',
+                       '0..',
+                       '0..'],
+                      ['...',
+                       '...',
+                       '...',
+                       '000']]
         self.color = (0,189,0) #Dark green
 
 class SL(Block):
@@ -300,26 +290,22 @@ class SL(Block):
     def __init__(self):
         """Constructs the necessary attributes for the SL block object. See attributes in Block parent class."""
         super().__init__()
-        self.shape = [['.....',
-                       '..0..',
-                       '.00..',
-                       '.....',
-                       '.....'],
-                      ['.....',
-                       '..0..',
-                       '..00.',
-                       '.....',
-                       '.....'],
-                      ['.....',
-                       '.....',
-                       '..00.',
-                       '..0..',
-                       '.....'],
-                      ['.....',
-                       '.....',
-                       '.00..',
-                       '..0..',
-                       '.....']]
+        self.shape = [['...',
+                       '...',
+                       '.0.',
+                       '00.'],
+                      ['..'
+                       '..',
+                       '0.',
+                       '00'],
+                      ['..',
+                       '..',
+                       '00.',
+                       '0..'],
+                      ['...',
+                       '...',
+                       '00..',
+                       '.0..']]
         self.color = (255,51,255) #Pink
         
 class BlockFactory:
