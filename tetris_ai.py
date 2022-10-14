@@ -102,68 +102,68 @@ class TetrisAi:
                 self.current_block.set_pos(option[0],option[1])
                 test_shape = get_shape_position(self.current_block)
                 flatness = shape_flatness(test_shape)
-                if (valid_space(self.current_block,grid,width, height) and option in test_shape):
+                if ((valid_space(self.current_block,grid,width, height)) and (option in get_shape_position(self.current_block))):
                     self.current_block.rotate_shape(-rotation)
                     self.current_block.set_pos(pos[0],pos[1])
                     placement_short_list.append((option[0],rotation, option[1], flatness))
                     continue
                 self.current_block.set_pos(option[0]-1,option[1])
                 test_shape = get_shape_position(self.current_block)
-                if (valid_space(self.current_block,grid,width, height) and option in test_shape):
+                if ((valid_space(self.current_block,grid,width, height)) and (option in get_shape_position(self.current_block))):
                     self.current_block.rotate_shape(-rotation)
                     self.current_block.set_pos(pos[0],pos[1])
                     placement_short_list.append( (option[0]-1,rotation, option[1], flatness))
                     continue
                 self.current_block.set_pos(option[0]-2,option[1])
                 test_shape = get_shape_position(self.current_block)
-                if (valid_space(self.current_block,grid,width, height) and option in test_shape):
+                if ((valid_space(self.current_block,grid,width, height)) and (option in get_shape_position(self.current_block))):
                     self.current_block.rotate_shape(-rotation)
                     self.current_block.set_pos(pos[0],pos[1])
                     placement_short_list.append( (option[0]-2,rotation, option[1], flatness))
                     continue
                 self.current_block.set_pos(option[0]-3,option[1])
                 test_shape = get_shape_position(self.current_block)
-                if (valid_space(self.current_block,grid,width, height) and option in test_shape):
+                if ((valid_space(self.current_block,grid,width, height)) and ( option in get_shape_position(self.current_block))):
                     self.current_block.rotate_shape(-rotation)
                     self.current_block.set_pos(pos[0],pos[1])
                     placement_short_list.append( (option[0]-3,rotation, option[1], flatness))
                     continue
                 self.current_block.set_pos(option[0]+1,option[1])
                 test_shape = get_shape_position(self.current_block)
-                if (valid_space(self.current_block,grid,width, height) and option in test_shape):
+                if ((valid_space(self.current_block,grid,width, height)) and (option in get_shape_position(self.current_block))):
                     self.current_block.rotate_shape(-rotation)
                     self.current_block.set_pos(pos[0],pos[1])
                     placement_short_list.append( (option[0]+1,rotation, option[1], flatness)) 
                     continue
                 self.current_block.set_pos(option[0]+2,option[1])
                 test_shape = get_shape_position(self.current_block)
-                if (valid_space(self.current_block,grid,width, height) and option in test_shape):
+                if ((valid_space(self.current_block,grid,width, height)) and (option in get_shape_position(self.current_block))):
                     self.current_block.rotate_shape(-rotation)
                     self.current_block.set_pos(pos[0],pos[1])
                     placement_short_list.append((option[0]+2,rotation, option[1], flatness))
                     continue
                 self.current_block.set_pos(option[0]+3,option[1])
                 test_shape = get_shape_position(self.current_block)
-                if (valid_space(self.current_block,grid,width, height) and option in test_shape):
+                if ((valid_space(self.current_block,grid,width, height)) and (option in get_shape_position(self.current_block))):
                     self.current_block.rotate_shape(-rotation)
                     self.current_block.set_pos(pos[0],pos[1])
                     placement_short_list.append((option[0]+3,rotation, option[1], flatness))
                     continue
                 self.current_block.rotate_shape(-rotation)
                 self.current_block.set_pos(pos[0],pos[1])
-            if placement_short_list:
-                placement_short_list.sort(reverse =1, key = lambda placement : (placement[3],placement[2],placement[1],placement[0]) )
-                for placement in placement_short_list:
-                    clear = True
-                    self.current_block.rotate_shape(placement[1])
-                    for i in range(placement[2]):                            
-                        self.current_block.set_pos(placement[0],i+1)
-                        if not valid_space(self.current_block,grid,width, height):
-                            clear = False
-                    self.current_block.rotate_shape(-placement[1])
-                    if clear:
-                        self.current_block.set_pos(pos[0],pos[1])
-                        return placement
+        if placement_short_list:
+            placement_short_list.sort(reverse = 1, key = lambda placement : (placement[2],placement[3],placement[0]-width//2,placement[1]) )
+            for placement in placement_short_list:
+                clear = True
+                self.current_block.rotate_shape(placement[1])
+                for i in range(placement[2]):                            
+                    self.current_block.set_pos(placement[0],i+1)
+                    if not valid_space(self.current_block,grid,width, height):
+                        clear = False
+                self.current_block.rotate_shape(-placement[1])
+                if clear:
+                    self.current_block.set_pos(pos[0],pos[1])
+                    return placement
 
         return (width-1, 0)
 

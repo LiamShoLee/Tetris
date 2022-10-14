@@ -32,7 +32,7 @@ def main(win,game_settings):
     run = True
     grid = create_grid(game_settings.field_width, game_settings.field_height, locked_positions)
     current_block = BlockFactory().create_block(random.randrange(rand_range))
-    current_block.set_pos(game_settings.field_width//2 -1 , 1)
+    current_block.set_pos(game_settings.field_width//2 -1 , 0)
     if game_settings.game_mode:
         game_ai.tetris_ai_loop(grid=grid,width = game_settings.field_width, height = game_settings.field_height, current_block = current_block, locked_blocks= locked_positions) 
     next_block = BlockFactory().create_block(random.randrange(rand_range))
@@ -41,6 +41,7 @@ def main(win,game_settings):
     fall_speed = 50000
     fall_timer = 0
     max_speed = 4000
+    ai_flag = False
     for x in range(game_settings.game_start_level):
         fall_speed -= (fall_speed - max_speed) * 0.05
 
@@ -52,6 +53,9 @@ def main(win,game_settings):
     mixer.music.play(9999)
     while run:
         grid = create_grid(game_settings.field_width, game_settings.field_height, locked_positions)
+        if (game_settings.game_mode and ai_flag):
+            game_ai.tetris_ai_loop(grid=grid,width = game_settings.field_width, height = game_settings.field_height, current_block = current_block, locked_blocks= locked_positions) 
+            ai_flag = False
         fall_timer += clock.get_rawtime()
         difficulty_timer += clock.get_rawtime()
         clock.tick_busy_loop(220)
@@ -87,12 +91,12 @@ def main(win,game_settings):
                 p = (pos[0], pos[1])
                 locked_positions[p] = current_block.get_color()
             current_block = next_block
-            current_block.set_pos(game_settings.field_width//2 -1, 1) 
+            current_block.set_pos(game_settings.field_width//2 -1, 0) 
             next_block = BlockFactory().create_block(random.randrange(rand_range))
             change_block = False
             score += clear_rows(grid, locked_positions)
-            if game_settings.game_mode:
-                game_ai.tetris_ai_loop(grid=grid,width = game_settings.field_width, height = game_settings.field_height, current_block = current_block, locked_blocks= locked_positions) 
+            ai_flag = True
+
 
 
         draw_window(win, grid, game_settings.field_width, game_settings.field_height, score = score, game_level=level, play_mode= game_settings.extended, game_mode= game_settings.game_mode)

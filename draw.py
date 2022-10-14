@@ -59,8 +59,8 @@ def draw_next_shape(shape, win, field_width, field_height):
     font = pygame.font.Font('assets/MarioFont/SuperMario256.ttf', 30)
     label = font.render('Next Shape', 1, (255,255,255))
     win_size = pygame.display.get_window_size()
-    tlx = win_size[0] + field_width*block_size + 50
-    tly = win_size[1] + field_height*block_size/2 - 100
+    tlx = win_size[0]//3 + field_width*block_size + 50
+    tly = win_size[1]//7 + field_height*block_size/2 - 100
     format = shape.get_shape()[shape.get_rotation() % len(shape.get_shape())]
 
     for i, line in enumerate(format):
