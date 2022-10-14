@@ -41,6 +41,7 @@ def main(win,game_settings):
     fall_speed = 50000
     fall_timer = 0
     max_speed = 4000
+    lines_eliminated = 0
     ai_flag = False
     for x in range(game_settings.game_start_level):
         fall_speed -= (fall_speed - max_speed) * 0.05
@@ -94,12 +95,19 @@ def main(win,game_settings):
             current_block.set_pos(game_settings.field_width//2 -1, 0) 
             next_block = BlockFactory().create_block(random.randrange(rand_range))
             change_block = False
-            score += clear_rows(grid, locked_positions)
+            lines = clear_rows(grid, locked_positions)
+            score += lines
+            match lines: 
+                case 100: lines_eliminated +=1
+                case 300: lines_eliminated +=2
+                case 600: lines_eliminated +=3
+                case 100: lines_eliminated +=4
+                case 0: lines_eliminated += 0
             ai_flag = True
 
 
 
-        draw_window(win, grid, game_settings.field_width, game_settings.field_height, score = score, game_level=level, play_mode= game_settings.extended, game_mode= game_settings.game_mode)
+        draw_window(win, grid, game_settings.field_width, game_settings.field_height, lines_eliminated=lines_eliminated, score = score, game_level=level, play_mode= game_settings.extended, game_mode= game_settings.game_mode)
         draw_next_shape(next_block, win, game_settings.field_width, game_settings.field_height)
         pygame.display.update()
 
