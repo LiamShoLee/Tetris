@@ -151,19 +151,19 @@ class TetrisAi:
                     continue
                 self.current_block.rotate_shape(-rotation)
                 self.current_block.set_pos(pos[0],pos[1])
-                if placement_short_list:
-                    placement_short_list.sort(reverse =1, key = lambda placement : (placement[3],placement[2],placement[1],placement[0]) )
-                    for placement in placement_short_list:
-                        clear = True
-                        self.current_block.rotate_shape(placement[1])
-                        for i in range(placement[2]):
-                            self.current_block.set_pos(placement[0],i)
-                            if not valid_space(self.current_block,grid,width, height):
-                                clear = False
-                        self.current_block.rotate_shape(-placement[1])
-                        if clear:
-                            self.current_block.set_pos(pos[0],pos[1])
-                            return placement
+            if placement_short_list:
+                placement_short_list.sort(reverse =1, key = lambda placement : (placement[3],placement[2],placement[1],placement[0]) )
+                for placement in placement_short_list:
+                    clear = True
+                    self.current_block.rotate_shape(placement[1])
+                    for i in range(placement[2]):                            
+                        self.current_block.set_pos(placement[0],i+1)
+                        if not valid_space(self.current_block,grid,width, height):
+                            clear = False
+                    self.current_block.rotate_shape(-placement[1])
+                    if clear:
+                        self.current_block.set_pos(pos[0],pos[1])
+                        return placement
 
         return (width-1, 0)
 

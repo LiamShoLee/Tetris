@@ -32,7 +32,7 @@ def main(win,game_settings):
     run = True
     grid = create_grid(game_settings.field_width, game_settings.field_height, locked_positions)
     current_block = BlockFactory().create_block(random.randrange(rand_range))
-    current_block.set_pos(game_settings.field_width//2 -1 , 0)
+    current_block.set_pos(game_settings.field_width//2 -1 , 1)
     if game_settings.game_mode:
         game_ai.tetris_ai_loop(grid=grid,width = game_settings.field_width, height = game_settings.field_height, current_block = current_block, locked_blocks= locked_positions) 
     next_block = BlockFactory().create_block(random.randrange(rand_range))
@@ -87,7 +87,7 @@ def main(win,game_settings):
                 p = (pos[0], pos[1])
                 locked_positions[p] = current_block.get_color()
             current_block = next_block
-            current_block.set_pos(game_settings.field_width//2 -1, 0) 
+            current_block.set_pos(game_settings.field_width//2 -1, 1) 
             next_block = BlockFactory().create_block(random.randrange(rand_range))
             change_block = False
             score += clear_rows(grid, locked_positions)
