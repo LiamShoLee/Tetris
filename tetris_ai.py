@@ -1,3 +1,4 @@
+from tkinter import FLAT
 from check import *
 from factory import *
 import pygame
@@ -42,7 +43,7 @@ class TetrisAi:
 
 
     def ai_move(self):
-        if self.ai_delay >=20:
+        if self.ai_delay >=50:
             self.ai_delay = 0
             if self.moves_list:
                 pygame.event.post(self.moves_list[0])
@@ -78,8 +79,8 @@ class TetrisAi:
         #
         field_surface = set()
         for square in self.locked_squares:
-#            if (square[0],square[1]-1) not in self.locked_squares:
-            if not self.tetris_grid[square[0]][square[1]-1]:
+            if (square[0],square[1]-1) not in self.locked_squares:
+#            if not self.tetris_grid[square[0]][square[1]-1]:
                 field_surface.add((square[0],square[1]-1))
                 if not self.tetris_grid[square[0]][square[1]-2] and not self.tetris_grid[abs(square[0]-1)][square[1]-2]:
                     field_surface.add((square[0],square[1]-2))
@@ -89,23 +90,50 @@ class TetrisAi:
 
     def choose_placement(self, grid, width, height):
         ranked_options = self.tetris_grid_surface_scored()
+        placement_short_list = []
         pos = (self.current_block.get_x() ,self.current_block.get_y())
         for option in ranked_options:
             for rotation in range(len(self.current_block.shape)):
                 self.current_block.rotate_shape(rotation)
                 self.current_block.set_pos(option[0],option[1])
-                if valid_space(self.current_block,grid,width, height) and option in get_shape_position(self.current_block):
+                test_shape = get_shape_position(self.current_block)
+                if valid_space(self.current_block,grid,width, height) and option in test_shape:
+                    flatness = flat_is_justice(test_shape)
                     self.current_block.rotate_shape(-rotation)
                     self.current_block.set_pos(pos[0],pos[1])
-                    return (option[0],rotation)
+                    placement_short_list.append((option[0],rotation, option[1], flatness))
                 self.current_block.set_pos(option[0]-1,option[1])
-                if valid_space(self.current_block,grid,width, height) and option in get_shape_position(self.current_block):
+                test_shape = get_shape_position(self.current_block)
+                if valid_space(self.current_block,grid,width, height) and option in test_shape:
+                    flatness = flat_is_justice(test_shape)
                     self.current_block.rotate_shape(-rotation)
                     self.current_block.set_pos(pos[0],pos[1])
-                    return (option[0]-1,rotation)
+                    placement_short_list.append( (option[0]-1,rotation, option[1], flatness))
                 self.current_block.set_pos(option[0]-2,option[1])
-                if valid_space(self.current_block,grid,width, height) and option in get_shape_position(self.current_block):
+                test_shape = get_shape_position(self.current_block)
+                if valid_space(self.current_block,grid,width, height) and option in test_shape:
+                    flatness = flat_is_justice(test_shape)
                     self.current_block.rotate_shape(-rotation)
                     self.current_block.set_pos(pos[0],pos[1])
-                    return (option[0]-2,rotation)
+                    placement_short_list.append( (option[0]-2,rotation, option[1], flatness))
+                self.current_block.set_pos(option[0]+1,option[1])
+                test_shape = get_shape_position(self.current_block)
+                if valid_space(self.current_block,grid,width, height) and option in test_shape:
+                    flatness = flat_is_justice(test_shape)
+                    self.current_block.rotate_shape(-rotation)
+                    self.current_block.set_pos(pos[0],pos[1])
+                    placement_short_list.append( (option[0]+1,rotation, option[1], flatness))
+                self.current_block.set_pos(option[0]+2,option[1])
+                test_shape = get_shape_position(self.current_block)
+                if valid_space(self.current_block,grid,width, height) and option in test_shape:
+                    flatness = flat_is_justice(test_shape)
+                    self.current_block.rotate_shape(-rotation)
+                    self.current_block.set_pos(pos[0],pos[1])
+                    placement_short_list.append((option[0]+2,rotation, option[1], flatness))
+                self.current_block.rotate_shape(-rotation)
+            if placement_short_list:
+                placement_short_list.sort(reverse =1, key = lambda placement : (placement[3],placement[2],placement[1],placement[0]) )
+                return placement_short_list[0]
+
         return (width-1, 0)
+

@@ -20,6 +20,13 @@ def get_shape_position(shape):
 
     return positions
 
+def flat_is_justice(shape):
+    flat_score = 0
+    for pos in shape:
+        flat_score += pos[1]
+    return flat_score
+   
+
 def valid_space(block, grid, width, height):
     """Checks if the space that the block is moving/rotating into is empty tile.
         If the tile is empty, then the block will proceed with its action, otherwise the block won't change to its new positions
