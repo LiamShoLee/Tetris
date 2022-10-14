@@ -20,10 +20,10 @@ def get_shape_position(shape):
 
     return positions
 
-def flat_is_justice(shape):
+def shape_flatness(shape):
     flat_score = 0
     for pos in shape:
-        flat_score += pos[1]
+        flat_score += pos[1]*pos[1]
     return flat_score
    
 

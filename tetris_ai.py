@@ -36,14 +36,14 @@ class TetrisAi:
         for x in range(abs(delta_x)):
             if delta_x > 0:
                 self.moves_list.append(pygame.event.Event(pygame.KEYDOWN,key =pygame.K_RIGHT)) 
-            else:
+            if delta_x < 0:
                 self.moves_list.append(pygame.event.Event(pygame.KEYDOWN,key =pygame.K_LEFT))
         self.moves_list.append(pygame.event.Event(pygame.KEYDOWN,key =pygame.K_SPACE))
         return
 
 
     def ai_move(self):
-        if self.ai_delay >=50:
+        if self.ai_delay >=40:
             self.ai_delay = 0
             if self.moves_list:
                 pygame.event.post(self.moves_list[0])
@@ -79,11 +79,15 @@ class TetrisAi:
         #
         field_surface = set()
         for square in self.locked_squares:
-            if (square[0],square[1]-1) not in self.locked_squares:
-#            if not self.tetris_grid[square[0]][square[1]-1]:
+            clear = True
+            for i in range(square[1]-1):
+                if ((square[0],square[1]-1-i) in self.locked_squares):
+                    clear = False
+            if clear:
                 field_surface.add((square[0],square[1]-1))
-                if not self.tetris_grid[square[0]][square[1]-2] and not self.tetris_grid[abs(square[0]-1)][square[1]-2]:
-                    field_surface.add((square[0],square[1]-2))
+                for i in range(square[1]-1):
+                    if (((square[0]-1,square[1]-2-i) in self.locked_squares) or ((square[0]+1,square[1]-2-i) in self.locked_squares)):
+                        field_surface.add((square[0],square[1]-2-i))
         field_surface = list(field_surface)
         field_surface.sort(reverse=1,key = lambda square : (square[1], square[0]))
         return field_surface
@@ -97,43 +101,69 @@ class TetrisAi:
                 self.current_block.rotate_shape(rotation)
                 self.current_block.set_pos(option[0],option[1])
                 test_shape = get_shape_position(self.current_block)
-                if valid_space(self.current_block,grid,width, height) and option in test_shape:
-                    flatness = flat_is_justice(test_shape)
+                flatness = shape_flatness(test_shape)
+                if (valid_space(self.current_block,grid,width, height) and option in test_shape):
                     self.current_block.rotate_shape(-rotation)
                     self.current_block.set_pos(pos[0],pos[1])
                     placement_short_list.append((option[0],rotation, option[1], flatness))
+                    continue
                 self.current_block.set_pos(option[0]-1,option[1])
                 test_shape = get_shape_position(self.current_block)
-                if valid_space(self.current_block,grid,width, height) and option in test_shape:
-                    flatness = flat_is_justice(test_shape)
+                if (valid_space(self.current_block,grid,width, height) and option in test_shape):
                     self.current_block.rotate_shape(-rotation)
                     self.current_block.set_pos(pos[0],pos[1])
                     placement_short_list.append( (option[0]-1,rotation, option[1], flatness))
+                    continue
                 self.current_block.set_pos(option[0]-2,option[1])
                 test_shape = get_shape_position(self.current_block)
-                if valid_space(self.current_block,grid,width, height) and option in test_shape:
-                    flatness = flat_is_justice(test_shape)
+                if (valid_space(self.current_block,grid,width, height) and option in test_shape):
                     self.current_block.rotate_shape(-rotation)
                     self.current_block.set_pos(pos[0],pos[1])
                     placement_short_list.append( (option[0]-2,rotation, option[1], flatness))
-                self.current_block.set_pos(option[0]+1,option[1])
+                    continue
+                self.current_block.set_pos(option[0]-3,option[1])
                 test_shape = get_shape_position(self.current_block)
-                if valid_space(self.current_block,grid,width, height) and option in test_shape:
-                    flatness = flat_is_justice(test_shape)
+                if (valid_space(self.current_block,grid,width, height) and option in test_shape):
                     self.current_block.rotate_shape(-rotation)
                     self.current_block.set_pos(pos[0],pos[1])
-                    placement_short_list.append( (option[0]+1,rotation, option[1], flatness))
+                    placement_short_list.append( (option[0]-3,rotation, option[1], flatness))
+                    continue
+                self.current_block.set_pos(option[0]+1,option[1])
+                test_shape = get_shape_position(self.current_block)
+                if (valid_space(self.current_block,grid,width, height) and option in test_shape):
+                    self.current_block.rotate_shape(-rotation)
+                    self.current_block.set_pos(pos[0],pos[1])
+                    placement_short_list.append( (option[0]+1,rotation, option[1], flatness)) 
+                    continue
                 self.current_block.set_pos(option[0]+2,option[1])
                 test_shape = get_shape_position(self.current_block)
-                if valid_space(self.current_block,grid,width, height) and option in test_shape:
-                    flatness = flat_is_justice(test_shape)
+                if (valid_space(self.current_block,grid,width, height) and option in test_shape):
                     self.current_block.rotate_shape(-rotation)
                     self.current_block.set_pos(pos[0],pos[1])
                     placement_short_list.append((option[0]+2,rotation, option[1], flatness))
+                    continue
+                self.current_block.set_pos(option[0]+3,option[1])
+                test_shape = get_shape_position(self.current_block)
+                if (valid_space(self.current_block,grid,width, height) and option in test_shape):
+                    self.current_block.rotate_shape(-rotation)
+                    self.current_block.set_pos(pos[0],pos[1])
+                    placement_short_list.append((option[0]+3,rotation, option[1], flatness))
+                    continue
                 self.current_block.rotate_shape(-rotation)
-            if placement_short_list:
-                placement_short_list.sort(reverse =1, key = lambda placement : (placement[3],placement[2],placement[1],placement[0]) )
-                return placement_short_list[0]
+                self.current_block.set_pos(pos[0],pos[1])
+                if placement_short_list:
+                    placement_short_list.sort(reverse =1, key = lambda placement : (placement[3],placement[2],placement[1],placement[0]) )
+                    for placement in placement_short_list:
+                        clear = True
+                        self.current_block.rotate_shape(placement[1])
+                        for i in range(placement[2]):
+                            self.current_block.set_pos(placement[0],i)
+                            if not valid_space(self.current_block,grid,width, height):
+                                clear = False
+                        self.current_block.rotate_shape(-placement[1])
+                        if clear:
+                            self.current_block.set_pos(pos[0],pos[1])
+                            return placement
 
         return (width-1, 0)
 
