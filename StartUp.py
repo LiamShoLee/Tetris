@@ -177,7 +177,7 @@ class TetrisMenus:
                     if button.button_poller():
                         command_invoker.execute(button.name)
                         polling = False
-                print(self.game_settings.game_mode)
+                        
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:
                         pygame.quit()

@@ -11,10 +11,12 @@ class TetrisAi:
         self.current_move = 0
         self.next_move = 0
         self.tetris_grid = [[0 for x in range(field_height)] for y in range(field_width)]
+        self.bottom_row_positions = [(x,field_height) for x in range(field_width)]
         self.current_block = None
         self.locked_squares = []
         self.bounds = field_width - 1
         self.moves_list = []
+        self.ai_delay = 0
 
     def tetris_ai_loop(self, grid, width, height, current_block, locked_blocks):
     #finds the spot it wants to put the tile
@@ -26,23 +28,26 @@ class TetrisAi:
 
 
     def navigate_block(self, placement):
-        self.moves_list = []
         position = self.current_block.get_x()
         for i in range(placement[1]):
-            self.moves_list.append(pygame.event.Event(pygame.K_DOWN)),
+            self.moves_list.append(pygame.event.Event(pygame.KEYDOWN, key = pygame.K_UP))
         delta_x = placement[0] - position
         for x in range(abs(delta_x)):
             if delta_x > 0:
-                self.moves_list.append(pygame.event.Event(pygame.K_RIGHT)) 
+                self.moves_list.append(pygame.event.Event(pygame.KEYDOWN,key =pygame.K_RIGHT)) 
             else:
-                self.moves_list.append(pygame.event.Event(pygame.K_LEFT))
-        self.moves_list.append(pygame.event.Event(pygame.K_SPACE))
+                self.moves_list.append(pygame.event.Event(pygame.KEYDOWN,key =pygame.K_LEFT))
+        self.moves_list.append(pygame.event.Event(pygame.KEYDOWN,key =pygame.K_SPACE))
+        return
 
 
     def ai_move(self):
-        if self.moves_list:
-            pygame.event.post(self.moves_list[0])
-            self.moves_list.pop(0)
+        if self.ai_delay >=20:
+            self.ai_delay = 0
+            if self.moves_list:
+                pygame.event.post(self.moves_list[0])
+                self.moves_list.pop(0)
+        self.ai_delay += 1
         return
 
     def update_data(self,current_block,locked_blocks):
@@ -55,8 +60,9 @@ class TetrisAi:
             
             Returns: None  
         """
-        self.current_block = copy.deepcopy(current_block)
+        self.current_block = current_block
         self.locked_squares = [*locked_blocks]
+        self.locked_squares.extend(self.bottom_row_positions)
         self.locked_squares.sort(key = lambda square : (square[1], square[0]) ) #sorts top to bottom, left to right
         for i in range(len(self.tetris_grid)):
             for j in range(len(self.tetris_grid[i])):
@@ -72,6 +78,7 @@ class TetrisAi:
         #
         field_surface = set()
         for square in self.locked_squares:
+#            if (square[0],square[1]-1) not in self.locked_squares:
             if not self.tetris_grid[square[0]][square[1]-1]:
                 field_surface.add((square[0],square[1]-1))
                 if not self.tetris_grid[square[0]][square[1]-2] and not self.tetris_grid[abs(square[0]-1)][square[1]-2]:

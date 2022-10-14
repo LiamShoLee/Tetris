@@ -10,7 +10,7 @@ class GameSettings:
     default_width = 10
     default_level = 0
     default_extend = False
-    default_mode = False
+    default_mode = True
 
     def __init__(self):
         self.set_defaults()
